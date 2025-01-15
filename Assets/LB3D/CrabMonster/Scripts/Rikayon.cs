@@ -1,133 +1,170 @@
 ﻿using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAnimationController : MonoBehaviour
 {
-
     private bool isAttack;
-
-    // Tính khoản cách dí theo
-    [SerializeField] NavMeshAgent navMeshAgent;
-    [SerializeField] Transform target;
-    [SerializeField] float radius = 20f;  // Điều chỉnh radius để kẻ thù dí theo người chơi ở khoảng cách xa hơn
-    [SerializeField] private Animator animator;
-
-    // Vị trí ban đầu của enemy
-    [SerializeField] Vector3 viTriBanDau;
-
-
-    private bool isDead = false; // Trạng thái Enemy
-
-    // Tấn công
-    [SerializeField] private float attackDamage = 10f;
-    [SerializeField] private float attackCooldown = 2f;
-    [SerializeField] private float distanceAttack = 20f; // Điều chỉnh khoảng cách tấn công
     private bool canAttack = true;
+    private bool hasWokenUp = false; // Thêm biến cờ kiểm tra để ngăn lặp trạng thái WakeUp
 
-  
+    [SerializeField] private NavMeshAgent navMeshAgent;
+    [SerializeField] private Transform target;
+    [SerializeField] private float radius = 20f;
+    [SerializeField] private float wakeUpRadius = 30f;
+    [SerializeField] private float distanceAttack = 2f;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Vector3 viTriBanDau;
+
     public enum CharacterState
     {
-        Normal, Attack, Die
+        Sleep,
+        WakeUp,
+        Idle,
+        Run,
+        Attack,
+        Return
     }
 
-    // Trạng thái hiện tại của kẻ thù
     public CharacterState currentState;
 
-    private void Start()
+    void Start()
     {
-      
         viTriBanDau = transform.position;
-
+        ChangeState(CharacterState.Sleep);
     }
 
     void Update()
     {
-        if (currentState == CharacterState.Die || navMeshAgent == null || !navMeshAgent.isOnNavMesh)
-        {
+        if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
             return;
-        }
 
-        // Khoảng cách đến player
-        var distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= radius)
+        var distanceToTarget = Vector3.Distance(target.position, transform.position);
+        var distanceToOrigin = Vector3.Distance(transform.position, viTriBanDau);
+
+        switch (currentState)
         {
-            if (navMeshAgent.isOnNavMesh)
-            {
-                navMeshAgent.SetDestination(target.position);
-            }
+            case CharacterState.Sleep:
+                if (distanceToTarget <= wakeUpRadius && !hasWokenUp )
+                {
+                    hasWokenUp = true; // Đánh dấu đã thức dậy
+                    ChangeState(CharacterState.WakeUp);
+                }
+                break;
 
-            animator.SetFloat("isRun", navMeshAgent.velocity.magnitude);
+            case CharacterState.WakeUp:
+                navMeshAgent.isStopped = true;  // Dừng di chuyển
+                animator.SetTrigger("isWakeUp"); // Kích hoạt animation WakeUp
+                StartCoroutine(TransitionToIdleAfterDelay(1f)); // Thêm delay 1 giây trước khi chuyển sang Idle
+                break;
 
-            if (distance <= distanceAttack && canAttack)
-            {
-                ChangeState(CharacterState.Attack);
-            }
+
+            case CharacterState.Idle:
+                if (distanceToTarget <= radius)
+                {
+                    ChangeState(CharacterState.Run);
+                }
+                break;
+
+            case CharacterState.Run:
+                if (distanceToTarget > radius)
+                {
+                    ChangeState(CharacterState.Return);
+                }
+                else if (distanceToTarget <= distanceAttack)
+                {
+                    ChangeState(CharacterState.Attack);
+                }
+                else
+                {
+                    navMeshAgent.SetDestination(target.position);
+                    animator.SetBool("isRun", true);
+                }
+                break;
+
+            case CharacterState.Attack:
+                if (distanceToTarget <= distanceAttack)
+                {
+                    if (canAttack)
+                    {
+                        StartCoroutine(PerformAttack());
+                    }
+                }
+                else
+                {
+                    ChangeState(CharacterState.Run);
+                }
+                break;
+
+            case CharacterState.Return:
+                if (distanceToOrigin <= 1f)
+                {
+                    hasWokenUp = false; // Reset cờ khi trở lại trạng thái Sleep
+                    ChangeState(CharacterState.Sleep);
+                }
+                else
+                {
+                    navMeshAgent.SetDestination(viTriBanDau);
+                    animator.SetBool("isRun", true);
+                }
+                break;
         }
-        else if (distance > radius)
-        {
-            if (navMeshAgent.isOnNavMesh)
-            {
-                navMeshAgent.SetDestination(viTriBanDau);
-            }
+    }
 
-            animator.SetFloat("isRun", navMeshAgent.velocity.magnitude);
-
-            if (distance < 1f)
-            {
-                animator.SetFloat("isRun", 0);
-            }
-            ChangeState(CharacterState.Normal);
-        }
+    private IEnumerator PerformAttack()
+    {
+        canAttack = false;
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 
     private void ChangeState(CharacterState newState)
     {
-        isAttack = false;
+        if (currentState == newState) return;
 
-        switch (currentState)
-        {
-            case CharacterState.Normal:
-                break;
-            case CharacterState.Attack:
-                break;
-            case CharacterState.Die:
-                break;
-        }
+        animator.SetBool("isRun", false);
+        animator.SetBool("isSleep", false);
 
         switch (newState)
         {
-            case CharacterState.Normal:
+            case CharacterState.Sleep:
+                navMeshAgent.isStopped = true;
+                animator.SetBool("isSleep", true);
+                break;
+
+            case CharacterState.WakeUp:
+                navMeshAgent.isStopped = true;
+                animator.SetTrigger("isWakeUp");
+                break;
+
+            case CharacterState.Idle:
+                navMeshAgent.isStopped = true;
+                animator.SetBool("Idle", true);
+                break;
+
+            case CharacterState.Run:
+                navMeshAgent.isStopped = false;
+                animator.SetBool("isRun", true);
                 break;
 
             case CharacterState.Attack:
-                if (canAttack)
-                {
-                    int randomAttack = Random.Range(0, 2); 
-                    if (randomAttack == 0)
-                    {
-                        animator.SetTrigger("Attack"); 
-
-                       
-                    }
-                    if (randomAttack == 1)
-                    {
-                        animator.SetTrigger("Attack"); 
-                       
-
-                    }
-                }
+                navMeshAgent.isStopped = true;
                 break;
 
-            case CharacterState.Die:
-                animator.SetBool("isDie", true);
-                Destroy(gameObject, 5f);
-                StopAllCoroutines();
+            case CharacterState.Return:
+                navMeshAgent.isStopped = false;
+                animator.SetBool("isRun", false);
                 break;
         }
+
         currentState = newState;
     }
+    private IEnumerator TransitionToIdleAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // Đợi 1 giây
+        ChangeState(CharacterState.Idle);      // Chuyển sang trạng thái Idle
+    }
 
-   
 }
