@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class AttackCombo : MonoBehaviour
 {
     private Animator animator; // Animator của nhân vật
     private int currentComboStep = 0; // Bước hiện tại của combo
@@ -11,12 +11,18 @@ public class Attack : MonoBehaviour
     private bool isAttacking = false; // Trạng thái có đang trong combo hay không
     private bool isCooldown = false; // Trạng thái cooldown sau khi hoàn tất combo
 
-    public GameObject EffectSlash;
+    public GameObject EffectSlash; //hiệu ứng chém
     public GameObject EffectSlash2;
-   
+    public GameObject EffectSlashFly;
+
+    private bool isGround = true;
+    
+    private Rigidbody Rigidbody;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        Rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -48,8 +54,16 @@ public class Attack : MonoBehaviour
         }
 
         // Đặt trigger cho từng bước combo
-        TriggerComboStep();
-        isAttacking = true;
+        if(isGround)
+        {
+             TriggerComboStep();
+             isAttacking = true;
+        }
+        if (!isGround)
+        {
+            TriggerAirComboStep();
+            isAttacking = true;
+        }
     }
 
     void TriggerComboStep()
@@ -67,6 +81,16 @@ public class Attack : MonoBehaviour
                 break;
         }
     }
+   void TriggerAirComboStep()
+   {
+        switch (currentComboStep)
+        {
+            case 1:
+                animator.SetTrigger("AirAttack1");              
+                break;            
+        }
+        
+    }
     void StartEffect() 
     {
         EffectSlash.SetActive(true);
@@ -77,12 +101,16 @@ public class Attack : MonoBehaviour
         EffectSlash2.SetActive(true);
         Invoke(nameof(DisableEffect), 1f); // Tắt hiệu ứng sau 0.5 giây     
     }
-    
+    void StartEffectFly()
+    {
+        EffectSlashFly.SetActive(true);
+        Invoke(nameof(DisableEffect), 1f); // Tắt hiệu ứng sau 0.5 giây     
+    }
     void DisableEffect()
     {
         EffectSlash.SetActive(false); // Tắt hiệu ứng
         EffectSlash2.SetActive(false); // Tắt hiệu ứng
-       
+        EffectSlashFly.SetActive(false);
     }
     void ResetCombo()
     {
@@ -99,5 +127,20 @@ public class Attack : MonoBehaviour
     void EndCooldown()
     {
         isCooldown = false; // Cho phép thực hiện combo mới
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+        }
+    }
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isGround = false;
+        }
     }
 }
