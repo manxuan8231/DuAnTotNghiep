@@ -1,8 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FollowCameraRotation : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    [SerializeField] Transform target; // Camera mà thanh máu sẽ hướng đến
+    [SerializeField] Transform enemy;  // Enemy mà thanh máu cần xoay theo
 
     void Start()
     {
@@ -10,11 +11,20 @@ public class FollowCameraRotation : MonoBehaviour
         {
             target = Camera.main.transform;
         }
+
+        if (enemy == null)
+        {
+            enemy = transform.parent; // Giả sử HealthBarCanvas là con của Enemy
+        }
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
-        transform.LookAt(transform.position + target.forward);
+        if (enemy != null)
+        {
+            // Đảm bảo thanh máu xoay theo quái vật
+            transform.position = enemy.position + Vector3.up * 2f; // Điều chỉnh vị trí cao hơn quái vật
+            transform.rotation = Quaternion.LookRotation(target.forward); // Luôn hướng về camera
+        }
     }
 }
