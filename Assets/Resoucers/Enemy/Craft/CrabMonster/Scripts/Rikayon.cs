@@ -32,6 +32,7 @@ public class EnemyAnimationController : MonoBehaviour
         Idle,
         Run,
         Attack,
+        Die,
         Return
     }
 
@@ -120,6 +121,14 @@ public class EnemyAnimationController : MonoBehaviour
                     animator.SetBool("isRun", true);
                 }
                 break;
+            case CharacterState.Die:
+                // Đảm bảo rằng khi chuyển sang trạng thái Die, mọi thứ khác đều dừng lại
+                if (currentHealth <= 0 && currentState != CharacterState.Die)
+                {
+                    ChangeState(CharacterState.Die);
+                }
+                break;
+
         }
     }
 
@@ -168,6 +177,23 @@ public class EnemyAnimationController : MonoBehaviour
                 navMeshAgent.isStopped = false;
                 animator.SetBool("isRun", true);
                 break;
+            case CharacterState.Die:
+                // Vô hiệu hóa toàn bộ các animation khác
+                animator.SetBool("isRun", false);
+                animator.SetBool("isSleep", false);
+                animator.SetBool("Idle", false);
+                animator.ResetTrigger("isWakeUp");
+                animator.ResetTrigger("Attack");
+
+                // Kích hoạt animation Die
+                animator.SetTrigger("Die");
+
+                // Vô hiệu hóa NavMeshAgent để enemy không di chuyển nữa
+                navMeshAgent.isStopped = true;
+
+                // Hủy game object sau một khoảng thời gian
+                Destroy(gameObject, 3f);
+                break;
         }
 
         currentState = newState;
@@ -178,7 +204,7 @@ public class EnemyAnimationController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            TakeDamage(100); // Giảm 100 máu mỗi lần va chạm
+            TakeDamage(1000); 
         }
     }
 
@@ -188,9 +214,10 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
 
+        // Nếu máu bằng 0, chuyển sang trạng thái Die
         if (currentHealth <= 0)
         {
-            Die();
+            ChangeState(CharacterState.Die);
         }
     }
 
@@ -200,10 +227,5 @@ public class EnemyAnimationController : MonoBehaviour
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
 
-    private void Die()
-    {
-        animator.SetTrigger("Die");
-        navMeshAgent.isStopped = true;
-        // Xử lý logic khi quái vật chết ở đây
-    }
+    
 }
