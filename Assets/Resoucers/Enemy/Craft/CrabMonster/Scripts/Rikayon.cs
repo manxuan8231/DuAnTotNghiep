@@ -9,7 +9,6 @@ public class EnemyAnimationController : MonoBehaviour
     private bool isAttack;
     private bool canAttack = true;
     private bool hasWokenUp = false;
-
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private Transform target;
     [SerializeField] private float radius = 20f;
@@ -18,8 +17,6 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private Animator animator;
     [SerializeField] private Vector3 viTriBanDau;
-
-    // Biến thanh máu và text
     [SerializeField] private Image healthBarFill;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
@@ -122,8 +119,7 @@ public class EnemyAnimationController : MonoBehaviour
                 }
                 break;
             case CharacterState.Die:
-                // Đảm bảo rằng khi chuyển sang trạng thái Die, mọi thứ khác đều dừng lại
-                if (currentHealth <= 0 && currentState != CharacterState.Die)
+                  if (currentHealth <= 0 && currentState != CharacterState.Die)
                 {
                     ChangeState(CharacterState.Die);
                 }
@@ -177,8 +173,7 @@ public class EnemyAnimationController : MonoBehaviour
                 navMeshAgent.isStopped = false;
                 animator.SetBool("isRun", true);
                 break;
-            case CharacterState.Die:
-                // Vô hiệu hóa toàn bộ các animation khác
+            case CharacterState.Die:  
                 animator.SetBool("isRun", false);
                 animator.SetBool("isSleep", false);
                 animator.SetBool("Idle", false);
@@ -187,11 +182,7 @@ public class EnemyAnimationController : MonoBehaviour
 
                 // Kích hoạt animation Die
                 animator.SetTrigger("Die");
-
-                // Vô hiệu hóa NavMeshAgent để enemy không di chuyển nữa
-                navMeshAgent.isStopped = true;
-
-                // Hủy game object sau một khoảng thời gian
+              navMeshAgent.isStopped = true;
                 Destroy(gameObject, 3f);
                 break;
         }
@@ -199,7 +190,6 @@ public class EnemyAnimationController : MonoBehaviour
         currentState = newState;
     }
 
-    // Hàm xử lý nhận sát thương từ Player
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -214,7 +204,7 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
 
-        // Nếu máu bằng 0, chuyển sang trạng thái Die
+        
         if (currentHealth <= 0)
         {
             ChangeState(CharacterState.Die);
