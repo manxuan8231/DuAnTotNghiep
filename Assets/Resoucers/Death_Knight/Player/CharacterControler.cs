@@ -12,7 +12,7 @@ public class CharacterController : MonoBehaviour
 
     private float horizontal, vertical; // Hướng di chuyển
     private Rigidbody rb;
-
+    private Coroutine weaponScaleCoroutine; // Để quản lý Coroutine thay đổi kích thước
     public enum CharacterState { Normal, Attack } // Trạng thái của nhân vật
     public CharacterState currentState; // Trạng thái hiện tại của player
 
@@ -27,6 +27,8 @@ public class CharacterController : MonoBehaviour
 
     private bool isRunning = false; // Trạng thái chạy
     private Coroutine resetWeaponCoroutine; // Để quản lý Coroutine reset weapon
+
+    private bool isWeaponHandScaledUp = false; // Trạng thái kích thước của weaponHand
 
     void Start()
     {
@@ -53,6 +55,12 @@ public class CharacterController : MonoBehaviour
         {
             StartCoroutine(Attack());
             HandleWeaponSwitch(true); // Hiện weaponHand khi tấn công
+        }
+
+        // Thay đổi kích thước weaponHand khi nhấn phím E
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ToggleWeaponHandScale();
         }
 
         // Kiểm tra trạng thái rơi tự do
@@ -146,14 +154,59 @@ public class CharacterController : MonoBehaviour
         if (weaponHand != null) weaponHand.SetActive(false);
     }
 
+    private void ToggleWeaponHandScale()
+    {
+        if (weaponHand != null)
+        {
+            if (weaponScaleCoroutine != null)
+                StopCoroutine(weaponScaleCoroutine); // Dừng Coroutine cũ nếu đang chạy
+
+            if (isWeaponHandScaledUp)
+            {
+                // Từ từ thu nhỏ
+                weaponScaleCoroutine = StartCoroutine(ChangeWeaponScale(Vector3.one, 0.5f)); // Trở về kích thước ban đầu
+            }
+            else
+            {
+                // Từ từ phóng to
+                weaponScaleCoroutine = StartCoroutine(ChangeWeaponScale(Vector3.one * 10f, 0.5f)); // Phóng to gấp đôi
+            }
+
+            isWeaponHandScaledUp = !isWeaponHandScaledUp; // Đảo trạng thái
+        }
+    }
+
+    private IEnumerator ChangeWeaponScale(Vector3 targetScale, float duration)
+    {
+        Vector3 initialScale = weaponHand.transform.localScale; // Kích thước ban đầu
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            weaponHand.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / duration); // Nội suy kích thước
+            yield return null; // Chờ đến frame tiếp theo
+        }
+
+        weaponHand.transform.localScale = targetScale; // Đảm bảo đạt đến kích thước mục tiêu
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         // Kiểm tra nếu nhân vật tiếp đất
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            animator.SetTrigger("landJump"); // Kích hoạt animation tiếp đất
+            animator.SetBool("isLandJump", true); // Kích hoạt animation tiếp đất
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        // Kiểm tra nếu nhân vật tiếp đất
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+            animator.SetBool("isLandJump", false); // Tắt animation tiếp đất
         }
     }
 }
-
