@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyAnimationController : MonoBehaviour
 {
@@ -16,6 +18,12 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private Animator animator;
     [SerializeField] private Vector3 viTriBanDau;
+
+
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float currentHp;
+    [SerializeField] private Slider healSlider;   
+    [SerializeField] private TextMeshProUGUI healText;
 
     public enum CharacterState
     {
