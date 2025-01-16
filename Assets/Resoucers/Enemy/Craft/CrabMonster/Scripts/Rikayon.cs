@@ -20,10 +20,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private Vector3 viTriBanDau;
 
 
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHp;
-    [SerializeField] private Slider healSlider;   
-    [SerializeField] private TextMeshProUGUI healText;
+
 
     public enum CharacterState
     {
