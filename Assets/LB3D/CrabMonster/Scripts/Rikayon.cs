@@ -37,37 +37,57 @@ public class EnemyAnimationController : MonoBehaviour
 
     void Update()
     {
+
+        //if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
+        //    return;
         if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
             return;
-
         var distanceToTarget = Vector3.Distance(target.position, transform.position);
         var distanceToOrigin = Vector3.Distance(transform.position, viTriBanDau);
 
         switch (currentState)
         {
+
+
             case CharacterState.Sleep:
-                if (distanceToTarget <= wakeUpRadius && !hasWokenUp )
+                Debug.Log("Sleep");
+                hasWokenUp = false;
+                if (distanceToTarget <= wakeUpRadius && !hasWokenUp)
                 {
-                    hasWokenUp = true; // Đánh dấu đã thức dậy
+                    hasWokenUp = true;
                     ChangeState(CharacterState.WakeUp);
+
                 }
                 break;
 
             case CharacterState.WakeUp:
-                navMeshAgent.isStopped = true;  // Dừng di chuyển
-                animator.SetTrigger("isWakeUp"); // Kích hoạt animation WakeUp
-                StartCoroutine(TransitionToIdleAfterDelay(1f)); // Thêm delay 1 giây trước khi chuyển sang Idle
+                Debug.Log("wakeup");
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("WakeUp")) // Chỉ gọi khi hoạt ảnh không lặp lại
+                {
+                    navMeshAgent.isStopped = true;
+                    animator.SetTrigger("isWakeUp");
+                    ChangeState(CharacterState.Idle);
+                    //StartCoroutine(TransitionToIdleAfterDelay(1f));
+                }
                 break;
 
 
             case CharacterState.Idle:
+                Debug.Log("idle");
+                // chạy animation idle
+
+                // true => chạy
                 if (distanceToTarget <= radius)
                 {
                     ChangeState(CharacterState.Run);
                 }
+                // nếu không tìm đc người chơi thì quay lại ngủ
                 break;
 
             case CharacterState.Run:
+                // 
+                Debug.Log("Run");
+
                 if (distanceToTarget > radius)
                 {
                     ChangeState(CharacterState.Return);
@@ -83,34 +103,42 @@ public class EnemyAnimationController : MonoBehaviour
                 }
                 break;
 
+
+
             case CharacterState.Attack:
-                if (distanceToTarget <= distanceAttack)
-                {
-                    if (canAttack)
-                    {
-                        StartCoroutine(PerformAttack());
-                    }
-                }
-                else
+                Debug.Log("attack");
+                if (distanceToTarget > distanceAttack)
                 {
                     ChangeState(CharacterState.Run);
                 }
+                else if (canAttack)
+                {
+                    StartCoroutine(PerformAttack());
+                }
                 break;
 
+
             case CharacterState.Return:
-                if (distanceToOrigin <= 1f)
+                Debug.Log("return");
+
+                if (distanceToOrigin <= 1f) //Kiểm tra cả khoảng cách và trạng thái dừng
                 {
-                    hasWokenUp = false; // Reset cờ khi trở lại trạng thái Sleep
+                    animator.SetBool("isRun", false);
+                    hasWokenUp = false;
                     ChangeState(CharacterState.Sleep);
+
                 }
                 else
                 {
                     navMeshAgent.SetDestination(viTriBanDau);
                     animator.SetBool("isRun", true);
+                    Debug.Log("RunVeVitribandau");
                 }
+
                 break;
         }
     }
+
 
     private IEnumerator PerformAttack()
     {
@@ -155,16 +183,16 @@ public class EnemyAnimationController : MonoBehaviour
 
             case CharacterState.Return:
                 navMeshAgent.isStopped = false;
-                animator.SetBool("isRun", false);
+                animator.SetBool("isRun", true);
                 break;
         }
 
         currentState = newState;
     }
-    private IEnumerator TransitionToIdleAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay); // Đợi 1 giây
-        ChangeState(CharacterState.Idle);      // Chuyển sang trạng thái Idle
-    }
+    //private IEnumerator TransitionToIdleAfterDelay(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay); // Đợi 1 giây
+    //    ChangeState(CharacterState.Idle);      // Chuyển sang trạng thái Idle
+    //}
 
 }
