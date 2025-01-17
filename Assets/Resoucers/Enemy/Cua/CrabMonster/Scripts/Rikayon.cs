@@ -49,95 +49,7 @@ public class EnemyAnimationController : MonoBehaviour
             return;
 
         HandleStateTransition();
-        //if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
-        //    return;
 
-        //var distanceToTarget = Vector3.Distance(target.position, transform.position);
-        //var distanceToOrigin = Vector3.Distance(transform.position, viTriBanDau);
-
-        //switch (currentState)
-        //{
-        //    case CharacterState.Sleep:
-        //        hasWokenUp = false;
-        //        if (distanceToTarget <= wakeUpRadius && !hasWokenUp)
-        //        {
-        //            hasWokenUp = true;
-        //            ChangeState(CharacterState.WakeUp);
-
-        //        }
-        //        break;
-
-        //    case CharacterState.WakeUp:
-        //        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("WakeUp"))
-        //        {
-        //            navMeshAgent.isStopped = true;
-        //            animator.SetTrigger("isWakeUp");
-        //            ChangeState(CharacterState.Idle);
-        //        }
-        //        break;
-
-        //    case CharacterState.Idle:
-        //        if (distanceToTarget <= radius)
-        //        {
-        //            ChangeState(CharacterState.Run);
-        //        }
-        //        break;
-
-        //    case CharacterState.Run:
-        //        if (distanceToTarget > radius)
-        //        {
-        //            ChangeState(CharacterState.Return);
-        //        }
-        //        else if (distanceToTarget <= distanceAttack)
-        //        {
-        //            animator.SetBool("isSleep", false);
-        //            animator.SetBool("Idle", false);
-
-        //            animator.ResetTrigger("isWakeUp");
-        //            ChangeState(CharacterState.Attack);
-        //        }
-        //        else
-        //        {
-        //            navMeshAgent.SetDestination(target.position);
-        //            animator.SetBool("isRun", true);
-        //        }
-        //        break;
-
-        //    case CharacterState.Attack:
-        //        if (distanceToTarget > distanceAttack)
-        //        {
-        //            ChangeState(CharacterState.Run);
-
-
-
-        //        }
-        //        else if (canAttack)
-        //        {
-        //            StartCoroutine(PerformAttack());
-        //        }
-        //        break;
-
-        //    case CharacterState.Return:
-        //        if (distanceToOrigin <= 1f)
-        //        {
-        //            animator.SetBool("isRun", false);
-        //            hasWokenUp = false;
-        //            ChangeState(CharacterState.Sleep);
-        //        }
-        //        else
-        //        {
-        //            navMeshAgent.SetDestination(viTriBanDau);
-        //            animator.SetBool("isRun", true);
-        //        }
-        //        break;
-        //    case CharacterState.Die:
-        //          if (currentHealth <= 0 && currentState != CharacterState.Die)
-        //        {
-        //            ChangeState(CharacterState.Die);
-        //        }
-        //        break;
-
-        //}
     }
     private void HandleStateTransition()
     {
@@ -333,7 +245,7 @@ public class EnemyAnimationController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            TakeDamage(1000); 
+            TakeDamage(900);
         }
     }
 
