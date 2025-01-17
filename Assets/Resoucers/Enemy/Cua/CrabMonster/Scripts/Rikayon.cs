@@ -30,6 +30,7 @@ public class EnemyAnimationController : MonoBehaviour
         Run,
         Attack,
         Die,
+        TakeDame,
         Return
     }
 
@@ -121,6 +122,10 @@ public class EnemyAnimationController : MonoBehaviour
                     navMeshAgent.SetDestination(viTriBanDau);
                 }
                 break;
+            case CharacterState.TakeDame:
+               
+
+                break;
 
             case CharacterState.Die:
                 // Không xử lý gì trong trạng thái Die
@@ -135,60 +140,6 @@ public class EnemyAnimationController : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
-    //private void ChangeState(CharacterState newState)
-    //{
-    //    if (currentState == newState) return;
-
-    //    animator.SetBool("isRun", false);
-    //    animator.SetBool("isSleep", false);
-
-    //    switch (newState)
-    //    {
-    //        case CharacterState.Sleep:
-    //            navMeshAgent.isStopped = true;
-    //            animator.SetBool("isSleep", true);
-    //            break;
-
-    //        case CharacterState.WakeUp:
-    //            navMeshAgent.isStopped = true;
-    //            animator.SetTrigger("isWakeUp");
-    //            break;
-
-    //        case CharacterState.Idle:
-    //            navMeshAgent.isStopped = true;
-    //            animator.SetBool("Idle", true);
-    //            break;
-
-    //        case CharacterState.Run:
-    //            navMeshAgent.isStopped = false;
-    //            animator.SetBool("isRun", true);
-    //            break;
-
-    //        case CharacterState.Attack:
-    //            navMeshAgent.isStopped = true;
-    //            break;
-
-    //        case CharacterState.Return:
-    //            navMeshAgent.isStopped = false;
-    //            animator.SetBool("isRun", true);
-    //            break;
-    //        case CharacterState.Die:  
-    //            animator.SetBool("isRun", false);
-    //            animator.SetBool("isSleep", false);
-    //            animator.SetBool("Idle", false);
-    //            animator.ResetTrigger("isWakeUp");
-    //            animator.ResetTrigger("Attack");
-
-    //            // Kích hoạt animation Die
-    //            animator.SetTrigger("Die");
-    //          navMeshAgent.isStopped = true;
-    //            Destroy(gameObject, 3f);
-    //            break;
-    //    }
-
-    //    currentState = newState;
-    //}
     private void ChangeState(CharacterState newState)
     {
         if (currentState == newState)
@@ -231,7 +182,10 @@ public class EnemyAnimationController : MonoBehaviour
                 navMeshAgent.isStopped = false;
                 animator.SetBool("isRun", true);
                 break;
-
+            case CharacterState.TakeDame:
+                navMeshAgent.isStopped = true;
+                animator.SetTrigger("TakeDame");
+                break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
                 animator.SetTrigger("Die");
@@ -254,7 +208,9 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
-
+        if(animator != null ){
+            animator.SetTrigger("TakeDame");
+        }
         
         if (currentHealth <= 0)
         {
