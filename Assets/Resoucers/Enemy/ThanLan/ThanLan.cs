@@ -151,34 +151,36 @@ public class ThanLan : MonoBehaviour
         if (currentState == newstate)
             return;
 
-       
+        //// Tắt trạng thái trước đó nếu cần
+        //animator.SetBool("Idle", false);
+        //animator.SetBool("isRun", false);
 
         switch (newstate)
         {
             case CharacterState.Idle:
-               
+
                 animator.SetBool("Idle", true);
                 break;
 
             case CharacterState.Run:
-             
+
                 animator.SetBool("isRun", true);
                 break;
 
             case CharacterState.BattleAttack:
-               
+
                 animator.SetTrigger("BattleIdle");
                 StartCoroutine(DelayBattleAttack());
                 break;
 
             case CharacterState.Attack:
-               
+
                 animator.SetTrigger("Attack");
 
                 break;
 
             case CharacterState.TakeDame:
-               
+
                 animator.SetTrigger("TakeDame");
                 currentHP -= 100; // Giảm máu khi trúng đòn
                 UpdateHealthUI(); // Cập nhật thanh máu
@@ -190,13 +192,13 @@ public class ThanLan : MonoBehaviour
                 break;
 
             case CharacterState.Return:
-              
+
                 animator.SetBool("isRun", true);
                 NavMeshAgent.SetDestination(fisrtPosition); // Quay về vị trí ban đầu
                 break;
 
             case CharacterState.Die:
-               
+
                 animator.SetTrigger("Die");
                 Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
                 break;
