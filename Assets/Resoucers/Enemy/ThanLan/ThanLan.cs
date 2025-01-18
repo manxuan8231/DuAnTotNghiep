@@ -151,9 +151,7 @@ public class ThanLan : MonoBehaviour
         if (currentState == newstate)
             return;
 
-        //// Tắt trạng thái trước đó nếu cần
-        //animator.SetBool("Idle", false);
-        //animator.SetBool("isRun", false);
+       
 
         switch (newstate)
         {
