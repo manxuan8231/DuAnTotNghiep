@@ -18,7 +18,7 @@ public class AttackCombo : MonoBehaviour
     private bool isGround = true;
     
     private Rigidbody Rigidbody;
-
+    public SliderHp sliderHp;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -71,13 +71,16 @@ public class AttackCombo : MonoBehaviour
         switch (currentComboStep)
         {
             case 1:
-                animator.SetTrigger("Attack1");             
+                animator.SetTrigger("Attack1");
+                sliderHp.attackMana(5);
                 break;
             case 2:
-                animator.SetTrigger("Attack2");           
+                animator.SetTrigger("Attack2");
+                sliderHp.attackMana(5);
                 break;
             case 3:
-                animator.SetTrigger("Attack3");      
+                animator.SetTrigger("Attack3");
+                sliderHp.attackMana(5);
                 break;
         }
     }
@@ -86,7 +89,8 @@ public class AttackCombo : MonoBehaviour
         switch (currentComboStep)
         {
             case 1:
-                animator.SetTrigger("AirAttack1");              
+                animator.SetTrigger("AirAttack1");
+                sliderHp.attackMana(5);
                 break;            
         }
         

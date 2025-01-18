@@ -30,10 +30,13 @@ public class CharacterController : MonoBehaviour
 
     private bool isWeaponHandScaledUp = false; // Trạng thái kích thước của weaponHand
 
+    private Coroutine rollCoroutine;
+
+    public SliderHp sliderHp;
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
-
+      
         // Đảm bảo trạng thái ban đầu
         if (weaponDefault != null) weaponDefault.SetActive(true);
         if (weaponHand != null) weaponHand.SetActive(false);
@@ -61,6 +64,12 @@ public class CharacterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             ToggleWeaponHandScale();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.LeftControl) && rollCoroutine == null)
+        {
+           rollCoroutine=StartCoroutine(RollCoolDown());
+           sliderHp.rollMana(50);//trừ 10 mana
         }
 
         // Kiểm tra trạng thái rơi tự do
@@ -118,6 +127,7 @@ public class CharacterController : MonoBehaviour
 
     void Jump()
     {
+        sliderHp.jumpMana(5);
         isGrounded = false; // Chuyển trạng thái thành đang nhảy
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z); // Áp dụng lực nhảy
         animator.SetTrigger("startJump"); // Kích hoạt animation nhảy
@@ -190,7 +200,15 @@ public class CharacterController : MonoBehaviour
 
         weaponHand.transform.localScale = targetScale; // Đảm bảo đạt đến kích thước mục tiêu
     }
+    private IEnumerator RollCoolDown()
+    {
+        
+        animator.SetTrigger("roll");
+        yield return new WaitForSeconds(2f);
+        rollCoroutine = null;
 
+
+    }
     private void OnCollisionEnter(Collision collision)
     {
         // Kiểm tra nếu nhân vật tiếp đất
