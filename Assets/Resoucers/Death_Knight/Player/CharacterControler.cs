@@ -69,7 +69,7 @@ public class CharacterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) && rollCoroutine == null)
         {
            rollCoroutine=StartCoroutine(RollCoolDown());
-           sliderHp.rollMana(10);//trừ 10 mana
+           sliderHp.rollMana(50);//trừ 10 mana
         }
 
         // Kiểm tra trạng thái rơi tự do
