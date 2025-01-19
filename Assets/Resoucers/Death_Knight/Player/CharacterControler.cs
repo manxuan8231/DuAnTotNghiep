@@ -116,6 +116,7 @@ public class CharacterController : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             float speed = moveSpeed;
+
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Mouse1))
             {
                 speed = sprintSpeed;

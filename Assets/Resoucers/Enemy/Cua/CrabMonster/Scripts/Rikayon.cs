@@ -197,9 +197,16 @@ public class EnemyAnimationController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("DamageZone"))
         {
-            TakeDamage(900);
+            TakeDamage(100);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("DamageZone"))
+        {
+            TakeDamage(100);
         }
     }
 
@@ -223,6 +230,6 @@ public class EnemyAnimationController : MonoBehaviour
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
+   
 
-    
 }

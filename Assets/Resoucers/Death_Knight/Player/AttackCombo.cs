@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AttackCombo : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class AttackCombo : MonoBehaviour
     public GameObject EffectSlash2;
     public GameObject EffectSlashFly;
 
+    //box gây damage
+    public GameObject damageZone;
     private bool isGround = true;
     
     private Rigidbody Rigidbody;
@@ -23,6 +26,7 @@ public class AttackCombo : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
+        damageZone.SetActive(false);
     }
 
     void Update()
@@ -95,6 +99,7 @@ public class AttackCombo : MonoBehaviour
         }
         
     }
+    
     void StartEffect() 
     {
         EffectSlash.SetActive(true);
@@ -132,7 +137,15 @@ public class AttackCombo : MonoBehaviour
     {
         isCooldown = false; // Cho phép thực hiện combo mới
     }
+    public void beginDame()
+    {
+        damageZone.SetActive(true);
+    }
 
+    public void endDame()
+    {
+        damageZone.SetActive(false);
+    }
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
