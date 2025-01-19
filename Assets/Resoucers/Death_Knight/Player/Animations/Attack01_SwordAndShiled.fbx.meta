@@ -60,7 +60,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.38452798
+      - time: 0.26551366
+        functionName: beginDame
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.39122257
         functionName: StartEffect
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -69,6 +76,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.8245284
         functionName: DisableEffect
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.43171108
+        functionName: endDame
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

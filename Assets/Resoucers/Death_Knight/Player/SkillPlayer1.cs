@@ -47,14 +47,13 @@ public class SkillPlayer1 : MonoBehaviour
         if (sliderCooldown != null)
         {
             sliderCooldown.maxValue = 100f;
-           
         }
     }
 
     void Update()
     {
         // Kiểm tra nếu người chơi nhấn phím E và kỹ năng chưa trong thời gian hồi chiêu
-        if (Input.GetKeyDown(KeyCode.E) && !isOnCooldown && sliderHp.GetCurrentMana() >= 20)
+        if (Input.GetKeyDown(KeyCode.E) && !isOnCooldown && sliderHp.GetCurrentMana() >= 20 && sliderHp.GetCurrentLevel()>=5)
         {
             UseFireBall();
         }
