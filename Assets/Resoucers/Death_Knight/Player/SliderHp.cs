@@ -58,6 +58,8 @@ public class SliderHp : MonoBehaviour
         textExp.text = $"XP: 0/{maxExp}"; // Hiển thị XP ban đầu
 
         UpdateLevelText(); // Cập nhật level ban đầu
+
+        levelEffect.gameObject.SetActive(false);
     }
 
     void Update()
@@ -93,6 +95,7 @@ public class SliderHp : MonoBehaviour
             // Kích hoạt particle effect khi cộng điểm
             if (levelEffect != null)
             {
+                levelEffect.gameObject.SetActive(true);
                 levelEffect.Play(); // Bắt đầu hiệu ứng particle
             }
         }
