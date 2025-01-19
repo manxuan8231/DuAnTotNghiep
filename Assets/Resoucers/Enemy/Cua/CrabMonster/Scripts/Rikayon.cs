@@ -22,6 +22,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
 
+    
     public enum CharacterState
     {
         Sleep,
@@ -42,6 +43,7 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthUI();
         ChangeState(CharacterState.Sleep);
+       
     }
 
     void Update()
@@ -122,9 +124,7 @@ public class EnemyAnimationController : MonoBehaviour
                     navMeshAgent.SetDestination(viTriBanDau);
                 }
                 break;
-            case CharacterState.TakeDame:
-               
-
+            case CharacterState.TakeDame:            
                 break;
 
             case CharacterState.Die:
@@ -188,8 +188,7 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
-                animator.SetTrigger("Die");
-                Destroy(gameObject, 3f);
+                animator.SetTrigger("Die");                     
                 break;
         }
 
@@ -197,9 +196,24 @@ public class EnemyAnimationController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("DamageZone"))
         {
-            TakeDamage(900);
+            TakeDamage(100);
+        }
+        if (collision.gameObject.CompareTag("FireBall"))
+        {
+            TakeDamage(200);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("DamageZone"))
+        {
+            TakeDamage(100);
+        }
+        if (other.gameObject.CompareTag("FireBall"))
+        {
+            TakeDamage(200);
         }
     }
 
@@ -215,6 +229,7 @@ public class EnemyAnimationController : MonoBehaviour
         if (currentHealth <= 0)
         {
             ChangeState(CharacterState.Die);
+            
         }
     }
 
@@ -223,6 +238,6 @@ public class EnemyAnimationController : MonoBehaviour
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
+   
 
-    
 }

@@ -31,12 +31,17 @@ public class CharacterController : MonoBehaviour
     private bool isWeaponHandScaledUp = false; // Trạng thái kích thước của weaponHand
 
     private Coroutine rollCoroutine;
+    private Coroutine jumpCoroutine;
+
+    private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
+    private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
 
     public SliderHp sliderHp;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
-      
+
         // Đảm bảo trạng thái ban đầu
         if (weaponDefault != null) weaponDefault.SetActive(true);
         if (weaponHand != null) weaponHand.SetActive(false);
@@ -47,33 +52,40 @@ public class CharacterController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        // Nhảy khi nhấn Space và đang ở trên mặt đất
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && currentState == CharacterState.Normal)
+        // Chỉ xử lý di chuyển khi không bị khóa
+        if (!isMovementLocked)
         {
-            Jump();
+            // Nhảy khi nhấn Space và đang ở trên mặt đất
+            if (Input.GetKeyDown(KeyCode.Space) && currentState == CharacterState.Normal && jumpCoroutine == null)
+            {
+                Jump();
+                jumpCoroutine = StartCoroutine(JumpCoolDown());
+            }
+
+            // Tấn công khi nhấn chuột trái
+            if (Input.GetMouseButtonDown(0) && currentState == CharacterState.Normal)
+            {
+                StartCoroutine(Attack());
+                HandleWeaponSwitch(true); // Hiện weaponHand khi tấn công
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftControl) && rollCoroutine == null && sliderHp.GetCurrentMana() >= 50)
+            {
+                rollCoroutine = StartCoroutine(RollCoolDown());
+                sliderHp.rollMana(50); // trừ 10 mana
+            }
         }
 
-        // Tấn công khi nhấn chuột trái
-        if (Input.GetMouseButtonDown(0) && currentState == CharacterState.Normal)
+        // Bấm E để khóa di chuyển trong 0.5 giây và có hồi chiêu 5 giây
+        if (Input.GetKeyDown(KeyCode.E) && !isMovementLocked && !isECooldown)
         {
-            StartCoroutine(Attack());
-            HandleWeaponSwitch(true); // Hiện weaponHand khi tấn công
-        }
-
-        // Thay đổi kích thước weaponHand khi nhấn phím E
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ToggleWeaponHandScale();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.LeftControl) && rollCoroutine == null)
-        {
-           rollCoroutine=StartCoroutine(RollCoolDown());
-           sliderHp.rollMana(50);//trừ 10 mana
+            StartCoroutine(LockMovement(0.5f));
+            StartCoroutine(ECooldown(5f)); // Thời gian hồi chiêu 5 giây
+            weaponHand.SetActive(false );
         }
 
         // Kiểm tra trạng thái rơi tự do
-        if (!isGrounded && rb.velocity.y < 0)
+        if (rb.velocity.y < 0)
         {
             animator.SetBool("isFalling", true); // Kích hoạt animation rơi
         }
@@ -85,7 +97,7 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentState == CharacterState.Normal)
+        if (currentState == CharacterState.Normal && !isMovementLocked)
         {
             CalculateMovement();
         }
@@ -104,6 +116,7 @@ public class CharacterController : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             float speed = moveSpeed;
+
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Mouse1))
             {
                 speed = sprintSpeed;
@@ -128,7 +141,7 @@ public class CharacterController : MonoBehaviour
     void Jump()
     {
         sliderHp.jumpMana(5);
-        isGrounded = false; // Chuyển trạng thái thành đang nhảy
+
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z); // Áp dụng lực nhảy
         animator.SetTrigger("startJump"); // Kích hoạt animation nhảy
     }
@@ -152,7 +165,7 @@ public class CharacterController : MonoBehaviour
             if (weaponDefault != null) weaponDefault.SetActive(false);
             if (weaponHand != null) weaponHand.SetActive(true);
 
-            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(5f)); // Bắt đầu reset sau 5 giây
+            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(2f)); // Bắt đầu reset sau 5 giây
         }
     }
 
@@ -164,66 +177,47 @@ public class CharacterController : MonoBehaviour
         if (weaponHand != null) weaponHand.SetActive(false);
     }
 
-    private void ToggleWeaponHandScale()
+    private IEnumerator JumpCoolDown()
     {
-        if (weaponHand != null)
-        {
-            if (weaponScaleCoroutine != null)
-                StopCoroutine(weaponScaleCoroutine); // Dừng Coroutine cũ nếu đang chạy
-
-            if (isWeaponHandScaledUp)
-            {
-                // Từ từ thu nhỏ
-                weaponScaleCoroutine = StartCoroutine(ChangeWeaponScale(Vector3.one, 0.5f)); // Trở về kích thước ban đầu
-            }
-            else
-            {
-                // Từ từ phóng to
-                weaponScaleCoroutine = StartCoroutine(ChangeWeaponScale(Vector3.one * 10f, 0.5f)); // Phóng to gấp đôi
-            }
-
-            isWeaponHandScaledUp = !isWeaponHandScaledUp; // Đảo trạng thái
-        }
+        yield return new WaitForSeconds(2f);
+        jumpCoroutine = null;
     }
 
-    private IEnumerator ChangeWeaponScale(Vector3 targetScale, float duration)
-    {
-        Vector3 initialScale = weaponHand.transform.localScale; // Kích thước ban đầu
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            weaponHand.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / duration); // Nội suy kích thước
-            yield return null; // Chờ đến frame tiếp theo
-        }
-
-        weaponHand.transform.localScale = targetScale; // Đảm bảo đạt đến kích thước mục tiêu
-    }
     private IEnumerator RollCoolDown()
     {
-        
         animator.SetTrigger("roll");
         yield return new WaitForSeconds(2f);
         rollCoroutine = null;
-
-
     }
+
+    private IEnumerator LockMovement(float lockDuration)
+    {
+        isMovementLocked = true;
+        yield return new WaitForSeconds(lockDuration);
+        isMovementLocked = false;
+    }
+
+    private IEnumerator ECooldown(float cooldownDuration)
+    {
+        isECooldown = true; // Kích hoạt hồi chiêu
+        yield return new WaitForSeconds(cooldownDuration);
+        isECooldown = false; // Hết hồi chiêu
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         // Kiểm tra nếu nhân vật tiếp đất
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = true;
             animator.SetBool("isLandJump", true); // Kích hoạt animation tiếp đất
         }
     }
+
     private void OnCollisionExit(Collision collision)
     {
-        // Kiểm tra nếu nhân vật tiếp đất
+        // Kiểm tra nếu nhân vật rời khỏi mặt đất
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = false;
             animator.SetBool("isLandJump", false); // Tắt animation tiếp đất
         }
     }

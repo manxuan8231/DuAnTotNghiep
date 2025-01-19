@@ -8,6 +8,10 @@ TagManager:
   - Ground
   - Player2
   - Player3
+  - FireBall
+  - Exp
+  - DamageZone
+  - Enemy
   layers:
   - Default
   - TransparentFX
