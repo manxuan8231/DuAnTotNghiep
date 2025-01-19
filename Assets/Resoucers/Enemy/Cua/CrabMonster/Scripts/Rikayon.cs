@@ -22,7 +22,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
 
-    public GameObject exp;
+    
     public enum CharacterState
     {
         Sleep,
@@ -43,7 +43,7 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthUI();
         ChangeState(CharacterState.Sleep);
-        exp.SetActive(false);
+       
     }
 
     void Update()
@@ -124,9 +124,7 @@ public class EnemyAnimationController : MonoBehaviour
                     navMeshAgent.SetDestination(viTriBanDau);
                 }
                 break;
-            case CharacterState.TakeDame:
-               
-
+            case CharacterState.TakeDame:            
                 break;
 
             case CharacterState.Die:
@@ -190,9 +188,7 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
-                animator.SetTrigger("Die");
-                Destroy(gameObject, 3f);
-                exp.SetActive(true);
+                animator.SetTrigger("Die");                     
                 break;
         }
 
@@ -215,6 +211,10 @@ public class EnemyAnimationController : MonoBehaviour
         {
             TakeDamage(100);
         }
+        if (other.gameObject.CompareTag("FireBall"))
+        {
+            TakeDamage(200);
+        }
     }
 
     private void TakeDamage(float damage)
@@ -229,6 +229,7 @@ public class EnemyAnimationController : MonoBehaviour
         if (currentHealth <= 0)
         {
             ChangeState(CharacterState.Die);
+            
         }
     }
 

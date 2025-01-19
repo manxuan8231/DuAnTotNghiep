@@ -48,12 +48,5 @@ public class BallExp : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Kiểm tra va chạm với đối tượng có tag "Player"
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject); // Hủy quả cầu khi va chạm với Player
-        }
-    }
+   
 }

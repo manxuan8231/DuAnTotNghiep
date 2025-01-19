@@ -36,7 +36,7 @@ public class SliderHp : MonoBehaviour
     private float maxScale = 1.2f; // Kích thước lớn nhất
 
    
-    private int level = 0; // Cấp độ người chơi
+    private int level = 5; // Cấp độ người chơi
 
     // Thêm tham chiếu ParticleSystem
     [SerializeField] private ParticleSystem levelEffect;
@@ -155,12 +155,6 @@ public class SliderHp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Finish"))
-        {
-            currentUlti.value = maxUlti += 1000;
-            Destroy(other.gameObject);
-        }
-
         // Kiểm tra nếu ăn đồng xu (với tag "exp")
         if (other.gameObject.CompareTag("Exp"))
         {
@@ -175,6 +169,9 @@ public class SliderHp : MonoBehaviour
         {
             AddExp(1000); // Thêm 1200 XP khi ăn đồng xu
             Destroy(collision.gameObject); // Hủy đồng xu
+            //cong score ulti
+            currentUlti.value = maxUlti += 30;
+            Destroy(collision.gameObject);
         }
     }
     // Hàm để thêm XP
