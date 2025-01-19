@@ -22,6 +22,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
 
+    public GameObject exp;
     public enum CharacterState
     {
         Sleep,
@@ -42,6 +43,7 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthUI();
         ChangeState(CharacterState.Sleep);
+        exp.SetActive(false);
     }
 
     void Update()
@@ -190,6 +192,7 @@ public class EnemyAnimationController : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 animator.SetTrigger("Die");
                 Destroy(gameObject, 3f);
+                exp.SetActive(true);
                 break;
         }
 
@@ -200,6 +203,10 @@ public class EnemyAnimationController : MonoBehaviour
         if (collision.gameObject.CompareTag("DamageZone"))
         {
             TakeDamage(100);
+        }
+        if (collision.gameObject.CompareTag("FireBall"))
+        {
+            TakeDamage(200);
         }
     }
     private void OnTriggerEnter(Collider other)

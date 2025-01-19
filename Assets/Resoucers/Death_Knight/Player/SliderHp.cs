@@ -164,11 +164,19 @@ public class SliderHp : MonoBehaviour
         // Kiểm tra nếu ăn đồng xu (với tag "exp")
         if (other.gameObject.CompareTag("Exp"))
         {
-            AddExp(10000); // Thêm 1200 XP khi ăn đồng xu
+            AddExp(1000); // Thêm 1200 XP khi ăn đồng xu
             Destroy(other.gameObject); // Hủy đồng xu
         }
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Kiểm tra nếu ăn đồng xu (với tag "exp")
+        if (collision.gameObject.CompareTag("Exp"))
+        {
+            AddExp(1000); // Thêm 1200 XP khi ăn đồng xu
+            Destroy(collision.gameObject); // Hủy đồng xu
+        }
+    }
     // Hàm để thêm XP
     public void AddExp(float amount)
     {
