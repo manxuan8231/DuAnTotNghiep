@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Player2
   - Player3
+  - FireBall
   layers:
   - Default
   - TransparentFX

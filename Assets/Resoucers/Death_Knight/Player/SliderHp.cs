@@ -80,6 +80,29 @@ public class SliderHp : MonoBehaviour
         textMana.text = $"{currentMana.value}/{maxMana}";
     }
 
+    public void SkillEMana(float amount)
+    {
+        currentMana.value -= amount;
+        textMana.text = $"{currentMana.value}/{maxMana}";
+    }
+    //khi hết mana thì kko cho dùng nữa
+    public float GetCurrentMana()
+    {
+        return currentMana.value;
+    }
+    public float GetCurrentUlti()
+    {
+        return currentUlti.value;
+    }
+    //trừ dần unlti
+    public void DecreaseUlti(float amount)
+    {
+        if (currentUlti.value > 0)
+        {
+            currentUlti.value -= amount;
+            textQ.text = $"Q"; // Cập nhật UI
+        }
+    }
 
 
 
