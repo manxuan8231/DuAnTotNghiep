@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +35,8 @@ public class SkillPlayer1 : MonoBehaviour
 
     public Slider sliderCooldown; // Slider để theo dõi cooldown của skill E
 
+    public TextMeshProUGUI warningText;
+    private Coroutine warningCoroutine;
     void Start()
     {
         if (animator == null)
@@ -48,14 +52,20 @@ public class SkillPlayer1 : MonoBehaviour
         {
             sliderCooldown.maxValue = 100f;
         }
+        warningText.gameObject.SetActive(false);
     }
 
     void Update()
     {
         // Kiểm tra nếu người chơi nhấn phím E và kỹ năng chưa trong thời gian hồi chiêu
-        if (Input.GetKeyDown(KeyCode.E) && !isOnCooldown && sliderHp.GetCurrentMana() >= 20 && sliderHp.GetCurrentLevel()>=5)
+        if (Input.GetKeyDown(KeyCode.E) && !isOnCooldown && sliderHp.GetCurrentMana() >= 20 && sliderHp.GetCurrentLevel() >= 5)
         {
             UseFireBall();
+        }
+        else if (sliderHp.GetCurrentLevel() < 5 && Input.GetKeyDown(KeyCode.E))
+        {
+            ShowWarningText();
+            warningText.gameObject.SetActive(true);
         }
 
         // Kiểm tra nếu người chơi nhấn phím Q và ulti đủ 1000
@@ -104,6 +114,27 @@ public class SkillPlayer1 : MonoBehaviour
         if (isOnCooldown && sliderCooldown != null && sliderCooldown.value > 0)
         {
             sliderCooldown.value -= (100f / cooldownTime) * Time.deltaTime; // Giảm dần theo thời gian hồi chiêu
+        }
+    }
+    void ShowWarningText()
+    {
+        if (warningText != null)
+        {
+            warningText.text = "Level quá thấp để sử dụng kỹ năng!";
+            if (warningCoroutine != null)
+            {
+                StopCoroutine(warningCoroutine); // Nếu đang có coroutine cảnh báo, dừng lại
+            }
+            warningCoroutine = StartCoroutine(HideWarningText());
+        }
+    }
+
+    IEnumerator HideWarningText()
+    {
+        yield return new WaitForSeconds(2f); // Chờ 2 giây
+        if (warningText != null)
+        {
+            warningText.text = ""; // Tắt cảnh báo
         }
     }
 
