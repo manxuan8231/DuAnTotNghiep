@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -21,8 +22,10 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
+    public BoxCollider BoxCollider;
 
-    
+
+
     public enum CharacterState
     {
         Sleep,
@@ -48,6 +51,10 @@ public class EnemyAnimationController : MonoBehaviour
 
     void Update()
     {
+        if (currentState == CharacterState.Die)
+        {
+            return;
+        }
         if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
             return;
 
@@ -67,6 +74,7 @@ public class EnemyAnimationController : MonoBehaviour
                     hasWokenUp = true;
                     ChangeState(CharacterState.WakeUp);
                 }
+                Debug.Log("sLEEP");
                 break;
 
             case CharacterState.WakeUp:
@@ -75,6 +83,8 @@ public class EnemyAnimationController : MonoBehaviour
                     animator.SetTrigger("isWakeUp");
                     ChangeState(CharacterState.Idle);
                 }
+                Debug.Log("wakeup");
+
                 break;
 
             case CharacterState.Idle:
@@ -82,6 +92,8 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     ChangeState(CharacterState.Run);
                 }
+                Debug.Log("idle");
+
                 break;
 
             case CharacterState.Run:
@@ -97,6 +109,8 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     navMeshAgent.SetDestination(target.position);
                 }
+                Debug.Log("ru");
+
                 break;
 
             case CharacterState.Attack:
@@ -112,6 +126,8 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     StartCoroutine(PerformAttack());
                 }
+                Debug.Log("attack");
+
                 break;
 
             case CharacterState.Return:
@@ -123,8 +139,12 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     navMeshAgent.SetDestination(viTriBanDau);
                 }
+                Debug.Log("return");
+
                 break;
-            case CharacterState.TakeDame:            
+            case CharacterState.TakeDame:
+                Debug.Log("takeDame");
+
                 break;
 
             case CharacterState.Die:
@@ -188,6 +208,7 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
+                Destroy(gameObject, 3f);
                 animator.SetTrigger("Die");                     
                 break;
         }
@@ -201,6 +222,7 @@ public class EnemyAnimationController : MonoBehaviour
         UpdateHealthUI();
         if(animator != null ){
             animator.SetTrigger("TakeDame");
+           
         }
         
         if (currentHealth <= 0)
@@ -209,6 +231,7 @@ public class EnemyAnimationController : MonoBehaviour
             Destroy(gameObject, 3f); // 3 giây sau khi chết
             FindObjectOfType<SliderHp>().AddExp(1000);
             FindObjectOfType<SliderHp>().AddUlti(100);
+            BoxCollider.enabled = false;
         }
     }
     private void UpdateHealthUI()
@@ -216,4 +239,6 @@ public class EnemyAnimationController : MonoBehaviour
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
+
+    
 }

@@ -49,7 +49,8 @@ public class ThanLan : MonoBehaviour
         {
             return;
         }
-
+        if (NavMeshAgent == null || !NavMeshAgent.isOnNavMesh)
+            return;
         HandleStateTransition();
 
 
@@ -199,6 +200,7 @@ public class ThanLan : MonoBehaviour
                
                 animator.SetTrigger("Die");
                 Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
+                animator.ResetTrigger("TakeDame");
                 break;
         }
 
