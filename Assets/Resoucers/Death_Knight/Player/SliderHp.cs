@@ -114,54 +114,7 @@ public class SliderHp : MonoBehaviour
        
     }
 
-    // Coroutine để tăng Mana
-    IEnumerator IncreaseManaOverTime()
-    {
-        // Kiểm tra nếu Mana chưa đầy
-        while (currentMana.value < maxMana && isInManaZone)
-        {
-            // Tăng Mana từ từ mỗi lần gọi coroutine
-            currentMana.value += manaIncreaseSpeed * Time.deltaTime;
-
-            // Cập nhật UI
-            textMana.text = $"{currentMana.value}/{maxMana}";
-
-            // Đảm bảo Mana không vượt quá maxMana
-            if (currentMana.value > maxMana)
-            {
-                currentMana.value = maxMana;
-            }
-
-            yield return null; // Đợi đến frame tiếp theo
-        }
-
-        // Dừng coroutine khi Mana đầy hoặc người chơi ra ngoài vòng tròn
-        isManaIncreasing = false;
-    }
-
-    // Hàm được gọi khi nhân vật vào vòng tròn Mana (sự kiện Trigger)
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Mana")) // Kiểm tra xem đối tượng có phải là vùng Mana không
-        {
-            isInManaZone = true; // Đánh dấu người chơi vào vùng Mana
-            if (!isManaIncreasing) // Nếu không có coroutine nào đang chạy, bắt đầu tăng Mana
-            {
-                StartCoroutine(IncreaseManaOverTime());
-                isManaIncreasing = true;
-            }
-        }
-    }
-
-    // Hàm được gọi khi nhân vật ra khỏi vòng tròn Mana (sự kiện Trigger)
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Mana")) // Kiểm tra xem đối tượng có phải là vùng Mana không
-        {
-            isInManaZone = false; // Đánh dấu người chơi ra khỏi vùng Mana
-                                  // Không cần dừng coroutine, vì coroutine sẽ tự dừng khi Mana đầy hoặc người chơi ra khỏi vùng
-        }
-    }
+   
     public void rollMana(float amount)
     {
         currentMana.value -= amount;
