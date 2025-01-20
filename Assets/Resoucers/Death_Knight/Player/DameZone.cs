@@ -4,30 +4,22 @@ using UnityEngine;
 
 public class DameZone : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject effectHitDame;
-    void Start()
-    {
-        effectHitDame.SetActive(false);
-    }
+    // Tham chiếu đến hiệu ứng particle
+    public GameObject hitEffect;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
+        // Kiểm tra nếu va chạm với đối tượng có tag "Enemy"
         if (other.gameObject.CompareTag("Enemy"))
         {
-            effectHitDame.SetActive(true);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            effectHitDame.SetActive(false);
+            // Lấy thành phần EnemyAnimationController từ kẻ thù
+            EnemyAnimationController rikayon = other.gameObject.GetComponent<EnemyAnimationController>();
+
+            // Nếu tìm thấy EnemyAnimationController, thực hiện trừ máu         
+            rikayon.TakeDamage(100);
+           
+            // Tạo hiệu ứng particle tại vị trí va chạm        
+            Instantiate(hitEffect, other.transform.position, Quaternion.identity);          
         }
     }
 }

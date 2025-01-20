@@ -209,7 +209,7 @@ public class SkillPlayer1 : MonoBehaviour
                 rb.velocity = firePoint.forward * fireballSpeed;
             }
 
-            // Hủy FireBall sau 5 giây để tránh lãng phí tài nguyên
+            // Hủy FireBall sau 5 giây 
             Destroy(fireball, 2f);
         }
     }
@@ -226,7 +226,7 @@ public class SkillPlayer1 : MonoBehaviour
         // Đặt trạng thái phóng to
         isScaling = true;
         targetScale = originalScale * 2f; // Tăng kích thước lên gấp đôi
-
+        sliderHp.GetMana(1000);
         // Kích hoạt aura
         if (auraPrefab != null && activeAura == null)
         {

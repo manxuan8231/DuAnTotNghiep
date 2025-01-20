@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,8 @@ public class SliderHp : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textLevel; // Thêm TextMeshPro cho Level
 
+    [SerializeField] private TextMeshProUGUI textScore; // Thêm TextMeshPro choscore
+
     private Color colorOrange = new Color(1f, 0.65f, 0f); // Màu cam
     private Color colorYellow = Color.yellow;             // Màu vàng
     private float colorChangeSpeed = 2f; // Tốc độ thay đổi màu
@@ -35,12 +38,13 @@ public class SliderHp : MonoBehaviour
     private float minScale = 0.8f; // Kích thước nhỏ nhất
     private float maxScale = 1.2f; // Kích thước lớn nhất
 
-   
-    private int level = 5; // Cấp độ người chơi
+    public int score = 0;   
+    public int level = 5; // Cấp độ người chơi
 
     // Thêm tham chiếu ParticleSystem
     [SerializeField] private ParticleSystem levelEffect;
 
+    EnemyAnimationController rikayon;
     void Start()
     {
        
@@ -57,7 +61,9 @@ public class SliderHp : MonoBehaviour
         currentExp.value = 0; // Khởi tạo thanh Exp bằng 0
         textExp.text = $"XP: 0/{maxExp}"; // Hiển thị XP ban đầu
 
-        UpdateLevelText(); // Cập nhật level ban đầu
+        textLevel.text = $"Level: {level}"; // Hiển thị cấp độ
+
+        textScore.text = $"Score: {score}";
 
         levelEffect.gameObject.SetActive(false);
     }
@@ -87,11 +93,10 @@ public class SliderHp : MonoBehaviour
             currentExp.value = 0; // Đặt lại thanh XP về 0
           
             level++; // Tăng cấp độ
-            Debug.Log($"Level: {level}"); // In điểm và cấp độ ra Console
+            textLevel.text = $"Level: {level}"; // Hiển thị cấp độ
 
-            // Cập nhật level trong UI
-            UpdateLevelText();
-
+            score++;
+            textScore.text = $"Score: {score}";
             // Kích hoạt particle effect khi cộng điểm
             if (levelEffect != null)
             {
@@ -101,12 +106,10 @@ public class SliderHp : MonoBehaviour
         }
 
         textExp.text = $"XP: {currentExp.value}/{maxExp}"; // Cập nhật UI cho XP
-    }
 
-    void UpdateLevelText()
-    {
-        textLevel.text = $"Level: {level}"; // Hiển thị cấp độ
+       
     }
+   
 
     public void rollMana(float amount)
     {
@@ -137,7 +140,10 @@ public class SliderHp : MonoBehaviour
     {
         return currentMana.value;
     }
-
+    public void GetMana(float amount)
+    {
+        currentMana.value += amount;
+    }
     public float GetCurrentUlti()
     {
         return currentUlti.value;
@@ -156,30 +162,16 @@ public class SliderHp : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Kiểm tra nếu ăn đồng xu (với tag "exp")
-        if (other.gameObject.CompareTag("Exp"))
-        {
-            AddExp(1000); // Thêm 1200 XP khi ăn đồng xu
-            Destroy(other.gameObject); // Hủy đồng xu
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Kiểm tra nếu ăn đồng xu (với tag "exp")
-        if (collision.gameObject.CompareTag("Exp"))
-        {
-            AddExp(1000); // Thêm 1200 XP khi ăn đồng xu
-            Destroy(collision.gameObject); // Hủy đồng xu
-            //cong score ulti
-            currentUlti.value = maxUlti += 30;
-            Destroy(collision.gameObject);
-        }
-    }
     // Hàm để thêm XP
     public void AddExp(float amount)
     {
         currentExp.value += amount;
     }
+
+    public void AddUlti(float amount)
+    {
+        currentUlti.value += amount;    
+    }
+
+    
 }
