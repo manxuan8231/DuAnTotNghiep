@@ -651,17 +651,6 @@ Transform:
   - {fileID: 341419577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &522941170 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6630896425241999131, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
-  m_PrefabInstance: {fileID: 526355638}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &526355638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -675,20 +664,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 227063987}
     - target: {fileID: 355354223765459050, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
-      propertyPath: healthBarFill
-      value: 
-      objectReference: {fileID: 522941170}
-    - target: {fileID: 355354223765459050, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
       propertyPath: distanceAttack
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6274981086956269921, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
       propertyPath: m_Name
       value: Lizard_A
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274981086956269921, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6656010882740579291, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
       propertyPath: m_LocalPosition.x

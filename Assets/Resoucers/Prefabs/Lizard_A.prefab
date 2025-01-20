@@ -572,7 +572,7 @@ MonoBehaviour:
   currentHP: 0
   fisrtPosition: {x: 0, y: 0, z: 0}
   battleRange: 15
-  distanceAttack: 2
+  distanceAttack: 5
   healthBarFill: {fileID: 6630896425241999131}
   healthText: {fileID: 2387935246759511968}
   currentState: 0
