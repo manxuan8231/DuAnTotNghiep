@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject helpPanel;
     public Slider volumeSlider;
-
+    public int scene = 0;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(scene);
     }
     public void Setting()
     {
