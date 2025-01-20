@@ -49,6 +49,8 @@ public class ThanLan : MonoBehaviour
         {
             return;
         }
+        if (NavMeshAgent == null || !NavMeshAgent.isOnNavMesh)
+            return;
 
         HandleStateTransition();
 
@@ -85,6 +87,7 @@ public class ThanLan : MonoBehaviour
                 // Nếu target trong vùng tấn công
                 else if (distanceToTarget <= distanceAttack)
                 {
+
                     ChangState(CharacterState.Attack);
                 }
                 else
@@ -140,6 +143,7 @@ public class ThanLan : MonoBehaviour
                 {
                     // Tiếp tục di chuyển về vị trí ban đầu
                     NavMeshAgent.SetDestination(fisrtPosition);
+                    //ChangState(CharacterState.Run);
                 }
                 Debug.Log("Return");
                 break;
@@ -151,38 +155,49 @@ public class ThanLan : MonoBehaviour
         if (currentState == newstate)
             return;
 
-       
+        //// Tắt trạng thái trước đó nếu cần
+        //animator.SetBool("Idle", false);
+        //animator.SetBool("isRun", false);
 
         switch (newstate)
         {
             case CharacterState.Idle:
-               
+                NavMeshAgent.isStopped = true;
                 animator.SetBool("Idle", true);
+                animator.SetBool("isRun", false);
+
+
                 break;
 
             case CharacterState.Run:
-             
+                NavMeshAgent.isStopped = false;
                 animator.SetBool("isRun", true);
+                animator.SetBool("Idle", false);
+
                 break;
 
             case CharacterState.BattleAttack:
-               
+                NavMeshAgent.isStopped = false;
                 animator.SetTrigger("BattleIdle");
-                StartCoroutine(DelayBattleAttack());
+                if (Vector3.Distance(target.position, transform.position) <= distanceAttack)
+                {
+                    ChangState(CharacterState.Attack);
+                }
+                //StartCoroutine(DelayBattleAttack());
+                
                 break;
 
             case CharacterState.Attack:
-               
+                NavMeshAgent.isStopped = true;
                 animator.SetTrigger("Attack");
-
+                animator.SetBool("isRun", false);
                 break;
 
             case CharacterState.TakeDame:
-               
+                NavMeshAgent.isStopped = true;
                 animator.SetTrigger("TakeDame");
-                currentHP -= 100; // Giảm máu khi trúng đòn
-                UpdateHealthUI(); // Cập nhật thanh máu
-                if (currentHP <= 0)
+                UpdateHealthUI();
+                if (currentHP < 0)
                 {
                     ChangState(CharacterState.Die);
                 }
@@ -190,40 +205,40 @@ public class ThanLan : MonoBehaviour
                 break;
 
             case CharacterState.Return:
-              
+                NavMeshAgent.isStopped = false;
                 animator.SetBool("isRun", true);
                 NavMeshAgent.SetDestination(fisrtPosition); // Quay về vị trí ban đầu
                 break;
 
             case CharacterState.Die:
-               
+                NavMeshAgent.isStopped = true;
                 animator.SetTrigger("Die");
-                Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
+                Destroy(gameObject, 1f);
                 break;
         }
 
         currentState = newstate;
     }
 
+    
 
+    //private IEnumerator SwitchToAttackAfterDelay()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    if (currentState == CharacterState.BattleAttack)
+    //    {
+    //        ChangState(CharacterState.Attack);
+    //    }
+    //}
 
-    private IEnumerator SwitchToAttackAfterDelay()
-    {
-        yield return new WaitForSeconds(1f);
-        if (currentState == CharacterState.BattleAttack)
-        {
-            ChangState(CharacterState.Attack);
-        }
-    }
-
-    private IEnumerator DelayBattleAttack()
-    {
-        yield return new WaitForSeconds(1f);
-        if (Vector3.Distance(target.position, transform.position) <= distanceAttack)
-        {
-            ChangState(CharacterState.Attack);
-        }
-    }
+    //private IEnumerator DelayBattleAttack()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    if (Vector3.Distance(target.position, transform.position) <= distanceAttack)
+    //    {
+    //        ChangState(CharacterState.Attack);
+    //    }
+    //}
     private void UpdateHealthUI()
     {
         healthBarFill.fillAmount = currentHP / maxHp;
@@ -233,7 +248,7 @@ public class ThanLan : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            currentHP -= 100; // Trừ 100 máu khi va chạm
+            currentHP -= 250; 
             UpdateHealthUI(); // Cập nhật giao diện thanh máu
 
             if (currentHP > 0)
