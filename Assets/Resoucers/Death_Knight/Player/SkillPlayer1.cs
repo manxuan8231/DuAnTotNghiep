@@ -190,7 +190,7 @@ public class SkillPlayer1 : MonoBehaviour
                 rb.velocity = firePoint.forward * fireballSpeed;
             }
 
-            // Hủy FireBall sau 5 giây để tránh lãng phí tài nguyên
+            // Hủy FireBall sau 5 giây 
             Destroy(fireball, 4f);
         }
     }
@@ -235,6 +235,14 @@ public class SkillPlayer1 : MonoBehaviour
         }
     }
 
+    
+
+    void StopScaling()
+    {
+        // Khi currentUlti = 0, dừng phóng to và thu nhỏ lại
+        isScaling = false;
+        targetScale = originalScale; // Quay lại kích thước ban đầu
+    }
     void PerformScaling()
     {
         // Tăng dần kích thước bằng cách nội suy từ kích thước hiện tại đến kích thước mục tiêu
@@ -245,12 +253,5 @@ public class SkillPlayer1 : MonoBehaviour
         {
             transform.localScale = targetScale;
         }
-    }
-
-    void StopScaling()
-    {
-        // Khi currentUlti = 0, dừng phóng to và thu nhỏ lại
-        isScaling = false;
-        targetScale = originalScale; // Quay lại kích thước ban đầu
     }
 }

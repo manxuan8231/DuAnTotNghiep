@@ -8,13 +8,13 @@ using UnityEngine.UI;
 public class SliderHp : MonoBehaviour
 {
     [SerializeField] private Slider currentHP;
-    private float maxHp = 1000;
+    private int maxHp = 1000;
 
     [SerializeField] private Slider currentMana;
-    private float maxMana = 1000;
+    private int maxMana = 1000;
 
     [SerializeField] private Slider currentUlti;
-    private float maxUlti = 1;
+    private int maxUlti = 1;
 
     [SerializeField] private Slider currentExp;
     private float maxExp = 10000;
@@ -44,6 +44,10 @@ public class SliderHp : MonoBehaviour
     // Thêm tham chiếu ParticleSystem
     [SerializeField] private ParticleSystem levelEffect;
 
+    private bool isManaIncreasing = false;
+    private bool isInManaZone = false; // Biến kiểm tra xem người chơi có trong vùng Mana không
+    private float manaIncreaseSpeed = 50f; // Tốc độ tăng Mana mỗi giây
+
     EnemyAnimationController rikayon;
     void Start()
     {
@@ -52,7 +56,7 @@ public class SliderHp : MonoBehaviour
         textHP.text = $"{maxHp}/{maxHp}";
 
         currentMana.value = maxMana;
-        textMana.text = $"{maxMana}/{maxMana}";
+        textMana.text = $"{maxMana.ToString("0")}/{maxMana}";
 
         currentUlti.value = maxUlti;
 
@@ -109,8 +113,55 @@ public class SliderHp : MonoBehaviour
 
        
     }
-   
 
+    // Coroutine để tăng Mana
+    IEnumerator IncreaseManaOverTime()
+    {
+        // Kiểm tra nếu Mana chưa đầy
+        while (currentMana.value < maxMana && isInManaZone)
+        {
+            // Tăng Mana từ từ mỗi lần gọi coroutine
+            currentMana.value += manaIncreaseSpeed * Time.deltaTime;
+
+            // Cập nhật UI
+            textMana.text = $"{currentMana.value}/{maxMana}";
+
+            // Đảm bảo Mana không vượt quá maxMana
+            if (currentMana.value > maxMana)
+            {
+                currentMana.value = maxMana;
+            }
+
+            yield return null; // Đợi đến frame tiếp theo
+        }
+
+        // Dừng coroutine khi Mana đầy hoặc người chơi ra ngoài vòng tròn
+        isManaIncreasing = false;
+    }
+
+    // Hàm được gọi khi nhân vật vào vòng tròn Mana (sự kiện Trigger)
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Mana")) // Kiểm tra xem đối tượng có phải là vùng Mana không
+        {
+            isInManaZone = true; // Đánh dấu người chơi vào vùng Mana
+            if (!isManaIncreasing) // Nếu không có coroutine nào đang chạy, bắt đầu tăng Mana
+            {
+                StartCoroutine(IncreaseManaOverTime());
+                isManaIncreasing = true;
+            }
+        }
+    }
+
+    // Hàm được gọi khi nhân vật ra khỏi vòng tròn Mana (sự kiện Trigger)
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Mana")) // Kiểm tra xem đối tượng có phải là vùng Mana không
+        {
+            isInManaZone = false; // Đánh dấu người chơi ra khỏi vùng Mana
+                                  // Không cần dừng coroutine, vì coroutine sẽ tự dừng khi Mana đầy hoặc người chơi ra khỏi vùng
+        }
+    }
     public void rollMana(float amount)
     {
         currentMana.value -= amount;
