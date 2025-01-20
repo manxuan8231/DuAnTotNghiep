@@ -188,37 +188,13 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
-                animator.SetTrigger("Die");
-                Destroy(gameObject);
+                animator.SetTrigger("Die");                     
                 break;
         }
 
         currentState = newState;
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("DamageZone"))
-        {
-            TakeDamage(100);
-        }
-        if (collision.gameObject.CompareTag("FireBall"))
-        {
-            TakeDamage(200);
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("DamageZone"))
-        {
-            TakeDamage(250);
-        }
-        if (other.gameObject.CompareTag("FireBall"))
-        {
-            TakeDamage(200);
-        }
-    }
-
-    private void TakeDamage(float damage)
+    }  
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -230,15 +206,14 @@ public class EnemyAnimationController : MonoBehaviour
         if (currentHealth <= 0)
         {
             ChangeState(CharacterState.Die);
-            
+            Destroy(gameObject, 3f); // 3 giây sau khi chết
+            FindObjectOfType<SliderHp>().AddExp(1000);
+            FindObjectOfType<SliderHp>().AddUlti(100);
         }
     }
-
     private void UpdateHealthUI()
     {
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
-   
-
 }
