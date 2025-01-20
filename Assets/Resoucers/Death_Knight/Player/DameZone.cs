@@ -19,7 +19,14 @@ public class DameZone : MonoBehaviour
             rikayon.TakeDamage(100);
            
             // Tạo hiệu ứng particle tại vị trí va chạm        
-            Instantiate(hitEffect, other.transform.position, Quaternion.identity);          
+            Instantiate(hitEffect, other.transform.position, Quaternion.identity);     
+            
+           
+        }
+        if (other.gameObject.CompareTag("Statue"))
+        {
+            Statue statue = other.gameObject.GetComponent<Statue>();
+            statue.TakeDamage(100);
         }
     }
 }

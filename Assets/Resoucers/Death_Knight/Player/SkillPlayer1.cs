@@ -120,7 +120,7 @@ public class SkillPlayer1 : MonoBehaviour
     {
         if (warningText != null)
         {
-            warningText.text = "Level quá thấp để sử dụng kỹ năng!";
+            warningText.text = "Cầns level 5 để sử dụng kỹ năng!";
             if (warningCoroutine != null)
             {
                 StopCoroutine(warningCoroutine); // Nếu đang có coroutine cảnh báo, dừng lại

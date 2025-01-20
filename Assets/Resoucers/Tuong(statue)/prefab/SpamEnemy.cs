@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpamEnemy : MonoBehaviour
 {
+    public BoxCollider box;
+    public GameObject slider;
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
@@ -40,6 +42,8 @@ public class SpamEnemy : MonoBehaviour
             enemy6.SetActive(true);
             enemy7.SetActive(true);
             Debug.Log("đã spame");
+            box.enabled = false;
+            slider.SetActive(true);
         }
     }
 }
