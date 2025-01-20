@@ -49,7 +49,8 @@ public class ThanLan : MonoBehaviour
         {
             return;
         }
-
+        if (NavMeshAgent == null || !NavMeshAgent.isOnNavMesh)
+            return;
         HandleStateTransition();
 
 
@@ -135,11 +136,13 @@ public class ThanLan : MonoBehaviour
                 {
                     // Quay lại trạng thái Idle khi về đến vị trí ban đầu
                     ChangState(CharacterState.Idle);
+
                 }
                 else
                 {
                     // Tiếp tục di chuyển về vị trí ban đầu
                     NavMeshAgent.SetDestination(fisrtPosition);
+                    ChangState(CharacterState.Run);
                 }
                 Debug.Log("Return");
                 break;
@@ -158,10 +161,11 @@ public class ThanLan : MonoBehaviour
             case CharacterState.Idle:
                
                 animator.SetBool("Idle", true);
+                animator.SetBool("isRun", false);
                 break;
 
             case CharacterState.Run:
-             
+                animator.SetBool("Idle", false);
                 animator.SetBool("isRun", true);
                 break;
 
@@ -199,6 +203,7 @@ public class ThanLan : MonoBehaviour
                
                 animator.SetTrigger("Die");
                 Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
+                animator.ResetTrigger("TakeDame");
                 break;
         }
 
@@ -245,5 +250,8 @@ public class ThanLan : MonoBehaviour
                 ChangState(CharacterState.Die);
             }
         }
+       
+
     }
+    
 }
