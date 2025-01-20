@@ -136,11 +136,13 @@ public class ThanLan : MonoBehaviour
                 {
                     // Quay lại trạng thái Idle khi về đến vị trí ban đầu
                     ChangState(CharacterState.Idle);
+
                 }
                 else
                 {
                     // Tiếp tục di chuyển về vị trí ban đầu
                     NavMeshAgent.SetDestination(fisrtPosition);
+                    ChangState(CharacterState.Run);
                 }
                 Debug.Log("Return");
                 break;
@@ -159,10 +161,11 @@ public class ThanLan : MonoBehaviour
             case CharacterState.Idle:
                
                 animator.SetBool("Idle", true);
+                animator.SetBool("isRun", false);
                 break;
 
             case CharacterState.Run:
-             
+                animator.SetBool("Idle", false);
                 animator.SetBool("isRun", true);
                 break;
 
@@ -247,5 +250,8 @@ public class ThanLan : MonoBehaviour
                 ChangState(CharacterState.Die);
             }
         }
+       
+
     }
+    
 }
