@@ -188,7 +188,8 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
-                animator.SetTrigger("Die");                     
+                animator.SetTrigger("Die");
+                Destroy(gameObject);
                 break;
         }
 
@@ -209,7 +210,7 @@ public class EnemyAnimationController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("DamageZone"))
         {
-            TakeDamage(100);
+            TakeDamage(250);
         }
         if (other.gameObject.CompareTag("FireBall"))
         {
