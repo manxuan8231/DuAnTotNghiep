@@ -12,6 +12,7 @@ TagManager:
   - Exp
   - DamageZone
   - Enemy
+  - Statue
   layers:
   - Default
   - TransparentFX
