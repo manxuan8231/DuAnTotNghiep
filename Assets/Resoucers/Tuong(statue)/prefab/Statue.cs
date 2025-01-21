@@ -42,4 +42,8 @@ public class Statue : MonoBehaviour
             }           
         }
     }
+    public float CurrentHealth()
+    {
+        return currentHealth;
+    }
 }
