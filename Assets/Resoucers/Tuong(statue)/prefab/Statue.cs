@@ -9,14 +9,14 @@ public class Statue : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText; // Text hiển thị giá trị máu
     [SerializeField] private float maxHealth = 5000f; // Máu tối đa của tượng
     private float currentHealth; // Máu hiện tại
-
+    public AudioClip screamVFX;
+    public AudioSource AudioSource;
     void Start()
     {
         currentHealth = maxHealth; // Gán máu hiện tại bằng máu tối đa khi bắt đầu
         healthSlider.maxValue = maxHealth; // Đặt giá trị tối đa cho thanh máu
         healthSlider.value = currentHealth; // Cập nhật giá trị hiện tại của thanh máu
         healthText.text = $"{currentHealth}/{maxHealth}"; // Cập nhật text hiển thị
-
     }
 
     public void TakeDamage(float damage)
@@ -40,6 +40,9 @@ public class Statue : MonoBehaviour
                 sliderHp.AddExp(10000);
                 sliderHp.AddUlti(500);
             }           
+        }if(currentHealth == 2500)
+        {
+            AudioSource.PlayOneShot(screamVFX);
         }
     }
     public float CurrentHealth()
