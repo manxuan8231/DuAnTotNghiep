@@ -3,7 +3,7 @@
 public class PlayerCamera : MonoBehaviour
 {
     public Transform player; // Nhân vật cần theo dõi
-    
+
     public float followDistance = 7f; // Khoảng cách theo dõi ban đầu
     public float followHeight = 3.5f; // Chiều cao theo dõi
     public float rotationSpeed = 3f; // Tốc độ xoay camera
@@ -27,14 +27,18 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
-        // Lấy input từ chuột
-        float horizontalInput = Input.GetAxis("Mouse X");
-        float verticalInput = Input.GetAxis("Mouse Y");
+        // Chỉ xoay camera khi con trỏ chuột bị khóa
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            // Lấy input từ chuột
+            float horizontalInput = Input.GetAxis("Mouse X");
+            float verticalInput = Input.GetAxis("Mouse Y");
 
-        // Cập nhật góc xoay và góc ngẩng
-        currentRotation += horizontalInput * rotationSpeed;
-        currentPitch -= verticalInput * rotationSpeed;
-        currentPitch = Mathf.Clamp(currentPitch, -pitchLimit, pitchLimit);
+            // Cập nhật góc xoay và góc ngẩng
+            currentRotation += horizontalInput * rotationSpeed;
+            currentPitch -= verticalInput * rotationSpeed;
+            currentPitch = Mathf.Clamp(currentPitch, -pitchLimit, pitchLimit);
+        }
 
         // Xử lý cuộn chuột để zoom camera
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
