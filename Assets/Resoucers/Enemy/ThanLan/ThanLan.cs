@@ -69,7 +69,7 @@ public class ThanLan : MonoBehaviour
                 {
                     ChangState(CharacterState.Run);
                 }
-                Debug.Log("Idle");
+                Debug.Log   ("Idle");
                 break;
 
             case CharacterState.Run:
