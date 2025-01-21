@@ -208,7 +208,7 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
-                Destroy(gameObject, 1f);
+                Destroy(gameObject, 3f);
                 animator.SetTrigger("Die");                     
                 break;
         }
@@ -229,8 +229,8 @@ public class EnemyAnimationController : MonoBehaviour
         {
             ChangeState(CharacterState.Die);
             Destroy(gameObject, 3f); // 3 giây sau khi chết
-            FindObjectOfType<SliderHp>().AddExp(5500);
-            FindObjectOfType<SliderHp>().AddUlti(200);
+            FindObjectOfType<SliderHp>().AddExp(1000);
+            FindObjectOfType<SliderHp>().AddUlti(100);
             BoxCollider.enabled = false;
         }
     }

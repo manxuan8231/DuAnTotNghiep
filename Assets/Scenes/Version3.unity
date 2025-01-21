@@ -663,6 +663,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 227063987}
+    - target: {fileID: 355354223765459050, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
+      propertyPath: distanceAttack
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6274981086956269921, guid: d5a974fe0f534d04b867ed04d0db23ef, type: 3}
       propertyPath: m_Name
       value: Lizard_A

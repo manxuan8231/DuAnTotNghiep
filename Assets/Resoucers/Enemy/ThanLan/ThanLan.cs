@@ -202,7 +202,7 @@ public class ThanLan : MonoBehaviour
             case CharacterState.Die:
                
                 animator.SetTrigger("Die");
-                Destroy(gameObject, 1f); // Hủy đối tượng sau 3 giây
+                Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
                 animator.ResetTrigger("TakeDame");
                 break;
         }
