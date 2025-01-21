@@ -9,8 +9,7 @@ public class Statue : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText; // Text hiển thị giá trị máu
     [SerializeField] private float maxHealth = 5000f; // Máu tối đa của tượng
     private float currentHealth; // Máu hiện tại
-    public AudioSource AudioSource;
-    public AudioClip AudioClip;
+
     void Start()
     {
         currentHealth = maxHealth; // Gán máu hiện tại bằng máu tối đa khi bắt đầu
@@ -41,9 +40,6 @@ public class Statue : MonoBehaviour
                 sliderHp.AddExp(10000);
                 sliderHp.AddUlti(500);
             }           
-        }if(currentHealth == 2500)
-        {
-           
         }
     }
     public float CurrentHealth()
