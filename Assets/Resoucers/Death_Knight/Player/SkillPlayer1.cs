@@ -13,6 +13,7 @@ public class SkillPlayer1 : MonoBehaviour
     public GameObject fireballPrefab; // Prefab của FireBall
     public Transform firePoint; // Vị trí bắn FireBall
     public float fireballSpeed = 10f; // Tốc độ di chuyển của FireBall
+    //tham chieu
     public SliderHp sliderHp;
 
     // Thông số phóng to
@@ -47,11 +48,9 @@ public class SkillPlayer1 : MonoBehaviour
         // Lưu kích thước ban đầu của player
         originalScale = transform.localScale;
 
-        // Đặt giá trị ban đầu cho sliderCooldown
-        if (sliderCooldown != null)
-        {
-            sliderCooldown.maxValue = 100f;
-        }
+        // Đặt giá trị ban đầu cho sliderCooldown     
+        sliderCooldown.maxValue = 100f;
+        sliderCooldown.value = 0f;
         warningText.gameObject.SetActive(false);
     }
 
@@ -120,7 +119,7 @@ public class SkillPlayer1 : MonoBehaviour
     {
         if (warningText != null)
         {
-            warningText.text = "Cầns level 5 để sử dụng kỹ năng!";
+            warningText.text = "Cần level 5 để sử dụng kỹ năng!";
             if (warningCoroutine != null)
             {
                 StopCoroutine(warningCoroutine); // Nếu đang có coroutine cảnh báo, dừng lại
