@@ -8,8 +8,8 @@ public class CharacterController : MonoBehaviour
 
     public float moveSpeed = 5f; // Vận tốc di chuyển
     public float jumpForce = 10f; // Lực nhảy
-    [SerializeField] private float sprintSpeed = 8f; // Tốc độ chạy nhanh khi giữ Shift
-
+    public float sprintSpeed = 8f; // Tốc độ chạy nhanh khi giữ Shift
+ 
     private float horizontal, vertical; // Hướng di chuyển
     private Rigidbody rb;
     private Coroutine weaponScaleCoroutine; // Để quản lý Coroutine thay đổi kích thước
@@ -35,6 +35,7 @@ public class CharacterController : MonoBehaviour
 
     private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
+    private float turnSmoothVelocity;
 
     public SliderHp sliderHp;
 
@@ -95,6 +96,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+  
     private void FixedUpdate()
     {
         if (currentState == CharacterState.Normal && !isMovementLocked)
@@ -110,8 +112,10 @@ public class CharacterController : MonoBehaviour
         if (movement.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+
+            // Làm mượt góc xoay nhân vật
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 0.1f);
+            transform.rotation = Quaternion.Euler(0, angle, 0);
 
             Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
@@ -137,6 +141,7 @@ public class CharacterController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
     }
+
 
     void Jump()
     {

@@ -11,6 +11,7 @@ public class Statue : MonoBehaviour
     private float currentHealth; // Máu hiện tại
     public AudioClip screamVFX;
     public AudioSource AudioSource;
+    public GameObject effectElectron;
     void Start()
     {
         currentHealth = maxHealth; // Gán máu hiện tại bằng máu tối đa khi bắt đầu
@@ -43,6 +44,7 @@ public class Statue : MonoBehaviour
         }if(currentHealth == 2500)
         {
             AudioSource.PlayOneShot(screamVFX);
+            effectElectron.SetActive(true);
         }
     }
     public float CurrentHealth()

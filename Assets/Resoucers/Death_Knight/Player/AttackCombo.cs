@@ -18,6 +18,9 @@ public class AttackCombo : MonoBehaviour
 
     //box gây damage
     public GameObject damageZone;
+    //box gây damage
+    public GameObject damageZone2;
+
     private bool isGround = true;
     
     private Rigidbody Rigidbody;
@@ -27,6 +30,7 @@ public class AttackCombo : MonoBehaviour
         animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
         damageZone.SetActive(false);
+        damageZone2.SetActive(false);
     }
 
     void Update()
@@ -145,6 +149,15 @@ public class AttackCombo : MonoBehaviour
     public void endDame()
     {
         damageZone.SetActive(false);
+    }
+    public void beginDame2()
+    {
+        damageZone2.SetActive(true);
+    }
+
+    public void endDame2()
+    {
+        damageZone2.SetActive(false);
     }
     private void OnCollisionEnter(Collision other)
     {

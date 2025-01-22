@@ -22,5 +22,10 @@ public class FireBall : MonoBehaviour
             EnemyAnimationController rikayon = collision.gameObject.GetComponent<EnemyAnimationController>();
             rikayon.TakeDamage(500);
         }
+        if (collision.gameObject.CompareTag("Statue"))
+        {
+            Statue statue = collision.gameObject.GetComponent<Statue>();
+            statue.TakeDamage(500);
+        }
     }
 }

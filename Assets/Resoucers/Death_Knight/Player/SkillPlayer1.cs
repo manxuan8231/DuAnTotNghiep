@@ -15,6 +15,7 @@ public class SkillPlayer1 : MonoBehaviour
     public float fireballSpeed = 10f; // Tốc độ di chuyển của FireBall
     //tham chieu
     public SliderHp sliderHp;
+   
 
     // Thông số phóng to
     private bool isScaling = false; // Trạng thái phóng to
@@ -38,6 +39,16 @@ public class SkillPlayer1 : MonoBehaviour
 
     public TextMeshProUGUI warningText;
     private Coroutine warningCoroutine;
+
+    //dame air
+    public float baseDameAir = 500;
+    public float currentDameAir;
+    public float maxDameAir = 1000;
+
+    //dame Attack
+    public float baseDame = 100;
+    public float currentDame;
+    public float maxDame = 500;
     void Start()
     {
         if (animator == null)
@@ -50,8 +61,11 @@ public class SkillPlayer1 : MonoBehaviour
 
         // Đặt giá trị ban đầu cho sliderCooldown     
         sliderCooldown.maxValue = 100f;
-        sliderCooldown.value = 0f;
+        sliderCooldown.value = 100f;
         warningText.gameObject.SetActive(false);
+        //
+        currentDameAir = baseDameAir;
+        currentDame = baseDame;
     }
 
     void Update()
@@ -226,6 +240,9 @@ public class SkillPlayer1 : MonoBehaviour
         isScaling = true;
         targetScale = originalScale * 2f; // Tăng kích thước lên gấp đôi
         sliderHp.GetMana(1000);
+      
+        currentDameAir = maxDameAir;
+        currentDame = maxDame;
         // Kích hoạt aura
         if (auraPrefab != null && activeAura == null)
         {
@@ -233,24 +250,25 @@ public class SkillPlayer1 : MonoBehaviour
             activeAura.transform.parent = transform; // Gắn aura vào player
         }
     }
-
-    
-
     void StopScaling()
     {
         // Khi currentUlti = 0, dừng phóng to và thu nhỏ lại
         isScaling = false;
         targetScale = originalScale; // Quay lại kích thước ban đầu
+        currentDameAir = baseDameAir;
+        currentDame = baseDame;
     }
     void PerformScaling()
     {
         // Tăng dần kích thước bằng cách nội suy từ kích thước hiện tại đến kích thước mục tiêu
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * scaleSpeed);
+       
 
         // Khi đạt gần kích thước mục tiêu, dừng phóng to
         if (Vector3.Distance(transform.localScale, targetScale) < 0.01f)
         {
             transform.localScale = targetScale;
+          
         }
     }
 }
