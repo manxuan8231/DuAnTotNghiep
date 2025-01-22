@@ -22,7 +22,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
-    public GameObject boxCollider;
+    public BoxCollider boxCollider;
 
 
 
@@ -231,7 +231,7 @@ public class EnemyAnimationController : MonoBehaviour
             Destroy(gameObject, 3f); // 3 giây sau khi chết
             FindObjectOfType<SliderHp>().AddExp(5500);
       
-            boxCollider.SetActive(false);
+            boxCollider.enabled = false;
         }
     }
     private void UpdateHealthUI()
