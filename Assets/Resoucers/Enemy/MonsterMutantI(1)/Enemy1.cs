@@ -14,16 +14,20 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private float rageDistance = 4f;
     [SerializeField] private float distanceAttack = 2f;
     [SerializeField] Animator animator;
-
     private float maxDistance = 40f;
     [SerializeField] Vector3 fisrtPosition;
     [SerializeField] private Image healthBarFill;
     [SerializeField] private TextMeshProUGUI healthText;
-  
+    [SerializeField] private float maxHealth = 1000f;
+    private float currentHealth;
+
+
 
 
     void Start()
     {
+        currentHealth = maxHealth;
+        UpdateHealthUI();
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
     }
@@ -33,7 +37,7 @@ public class Enemy1 : MonoBehaviour
 
     void Update()
     {
-
+     
         if (currentState == CharacterState.Die)
         {
             return;
@@ -173,16 +177,10 @@ public class Enemy1 : MonoBehaviour
 
 
     }
-
-
-
-
-private void ChangState(CharacterState newstate)
+    private void ChangState(CharacterState newstate)
     {
         if (currentState == newstate)
             return;
-
-
         switch(newstate)
         {
             case CharacterState.Idle:
@@ -215,12 +213,13 @@ private void ChangState(CharacterState newstate)
                 animator.SetBool("Combo2", true);
                 break;
             case CharacterState.GetHit:
-                NavMeshAgent.isStopped = true;
-                animator.SetTrigger("Combo1");
+                NavMeshAgent.isStopped = false;
+                animator.SetTrigger("GetHit");
                 break;
             case CharacterState.Die:
                 animator.SetTrigger("Die");
                 Destroy(gameObject, 1.5f);
+                animator.ResetTrigger("GetHit");
                 break;
             case CharacterState.Return:
                 break;
@@ -228,5 +227,29 @@ private void ChangState(CharacterState newstate)
         }
         currentState = newstate;
     }
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthUI();
+        if (animator != null)
+        {
+            animator.SetTrigger("GetHit");
 
+        }
+
+        if (currentHealth <= 0)
+        {
+            ChangState(CharacterState.Die);
+            Destroy(gameObject, 3f); // 3 giây sau khi chết
+            FindObjectOfType<SliderHp>().AddExp(5500);
+
+           
+        }
+    }
+    private void UpdateHealthUI()
+    {
+        healthBarFill.fillAmount = currentHealth / maxHealth;
+        healthText.text = $"{currentHealth}/{maxHealth}";
+    }
 }

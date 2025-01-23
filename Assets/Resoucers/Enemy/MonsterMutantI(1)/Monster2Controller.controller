@@ -109,7 +109,7 @@ AnimatorStateMachine:
     m_Position: {x: 530, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 806204414432557950}
-    m_Position: {x: 640, y: 130, z: 0}
+    m_Position: {x: 630, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7719218257507989986}
     m_Position: {x: 210, y: -100, z: 0}
@@ -128,12 +128,12 @@ AnimatorStateMachine:
   - {fileID: 1678708698931572519}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -404530045456696116}
-    second:
-    - {fileID: -27997402060546893}
   - first: {fileID: 6841677819183198998}
     second:
     - {fileID: -8884955924167939313}
+  - first: {fileID: -404530045456696116}
+    second:
+    - {fileID: -27997402060546893}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -262,7 +262,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Idle
-  m_Speed: 1
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2634501853595896442}
@@ -504,7 +504,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: Die
     m_Type: 9
@@ -522,7 +522,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Combo1
     m_Type: 4
