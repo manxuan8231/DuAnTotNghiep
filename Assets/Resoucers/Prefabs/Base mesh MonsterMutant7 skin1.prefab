@@ -4745,13 +4745,14 @@ GameObject:
   - component: {fileID: 5437685354294075371}
   - component: {fileID: 7070231468763216126}
   - component: {fileID: 6355397886273290718}
+  - component: {fileID: 6799848917603553990}
   m_Layer: 0
   m_Name: Base mesh MonsterMutant7 skin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8910691941279155522
 Transform:
   m_ObjectHideFlags: 0
@@ -4856,11 +4857,10 @@ MonoBehaviour:
   rageDistance: 5
   distanceAttack: 3.5
   animator: {fileID: 8131287688848546940}
-  currentHealth: 1000
-  maxHealth: 0
   fisrtPosition: {x: 0, y: 0, z: 0}
   healthBarFill: {fileID: 283068173966345739}
   healthText: {fileID: 1888575148768203407}
+  maxHealth: 1000
   currentState: 0
 --- !u!65 &6355397886273290718
 BoxCollider:
@@ -4883,6 +4883,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.282629, z: 0.92262524}
   m_Center: {x: 0, y: 0.6413174, z: -0.10616639}
+--- !u!54 &6799848917603553990
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252688668526171771}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6306945932038642506
 GameObject:
   m_ObjectHideFlags: 0
