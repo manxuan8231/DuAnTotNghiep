@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -20,7 +21,8 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
-
+    //lay mau player
+    public GameObject takeHealth;
 
 
 
@@ -135,7 +137,7 @@ public class Enemy1 : MonoBehaviour
                     {
                         ChangState(CharacterState.Combo1);
                     }
-                    else
+                    else 
                     {
                         ChangState(CharacterState.Combo2);
                     }
@@ -251,5 +253,13 @@ public class Enemy1 : MonoBehaviour
     {
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
+    }
+    public void beginDame()
+    {
+       takeHealth.SetActive(true);
+    }
+    public void endDame()
+    {
+        takeHealth.SetActive(false);
     }
 }

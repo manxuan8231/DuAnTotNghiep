@@ -44,16 +44,13 @@ public class SliderHp : MonoBehaviour
     // Thêm tham chiếu ParticleSystem
     [SerializeField] private ParticleSystem levelEffect;
 
-    private bool isManaIncreasing = false;
-    private bool isInManaZone = false; // Biến kiểm tra xem người chơi có trong vùng Mana không
-    private float manaIncreaseSpeed = 50f; // Tốc độ tăng Mana mỗi giây
 
     EnemyAnimationController rikayon;
     void Start()
     {
        
         currentHP.value = maxHp;
-        textHP.text = $"{maxHp}/{maxHp}";
+        textHP.text = $"{currentHP.value}/{maxHp}";
 
         currentMana.value = maxMana;
         textMana.text = $"{maxMana.ToString("0")}/{maxMana}";
@@ -177,5 +174,17 @@ public class SliderHp : MonoBehaviour
         currentUlti.value += amount;    
     }
 
-    
+    //hàm lấy hp
+    public void TakeDame(float amount)
+    {
+        currentHP.value -= amount;
+        textHP.text = $"{currentHP.value}/{maxHp}";
+        Debug.Log("Da tru hp");
+        currentHP.value = Mathf.Clamp(currentHP.value, 0, maxHp);       
+        if(currentHP.value <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
