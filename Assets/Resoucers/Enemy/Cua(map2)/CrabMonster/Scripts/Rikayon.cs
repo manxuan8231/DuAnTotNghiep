@@ -23,7 +23,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
     public BoxCollider boxCollider;
-
+    public GameObject box;
 
 
     public enum CharacterState
@@ -240,5 +240,12 @@ public class EnemyAnimationController : MonoBehaviour
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
 
-    
+    public void beginDame()
+    {
+        box.SetActive(true);
+    }
+    public void endDame()
+    {
+        box.SetActive(false);
+    }
 }

@@ -18,9 +18,17 @@ public class FireBall : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
-        {
+        {          
             EnemyAnimationController rikayon = collision.gameObject.GetComponent<EnemyAnimationController>();
-            rikayon.TakeDamage(500);
+            if( rikayon != null ) {
+                rikayon.TakeDamage(500);
+            }
+           
+            Enemy1 enemy1 = collision.gameObject.GetComponent<Enemy1>();
+            if( enemy1 != null )
+            {
+                enemy1.TakeDamage(500);
+            }         
         }
         if (collision.gameObject.CompareTag("Statue"))
         {

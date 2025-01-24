@@ -22,7 +22,16 @@ public class DameZone2 : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             EnemyAnimationController rikaron = other.gameObject.GetComponent<EnemyAnimationController>();
-            rikaron.TakeDamage(skillPlayer1.currentDameAir);
+            if(rikaron != null)
+            {
+                rikaron.TakeDamage(skillPlayer1.currentDameAir);
+            }
+            
+            Enemy1 enemy1 = other.gameObject.GetComponent<Enemy1>();
+            if(enemy1 != null)
+            {
+                enemy1.TakeDamage(skillPlayer1.currentDameAir);
+            }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             Instantiate(hitEffect, other.transform.position, Quaternion.identity);
         }

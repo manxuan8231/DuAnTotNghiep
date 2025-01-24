@@ -3572,6 +3572,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3149999820948879428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4704984970023652004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2767294835931351391}
+  - component: {fileID: 5661211035534082285}
+  - component: {fileID: 6828055097387964825}
+  m_Layer: 0
+  m_Name: boxdame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2767294835931351391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4704984970023652004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.96, z: 0.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8910691941279155522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5661211035534082285
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4704984970023652004}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.71, z: 1.83}
+  m_Center: {x: 0, y: 0.05, z: 0.02}
+--- !u!114 &6828055097387964825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4704984970023652004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b4da20cd28c5c4994ae1886bac55d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4734741344804282065
 GameObject:
   m_ObjectHideFlags: 0
@@ -4747,7 +4813,7 @@ GameObject:
   - component: {fileID: 6799848917603553990}
   m_Layer: 0
   m_Name: Base mesh MonsterMutant7 skin1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4761,7 +4827,7 @@ Transform:
   m_GameObject: {fileID: 6252688668526171771}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.026054, y: 1.5884314, z: 75.00034}
+  m_LocalPosition: {x: 226.03, y: 19.99323, z: -311.55}
   m_LocalScale: {x: 1.7749482, y: 1.7749482, z: 1.7749482}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4770,6 +4836,7 @@ Transform:
   - {fileID: 3199350248229280826}
   - {fileID: 2505808448222602192}
   - {fileID: 3950810407481831243}
+  - {fileID: 2767294835931351391}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8131287688848546940
@@ -4860,7 +4927,7 @@ MonoBehaviour:
   healthBarFill: {fileID: 283068173966345739}
   healthText: {fileID: 1888575148768203407}
   maxHealth: 1000
-  takeHealth: {fileID: 0}
+  takeHealth: {fileID: 4704984970023652004}
   currentState: 0
 --- !u!54 &6799848917603553990
 Rigidbody:
