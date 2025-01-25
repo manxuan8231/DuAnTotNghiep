@@ -7,7 +7,7 @@ public class SpamEnemy : MonoBehaviour
     public BoxCollider box;
     public GameObject slider;
     public GameObject enemy1;
-   
+    private bool isSpam = false;
     //spam dot 2
     public GameObject enemy2;
    
@@ -28,7 +28,7 @@ public class SpamEnemy : MonoBehaviour
 
     void Update()
     {
-        if (tuong != null && tuong.CurrentHealth() == 2500)
+        if (tuong != null && tuong.CurrentHealth() <= 2500 && !isSpam)
         {
             enemy2.SetActive(true);           
             Debug.Log("spam dot 2");

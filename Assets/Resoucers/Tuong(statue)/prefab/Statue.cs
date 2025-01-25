@@ -12,12 +12,17 @@ public class Statue : MonoBehaviour
     public AudioClip screamVFX;
     public AudioSource AudioSource;
     public GameObject effectElectron;
+    private bool source = false;    //bien kieerm tra sou
+
+    public GameObject chest;
+   
     void Start()
     {
         currentHealth = maxHealth; // Gán máu hiện tại bằng máu tối đa khi bắt đầu
         healthSlider.maxValue = maxHealth; // Đặt giá trị tối đa cho thanh máu
         healthSlider.value = currentHealth; // Cập nhật giá trị hiện tại của thanh máu
         healthText.text = $"{currentHealth}/{maxHealth}"; // Cập nhật text hiển thị
+        chest.SetActive(false);
     }
 
     public void TakeDamage(float damage)
@@ -33,7 +38,8 @@ public class Statue : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Tượng đã bị phá hủy");
-            Destroy(gameObject);
+            chest.SetActive(true);        
+            Destroy(gameObject,0.5f);         
             // Gọi các phương thức khác khi tượng bị phá hủy
             SliderHp sliderHp = FindObjectOfType<SliderHp>();
             if (sliderHp != null)
@@ -41,10 +47,11 @@ public class Statue : MonoBehaviour
                 sliderHp.AddExp(10000);
                 sliderHp.AddUlti(500);
             }           
-        }if(currentHealth == 2500)
+        }if(currentHealth <= 2500 && !source)
         {
             AudioSource.PlayOneShot(screamVFX);
-            effectElectron.SetActive(true);
+            effectElectron.SetActive(true);    
+            source = true;
         }
     }
     public float CurrentHealth()
