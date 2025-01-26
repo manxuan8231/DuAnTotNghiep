@@ -22,6 +22,7 @@ public class NPC : MonoBehaviour
     public Button quitButton; // Nút thoát
     public Button startEventButton; // Nút bắt đầu event
 
+    public GameObject evenGameObject;
     void Start()
     {
         NPCPanel.SetActive(false);
@@ -149,6 +150,8 @@ public class NPC : MonoBehaviour
     public void StartEvent()
     {
         Debug.Log("Event bắt đầu!"); // Thay bằng logic cho sự kiện của bạn
+        
+        evenGameObject.SetActive(true);
 
         // Đóng hội thoại sau khi bắt đầu event
         EndContent();

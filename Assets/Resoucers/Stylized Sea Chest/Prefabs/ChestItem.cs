@@ -8,6 +8,7 @@ public class ChestItem : MonoBehaviour
     public AudioClip audioClip;
     public GameObject destroy;
     public GameObject button;
+    public Even even;
     void Start()
     {
         button.SetActive(false);
@@ -19,7 +20,15 @@ public class ChestItem : MonoBehaviour
         {
             audioSource.PlayOneShot(audioClip);
             button.SetActive(true);
-            Destroy(destroy,0.5f);           
+           
+            if(even != null)
+            {
+                even.Even1(1);
+            }
+           
+            Destroy(destroy,0.5f);      
+            //couunt even 
+           
         }
     }
 }

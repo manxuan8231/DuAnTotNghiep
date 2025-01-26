@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Even : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GameObject panelEven;
+    [SerializeField] private TextMeshProUGUI textEven;
+    private float countEven = 0;
+    private float countEvenMax = 5;
     void Start()
     {
         
+        textEven.text = $"{ countEven }/{ countEvenMax}";
+      
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
+    }
+    public void Even1(float amount)
+    {
+        countEven += amount;
+        textEven.text = $"{countEven}/{countEvenMax}";
     }
 }
