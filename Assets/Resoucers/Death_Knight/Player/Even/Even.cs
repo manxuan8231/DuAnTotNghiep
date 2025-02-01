@@ -7,8 +7,8 @@ public class Even : MonoBehaviour
 {
     [SerializeField] private GameObject panelEven;
     [SerializeField] private TextMeshProUGUI textEven;
-    private float countEven = 0;
-    private float countEvenMax = 5;
+    private  float countEven = 0;
+    private static float countEvenMax = 5;
     void Start()
     {
         
