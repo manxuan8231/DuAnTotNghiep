@@ -36,9 +36,13 @@ public class CharacterController : MonoBehaviour
     private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
    
-
+    //khởi tạo script
     public SliderHp sliderHp;
 
+    //sounds
+    public AudioSource audioSourceRun;
+    public AudioSource audioSourceWalk;
+    private bool isSounds = true;
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
@@ -46,6 +50,9 @@ public class CharacterController : MonoBehaviour
         // Đảm bảo trạng thái ban đầu
         if (weaponDefault != null) weaponDefault.SetActive(true);
         if (weaponHand != null) weaponHand.SetActive(false);
+
+        audioSourceRun.enabled = false;
+        audioSourceWalk.enabled = false;
     }
 
     void Update()
@@ -123,30 +130,42 @@ public class CharacterController : MonoBehaviour
             {
                 speed = sprintSpeed;
                 animator.SetBool("isRunning", true);
+                if(!isSounds)
+                {
+                    audioSourceRun.enabled = true;
+                    audioSourceWalk.enabled = false;
+                }              
             }
             else
             {
                 animator.SetBool("isRunning", false);
+                audioSourceRun.enabled = false;//sound
             }
 
             rb.MovePosition(rb.position + moveDirection.normalized * speed * Time.fixedDeltaTime);
 
             animator.SetBool("isWalking", true);
+            if (!isSounds)
+            {
+                audioSourceWalk.enabled = true;
+            }     
         }
         else
         {
             animator.SetBool("isWalking", false);
             animator.SetBool("isRunning", false);
+            audioSourceRun.enabled = false;//sound
+            audioSourceWalk.enabled = false;
         }
-    }
-
-
+    } 
     void Jump()
     {
         sliderHp.jumpMana(5);
 
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z); // Áp dụng lực nhảy
         animator.SetTrigger("startJump"); // Kích hoạt animation nhảy
+        audioSourceRun.enabled = false;
+        audioSourceWalk.enabled = false;
     }
 
     private IEnumerator Attack()
@@ -213,6 +232,7 @@ public class CharacterController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("isLandJump", true); // Kích hoạt animation tiếp đất
+            isSounds = false;
         }
     }
 
@@ -222,6 +242,9 @@ public class CharacterController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("isLandJump", false); // Tắt animation tiếp đất
+            isSounds = true;
+            audioSourceRun.enabled = false;
+            audioSourceWalk.enabled = false;
         }
     }
 }
