@@ -12,17 +12,44 @@ public class Boss1 : MonoBehaviour
     public float focusDuration = 3f; // Thời gian camera giữ ở boss
     private bool isFocusing = false; // Trạng thái camera đang focus
 
+    public float distanceRange = 20f; //khoản cách phát hiện player để né
+
+    public AudioSource audioSource;
+    public AudioClip audioClipLaughVFX;
    
+    public NavMeshAgent navMeshAgent;
+
+    public Animator animator;
+
+    public float interactPlayer = 10f;
+    private float moveDistance = 5f;
     private void Start()
-    {
-       
+    {      
         // Đặt lại priority mặc định
         playerCam.Priority = 20;
         bossCam.Priority = 0;
-     
     }
 
     private void Update()
+    {
+        CameraFocus();
+        InteractPlayer();
+    }
+    //tuong tac player
+    private void InteractPlayer()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);  
+        if (distance <= interactPlayer)
+        {
+            animator.SetBool("walkBackward", true);
+        }
+        else
+        {
+            animator.SetBool("walkBackward", false);
+        }
+    }
+    //camerafocus
+    private void CameraFocus()
     {
         float distance = Vector3.Distance(transform.position, player.position);
 
@@ -31,15 +58,28 @@ public class Boss1 : MonoBehaviour
             StartCoroutine(FocusOnBoss());
         }
     }
-
     //quản lí thời gian camera
     private IEnumerator FocusOnBoss()
     {
         bossCam.Priority = 20;//ưu tiên camera
         playerCam.Priority = 10;
+        // Kiểm tra và phát âm thanh nếu hợp lệ
+        if (audioSource != null && audioClipLaughVFX != null)
+        {
+            if (!audioSource.isPlaying) // Tránh phát lại nếu đang chạy
+            {
+                audioSource.clip = audioClipLaughVFX;
+                audioSource.Play();
+            }
+        }
+
         yield return new WaitForSeconds(focusDuration);
         bossCam.Priority = 10;
         playerCam.Priority = 20;
-
+        // Dừng âm thanh nếu nó vẫn đang phát
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 }
