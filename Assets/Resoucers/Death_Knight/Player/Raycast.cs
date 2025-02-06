@@ -8,7 +8,7 @@ public class Raycast : MonoBehaviour
     [SerializeField] private LayerMask Item;
     public TextMeshProUGUI textItem;
     private int countItem = 0;
-    public GameObject button;
+    public GameObject[] button;
 
     private void Update()
     {
@@ -24,17 +24,23 @@ public class Raycast : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
 
             // Kiểm tra xem button có còn tồn tại không
-            if (button != null)
+            foreach(var item in button)
             {
-                button.SetActive(true);
+                if (item != null)
+                {
+                    item.SetActive(true);
+                }
             }
+           
         }
         else
         {
-            // Nếu không có va chạm, ẩn button
-            if (button != null)
+            foreach (var item in button)
             {
-                button.SetActive(false);
+                if (item != null)
+                {
+                    item.SetActive(false);
+                }
             }
         }
     }

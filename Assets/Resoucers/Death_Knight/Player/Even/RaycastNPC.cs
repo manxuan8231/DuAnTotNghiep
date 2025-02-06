@@ -17,6 +17,7 @@ public class RaycatNPC : MonoBehaviour
 
     private void CheckTruongThonRaycast()
     {
+        if (buttonTT == null) return;
         if (Physics.Raycast(transform.position, transform.forward, out var other, 10, TruongThon))
         {
             // Vẽ ray chỉ khi có va chạm
@@ -25,6 +26,7 @@ public class RaycatNPC : MonoBehaviour
         }
         else
         {
+            
             // Nếu không có va chạm, ẩn button
             buttonTT.SetActive(false);
         }
