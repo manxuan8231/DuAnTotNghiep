@@ -12,7 +12,8 @@ public class ThanLan : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] float radius = 25f;
     [SerializeField] Animator animator;
-    public int maxHp, currentHP;
+    [SerializeField] private float maxHealth = 1000f;
+    private float currentHealth;
     private float maxDistance = 40f;
     [SerializeField] Vector3 fisrtPosition;
     [SerializeField] private float battleRange = 15f; // Khoảng cách cho BattleAttack
@@ -36,7 +37,7 @@ public class ThanLan : MonoBehaviour
 
     void Start()
     {
-        currentHP = maxHp;
+        currentHealth = maxHealth;
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
 
@@ -69,7 +70,7 @@ public class ThanLan : MonoBehaviour
                 {
                     ChangState(CharacterState.Run);
                 }
-                Debug.Log("Idle");
+                Debug.Log   ("Idle");
                 break;
 
             case CharacterState.Run:
@@ -159,42 +160,43 @@ public class ThanLan : MonoBehaviour
         switch (newstate)
         {
             case CharacterState.Idle:
-               
+                NavMeshAgent.isStopped = true;
                 animator.SetBool("Idle", true);
                 animator.SetBool("isRun", false);
                 break;
 
             case CharacterState.Run:
+                NavMeshAgent.isStopped = false;
                 animator.SetBool("Idle", false);
                 animator.SetBool("isRun", true);
                 break;
 
             case CharacterState.BattleAttack:
-               
+                NavMeshAgent.isStopped = true;
+
                 animator.SetTrigger("BattleIdle");
                 StartCoroutine(DelayBattleAttack());
                 break;
 
             case CharacterState.Attack:
-               
+                NavMeshAgent.isStopped = true;
+
+
                 animator.SetTrigger("Attack");
 
                 break;
 
             case CharacterState.TakeDame:
-               
+                NavMeshAgent.isStopped = true;
+
                 animator.SetTrigger("TakeDame");
-                currentHP -= 100; // Giảm máu khi trúng đòn
-                UpdateHealthUI(); // Cập nhật thanh máu
-                if (currentHP <= 0)
-                {
-                    ChangState(CharacterState.Die);
-                }
+               
                 Debug.Log("takeDame");
                 break;
 
             case CharacterState.Return:
-              
+                NavMeshAgent.isStopped = false;
+
                 animator.SetBool("isRun", true);
                 NavMeshAgent.SetDestination(fisrtPosition); // Quay về vị trí ban đầu
                 break;
@@ -202,7 +204,7 @@ public class ThanLan : MonoBehaviour
             case CharacterState.Die:
                
                 animator.SetTrigger("Die");
-                Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
+                Destroy(gameObject, 1f); // Hủy đối tượng sau 3 giây
                 animator.ResetTrigger("TakeDame");
                 break;
         }
@@ -212,14 +214,14 @@ public class ThanLan : MonoBehaviour
 
 
 
-    private IEnumerator SwitchToAttackAfterDelay()
-    {
-        yield return new WaitForSeconds(1f);
-        if (currentState == CharacterState.BattleAttack)
-        {
-            ChangState(CharacterState.Attack);
-        }
-    }
+    //private IEnumerator SwitchToAttackAfterDelay()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    if (currentState == CharacterState.BattleAttack)
+    //    {
+    //        ChangState(CharacterState.Attack);
+    //    }
+    //}
 
     private IEnumerator DelayBattleAttack()
     {
@@ -229,29 +231,30 @@ public class ThanLan : MonoBehaviour
             ChangState(CharacterState.Attack);
         }
     }
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthUI();
+        if (animator != null)
+        {
+            animator.SetTrigger("TakeDame");
+
+        }
+
+        if (currentHealth <= 0)
+        {
+            ChangState(CharacterState.Die);
+            Destroy(gameObject, 3f); // 3 giây sau khi chết
+            FindObjectOfType<SliderHp>().AddExp(5500);
+
+          
+        }
+    }
     private void UpdateHealthUI()
     {
-        healthBarFill.fillAmount = currentHP / maxHp;
-        healthText.text = $"{currentHP}/{maxHp}";
+        healthBarFill.fillAmount = currentHealth / maxHealth;
+        healthText.text = $"{currentHealth}/{maxHealth}";
     }
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            currentHP -= 100; // Trừ 100 máu khi va chạm
-            UpdateHealthUI(); // Cập nhật giao diện thanh máu
 
-            if (currentHP > 0)
-            {
-                ChangState(CharacterState.TakeDame);
-            }
-            else
-            {
-                ChangState(CharacterState.Die);
-            }
-        }
-       
-
-    }
-    
 }

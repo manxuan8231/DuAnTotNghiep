@@ -1,47 +1,41 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Raycast : MonoBehaviour
 {
-    [SerializeField] private LayerMask Ice;
-    [SerializeField] private LayerMask Fire;
+    [SerializeField] private LayerMask Item;
+    public TextMeshProUGUI textItem;
+    private int countItem = 0;
+    public GameObject button;
 
-    public TextMeshProUGUI WeaponIce;
-    private string countIce;
-
-    public TextMeshProUGUI WeaponFire;
-    private int countFire;
-    void Start()
+    private void Update()
     {
-        WeaponIce.text = $"WeaponIce: {countIce}";
-        WeaponFire.text = $"WeaponFire: {countFire}";
-
+        // Kiểm tra va chạm với các đối tượng thuộc lớp Item
+        CheckItemRaycast();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CheckItemRaycast()
     {
-        if(Physics.Raycast(transform.position, transform.forward, out var hit, 10, Ice))
+        if (Physics.Raycast(transform.position, transform.forward, out var hit, 3, Item))
         {
+            // Vẽ ray chỉ khi có va chạm
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
-            Destroy(hit.transform.gameObject);
-            countIce+=1;
-            WeaponIce.text = $"WeaponIce: {countIce}";
-        }
-       
 
-        if (Physics.Raycast(transform.position, transform.forward, out var hit2, 10, Fire))
-        {
-            Debug.DrawRay(transform.position, transform.forward * hit2.distance, Color.red);
-            Destroy(hit2.transform.gameObject);
-            countFire += 1;
-            WeaponFire.text = $"WeaponFire: {countFire}";
+            // Kiểm tra xem button có còn tồn tại không
+            if (button != null)
+            {
+                button.SetActive(true);
+            }
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.forward * 20, Color.yellow);
+            // Nếu không có va chạm, ẩn button
+            if (button != null)
+            {
+                button.SetActive(false);
+            }
         }
     }
 }

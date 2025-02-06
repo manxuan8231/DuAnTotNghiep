@@ -6,7 +6,8 @@ public class DameZone : MonoBehaviour
 {
     // Tham chiếu đến hiệu ứng particle
     public GameObject hitEffect;
-
+    public SkillPlayer1 player1;
+    public SliderHp sliderHp;
     private void OnTriggerEnter(Collider other)
     {
         // Kiểm tra nếu va chạm với đối tượng có tag "Enemy"
@@ -14,19 +15,32 @@ public class DameZone : MonoBehaviour
         {
             // Lấy thành phần EnemyAnimationController từ kẻ thù
             EnemyAnimationController rikayon = other.gameObject.GetComponent<EnemyAnimationController>();
-
-            // Nếu tìm thấy EnemyAnimationController, thực hiện trừ máu         
-            rikayon.TakeDamage(100);
-           
-            // Tạo hiệu ứng particle tại vị trí va chạm        
-            Instantiate(hitEffect, other.transform.position, Quaternion.identity);     
+            // Nếu tìm thấy EnemyAnimationController, thực hiện trừ máu 
+            if(rikayon != null)
+            {
+                rikayon.TakeDamage(player1.currentDame);
+            }
+       
+            //enemy1
+            Enemy1 enemy1 = other.gameObject.GetComponent<Enemy1>();
+            if(enemy1 != null)
+            {
+                enemy1.TakeDamage(player1.currentDame);
+            }
             
-           
+
+            // Tạo hiệu ứng particle tại vị trí va chạm        
+            Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+
+            // cộng năng lượng khi đánh enemy
+            sliderHp.AddUlti(100);
+                       
         }
+       
         if (other.gameObject.CompareTag("Statue"))
         {
             Statue statue = other.gameObject.GetComponent<Statue>();
-            statue.TakeDamage(100);
+            statue.TakeDamage(player1.currentDame);
         }
     }
 }

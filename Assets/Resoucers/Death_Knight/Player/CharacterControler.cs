@@ -8,8 +8,8 @@ public class CharacterController : MonoBehaviour
 
     public float moveSpeed = 5f; // Vận tốc di chuyển
     public float jumpForce = 10f; // Lực nhảy
-    [SerializeField] private float sprintSpeed = 8f; // Tốc độ chạy nhanh khi giữ Shift
-
+    public float sprintSpeed = 8f; // Tốc độ chạy nhanh khi giữ Shift
+ 
     private float horizontal, vertical; // Hướng di chuyển
     private Rigidbody rb;
     private Coroutine weaponScaleCoroutine; // Để quản lý Coroutine thay đổi kích thước
@@ -35,6 +35,7 @@ public class CharacterController : MonoBehaviour
 
     private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
+   
 
     public SliderHp sliderHp;
 
@@ -95,6 +96,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+  
     private void FixedUpdate()
     {
         if (currentState == CharacterState.Normal && !isMovementLocked)
@@ -137,6 +139,7 @@ public class CharacterController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
     }
+
 
     void Jump()
     {
