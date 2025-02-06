@@ -125,7 +125,7 @@ public class CharacterController : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             float speed = moveSpeed;
-
+            
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Mouse1))
             {
                 speed = sprintSpeed;
@@ -187,7 +187,7 @@ public class CharacterController : MonoBehaviour
             if (weaponDefault != null) weaponDefault.SetActive(false);
             if (weaponHand != null) weaponHand.SetActive(true);
 
-            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(2f)); // Bắt đầu reset sau 5 giây
+            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(1.5f)); // Bắt đầu reset sau 1 giây
         }
     }
 
