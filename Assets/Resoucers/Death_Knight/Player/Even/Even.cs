@@ -9,11 +9,12 @@ public class Even : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textEven;
     private  float countEven = 0;
     private static float countEvenMax = 5;
+    public GameObject tele;
     void Start()
     {
         
         textEven.text = $"{ countEven }/{ countEvenMax}";
-      
+        tele.SetActive(false);
     }
 
     
@@ -25,5 +26,9 @@ public class Even : MonoBehaviour
     {
         countEven += amount;
         textEven.text = $"{countEven}/{countEvenMax}";
+        if(countEven == 5)
+        {
+            tele.SetActive(true);
+        }
     }
 }

@@ -35,5 +35,9 @@ public class FireBall : MonoBehaviour
             Statue statue = collision.gameObject.GetComponent<Statue>();
             statue.TakeDamage(500);
         }
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+
+        }
     }
 }
