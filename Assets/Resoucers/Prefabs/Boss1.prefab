@@ -1100,6 +1100,7 @@ GameObject:
   - component: {fileID: 3520971678258007831}
   - component: {fileID: 7530459064199906802}
   - component: {fileID: 3876751545692152420}
+  - component: {fileID: 1600801856583710078}
   m_Layer: 0
   m_Name: Boss1
   m_TagString: Untagged
@@ -1162,9 +1163,21 @@ MonoBehaviour:
   bossCam: {fileID: 5251681236669685442}
   playerCam: {fileID: 0}
   detectRange: 1000
-  focusDuration: 5
+  focusDuration: 6
+  movePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  startIdleDuration: 8
+  idleDuration: 5
+  skillRange: 50
+  skillDelay: 3
+  skillCooldown: 5
   audioSource: {fileID: 3876751545692152420}
   audioClipLaughVFX: {fileID: 8300000, guid: 528b874e19a85dd40ab2f08d74d8acaa, type: 3}
+  navMeshAgent: {fileID: 3520971678258007831}
+  animator: {fileID: 6850272884121157642}
 --- !u!195 &3520971678258007831
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1306,6 +1319,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &1600801856583710078
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660030548192836559}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &6868333297258711502
 GameObject:
   m_ObjectHideFlags: 0

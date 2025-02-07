@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/even/MineEven1.unity
     guid: 117fd0fe1401a1148a97cb9de246ad0a
+  - enabled: 1
+    path: Assets/Scenes/Boss1.unity
+    guid: b0bb1a51a514a0a4e97fc15372c55243
   m_configObjects: {}
