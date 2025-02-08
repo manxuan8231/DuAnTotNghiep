@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,12 +9,19 @@ public class Even : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textEven;
     private  float countEven = 0;
     private static float countEvenMax = 5;
+    //các vật thể để hiện
     public GameObject tele;
+    public GameObject chest3;
+    public GameObject chest4;
+    public GameObject chest5;
     void Start()
     {
         
         textEven.text = $"{ countEven }/{ countEvenMax}";
         tele.SetActive(false);
+        chest3.SetActive(false);
+        chest4.SetActive(false);
+        chest5.SetActive(false);
     }
 
     
@@ -29,6 +36,18 @@ public class Even : MonoBehaviour
         if(countEven == 5)
         {
             tele.SetActive(true);
+        }
+        if(countEven == 2)
+        {
+            chest3.SetActive(true);
+        }
+        if (countEven == 3)
+        {
+            chest4.SetActive(true);
+        }
+        if (countEven == 4)
+        {
+            chest5.SetActive(true);
         }
     }
 }
