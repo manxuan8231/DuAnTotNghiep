@@ -14,6 +14,7 @@ public class Even : MonoBehaviour
     public GameObject chest3;
     public GameObject chest4;
     public GameObject chest5;
+    public GameObject danDuong;
     void Start()
     {
         
@@ -36,10 +37,12 @@ public class Even : MonoBehaviour
         if(countEven == 5)
         {
             tele.SetActive(true);
+            danDuong.SetActive(false);
         }
         if(countEven == 2)
         {
             chest3.SetActive(true);
+            danDuong.SetActive(true);
         }
         if (countEven == 3)
         {
