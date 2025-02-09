@@ -74,7 +74,7 @@ public class DanDuong : MonoBehaviour
     {
         virtualCamera.Priority = 20;
         virtualCameraPlayer.Priority = 0;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(10f);
         virtualCamera.Priority = 0;
         virtualCameraPlayer.Priority = 20;
     }
