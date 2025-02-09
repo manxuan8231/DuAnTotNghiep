@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestItem : MonoBehaviour
+public class ChestItem2 : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip audioClip;
@@ -20,13 +20,13 @@ public class ChestItem : MonoBehaviour
         {
             audioSource.PlayOneShot(audioClip);
             button.SetActive(true);
-            
+
             if (even != null)
             {
                 even.Even1(1);
                 Destroy(destroy, 0.2f);
             }
- 
+
         }
     }
 }
