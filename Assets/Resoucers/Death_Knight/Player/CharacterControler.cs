@@ -33,7 +33,7 @@ public class CharacterController : MonoBehaviour
     private Coroutine rollCoroutine;
     private Coroutine jumpCoroutine;
 
-    private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
+    public bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
    
     //khởi tạo script
@@ -172,7 +172,7 @@ public class CharacterController : MonoBehaviour
     {
         currentState = CharacterState.Attack; // Chuyển trạng thái thành Attack
 
-        yield return new WaitForSeconds(0.5f); // Thời gian tấn công (tùy chỉnh theo animation)
+        yield return new WaitForSeconds(0.1f); // Thời gian tấn công (tùy chỉnh theo animation)
 
         currentState = CharacterState.Normal; // Quay lại trạng thái Normal
     }
@@ -247,4 +247,5 @@ public class CharacterController : MonoBehaviour
             audioSourceWalk.enabled = false;
         }
     }
+    
 }

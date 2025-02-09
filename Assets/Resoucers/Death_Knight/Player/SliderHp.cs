@@ -46,9 +46,15 @@ public class SliderHp : MonoBehaviour
 
 
     EnemyAnimationController rikayon;
+
+    Animator animator;
+    public AudioSource audioSource;
+    public AudioClip audioTakeHit;
+
+    public CharacterController characterController;
     void Start()
     {
-       
+       animator = GetComponent<Animator>();
         currentHP.value = maxHp;
         textHP.text = $"{currentHP.value}/{maxHp}";
 
@@ -178,6 +184,11 @@ public class SliderHp : MonoBehaviour
     public void TakeDame(float amount)
     {
         currentHP.value -= amount;
+        //bị choáng
+        animator.SetTrigger("TakeHit");
+        audioSource.PlayOneShot(audioTakeHit);
+        StartCoroutine(LockMovement());
+        //
         textHP.text = $"{currentHP.value}/{maxHp}";
         Debug.Log("Da tru hp");
         currentHP.value = Mathf.Clamp(currentHP.value, 0, maxHp);       
@@ -186,5 +197,12 @@ public class SliderHp : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public IEnumerator LockMovement()
+    {
+        characterController.isMovementLocked = true;  
 
+        yield return new WaitForSeconds(0.5f); // Thời gian tấn công (tùy chỉnh theo animation)
+
+        characterController.isMovementLocked = false;
+    }
 }
