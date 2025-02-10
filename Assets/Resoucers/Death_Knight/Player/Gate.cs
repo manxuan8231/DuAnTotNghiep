@@ -9,8 +9,7 @@ public class Gate : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) // Kiểm tra nếu Player chạm vào cổng
-        {
-           
+        {          
             other.transform.position = tele.transform.position;
         }
     }

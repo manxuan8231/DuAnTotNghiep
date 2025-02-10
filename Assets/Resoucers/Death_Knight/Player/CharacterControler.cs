@@ -33,7 +33,7 @@ public class CharacterController : MonoBehaviour
     private Coroutine rollCoroutine;
     private Coroutine jumpCoroutine;
 
-    private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
+    public bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
    
     //khởi tạo script
@@ -125,7 +125,7 @@ public class CharacterController : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             float speed = moveSpeed;
-
+            
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Mouse1))
             {
                 speed = sprintSpeed;
@@ -172,7 +172,7 @@ public class CharacterController : MonoBehaviour
     {
         currentState = CharacterState.Attack; // Chuyển trạng thái thành Attack
 
-        yield return new WaitForSeconds(0.5f); // Thời gian tấn công (tùy chỉnh theo animation)
+        yield return new WaitForSeconds(0.1f); // Thời gian tấn công (tùy chỉnh theo animation)
 
         currentState = CharacterState.Normal; // Quay lại trạng thái Normal
     }
@@ -187,7 +187,7 @@ public class CharacterController : MonoBehaviour
             if (weaponDefault != null) weaponDefault.SetActive(false);
             if (weaponHand != null) weaponHand.SetActive(true);
 
-            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(2f)); // Bắt đầu reset sau 5 giây
+            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(1.5f)); // Bắt đầu reset sau 1 giây
         }
     }
 
@@ -247,4 +247,5 @@ public class CharacterController : MonoBehaviour
             audioSourceWalk.enabled = false;
         }
     }
+    
 }

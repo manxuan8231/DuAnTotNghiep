@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class SkillPlayer1 : MonoBehaviour
 {
     public Animator animator; // Gán animator của nhân vật
+    public RuntimeAnimatorController animatorDefauld;
+    public RuntimeAnimatorController animatorQ;
+
     public float cooldownTime = 10f; // Thời gian hồi chiêu
     private bool isOnCooldown = false; // Trạng thái hồi chiêu
 
@@ -15,7 +18,7 @@ public class SkillPlayer1 : MonoBehaviour
     public float fireballSpeed = 10f; // Tốc độ di chuyển của FireBall
     //tham chieu
     public SliderHp sliderHp;
-   
+
 
     // Thông số phóng to
     private bool isScaling = false; // Trạng thái phóng to
@@ -49,8 +52,15 @@ public class SkillPlayer1 : MonoBehaviour
     public float baseDame = 100;
     public float currentDame;
     public float maxDame = 500;
+
+    public SkinnedMeshRenderer[] skin;
+
     void Start()
     {
+        foreach(SkinnedMeshRenderer skin in skin)
+        {
+            skin.enabled = false;
+        }
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -234,13 +244,20 @@ public class SkillPlayer1 : MonoBehaviour
         isOnCooldown = false; // Kết thúc hồi chiêu
     }
 
+   
     void StartScalingWithAura()
     {
+        
+        //skin
+        foreach(SkinnedMeshRenderer skin in skin)
+        {
+            skin.enabled = true;
+        }
         // Đặt trạng thái phóng to
         isScaling = true;
         targetScale = originalScale * 2f; // Tăng kích thước lên gấp đôi
         sliderHp.GetMana(1000);
-      
+        
         currentDameAir = maxDameAir;
         currentDame = maxDame;
         // Kích hoạt aura
@@ -249,14 +266,24 @@ public class SkillPlayer1 : MonoBehaviour
             activeAura = Instantiate(auraPrefab, transform.position + auraOffset, Quaternion.identity);
             activeAura.transform.parent = transform; // Gắn aura vào player
         }
+        //animator Q
+        animator.runtimeAnimatorController = animatorQ;
     }
     void StopScaling()
     {
+        //skin
+        foreach (SkinnedMeshRenderer skin in skin)
+        {
+            skin.enabled = false;
+        }
         // Khi currentUlti = 0, dừng phóng to và thu nhỏ lại
         isScaling = false;
         targetScale = originalScale; // Quay lại kích thước ban đầu
         currentDameAir = baseDameAir;
         currentDame = baseDame;
+
+        //animator defauld
+        animator.runtimeAnimatorController = animatorDefauld;
     }
     void PerformScaling()
     {

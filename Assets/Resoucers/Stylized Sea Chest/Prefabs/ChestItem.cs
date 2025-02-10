@@ -20,15 +20,13 @@ public class ChestItem : MonoBehaviour
         {
             audioSource.PlayOneShot(audioClip);
             button.SetActive(true);
-           
-            if(even != null)
+            
+            if (even != null)
             {
                 even.Even1(1);
+                Destroy(destroy, 0.2f);
             }
-           
-            Destroy(destroy,0.5f);      
-            //couunt even 
-           
+ 
         }
     }
 }
