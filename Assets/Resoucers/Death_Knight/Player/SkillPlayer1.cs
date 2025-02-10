@@ -247,7 +247,7 @@ public class SkillPlayer1 : MonoBehaviour
    
     void StartScalingWithAura()
     {
-        
+       
         //skin
         foreach(SkinnedMeshRenderer skin in skin)
         {

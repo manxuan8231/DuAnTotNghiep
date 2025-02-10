@@ -25,6 +25,12 @@ public class AttackCombo : MonoBehaviour
     
     private Rigidbody Rigidbody;
     public SliderHp sliderHp;
+
+    //sound
+    public AudioSource audioSource;
+    public AudioClip AudioClipAttack1;
+    public AudioClip AudioClipAttack2;
+    public AudioClip AudioClipAttack3;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -73,13 +79,25 @@ public class AttackCombo : MonoBehaviour
             isAttacking = true;
         }
     }
-
+    public void SoundAttack1()
+    {
+        
+    }
+    public void SoundAttack2()
+    {
+        audioSource.PlayOneShot(AudioClipAttack2);
+    }
+    public void SoundAttack3()
+    {
+        audioSource.PlayOneShot(AudioClipAttack3);
+    }
     void TriggerComboStep()
     {
         switch (currentComboStep)
         {
             case 1:
                 animator.SetTrigger("Attack1");
+                audioSource.PlayOneShot(AudioClipAttack1);
                 sliderHp.attackMana(5);
                 break;
             case 2:

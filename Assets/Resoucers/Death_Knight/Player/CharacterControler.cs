@@ -38,11 +38,15 @@ public class CharacterController : MonoBehaviour
    
     //khởi tạo script
     public SliderHp sliderHp;
-
+    //offrain
+    public GameObject offRain;
     //sounds
     public AudioSource audioSourceRun;
     public AudioSource audioSourceWalk;
     private bool isSounds = true;
+
+    public AudioSource audioSound;
+    public AudioClip audioClipJump;//gan file
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
@@ -171,6 +175,8 @@ public class CharacterController : MonoBehaviour
     private IEnumerator Attack()
     {
         currentState = CharacterState.Attack; // Chuyển trạng thái thành Attack
+        audioSourceRun.enabled = false;
+        audioSourceWalk.enabled = false;
 
         yield return new WaitForSeconds(0.1f); // Thời gian tấn công (tùy chỉnh theo animation)
 
@@ -208,6 +214,8 @@ public class CharacterController : MonoBehaviour
     private IEnumerator RollCoolDown()
     {
         animator.SetTrigger("roll");
+        audioSourceRun.enabled = false;
+        audioSourceWalk.enabled = false;
         yield return new WaitForSeconds(2f);
         rollCoroutine = null;
     }
@@ -233,6 +241,8 @@ public class CharacterController : MonoBehaviour
         {
             animator.SetBool("isLandJump", true); // Kích hoạt animation tiếp đất
             isSounds = false;
+            audioSourceRun.enabled = true;
+            audioSourceWalk.enabled = true;
         }
     }
 
@@ -247,5 +257,15 @@ public class CharacterController : MonoBehaviour
             audioSourceWalk.enabled = false;
         }
     }
-    
+    public void AudioJump()
+    {
+        audioSound.PlayOneShot(audioClipJump);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Rain"))
+        {
+            offRain.SetActive(false);
+        }
+    }
 }
