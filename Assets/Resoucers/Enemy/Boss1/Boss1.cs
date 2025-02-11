@@ -27,6 +27,10 @@ public class Boss1 : MonoBehaviour
     public GameObject Weappon;
     public Animator animator;
 
+    //xử lý skill
+    public float distanceSkill = 50; //khoản cách nhìn player để dùng skill
+    private bool onSkill = false;
+
     private void Start()
     {
         playerCam.Priority = 20;

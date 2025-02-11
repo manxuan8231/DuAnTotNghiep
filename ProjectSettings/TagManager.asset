@@ -16,6 +16,7 @@ TagManager:
   - NPC
   - Boss1
   - Rain
+  - Boss
   layers:
   - Default
   - TransparentFX
