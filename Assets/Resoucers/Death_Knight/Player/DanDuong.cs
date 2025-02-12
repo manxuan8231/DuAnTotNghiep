@@ -78,16 +78,33 @@ public class DanDuong : MonoBehaviour
 
     private IEnumerator TargetCamera()
     {
+        Debug.Log("Camera chuyển sang linh hồn");
+
         virtualCamera.Priority = 20;
         virtualCameraPlayer.Priority = 0;
 
-        PanelSoul.SetActive(true);
-        ContentSoul.text = "Ta sẽ dẫn đường cho ngươi";
-        yield return new WaitForSeconds(10f);
-        PanelSoul.SetActive(false);
+        if (PanelSoul != null)
+        {
+            PanelSoul.SetActive(true);
+            Debug.Log("PanelSoul đã được bật!");
+        }
+        if (ContentSoul != null)
+        {
+            ContentSoul.text = "Ta sẽ dẫn đường cho ngươi";
+            Debug.Log("Text hiển thị");
+        }
+    yield return new WaitForSeconds(10f);
+
+        if (PanelSoul != null)
+        {
+            PanelSoul.SetActive(false);
+            Debug.Log("PanelSoul đã ẩn!");
+        }
+
         virtualCamera.Priority = 0;
         virtualCameraPlayer.Priority = 20;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
