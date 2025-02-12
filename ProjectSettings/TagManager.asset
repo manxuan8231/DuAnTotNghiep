@@ -17,6 +17,7 @@ TagManager:
   - Boss1
   - Rain
   - Boss
+  - Explosion
   layers:
   - Default
   - TransparentFX
