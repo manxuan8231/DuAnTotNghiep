@@ -74,15 +74,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8245284
-        functionName: DisableEffect
+      - time: 0.43171108
+        functionName: endDame
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.43171108
-        functionName: endDame
+      - time: 0.8245284
+        functionName: DisableEffect
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

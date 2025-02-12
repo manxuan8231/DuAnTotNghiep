@@ -33,16 +33,20 @@ public class CharacterController : MonoBehaviour
     private Coroutine rollCoroutine;
     private Coroutine jumpCoroutine;
 
-    private bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
+    public bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
    
     //khởi tạo script
     public SliderHp sliderHp;
-
+    //offrain
+    public GameObject offRain;
     //sounds
     public AudioSource audioSourceRun;
     public AudioSource audioSourceWalk;
     private bool isSounds = true;
+
+    public AudioSource audioSound;
+    public AudioClip audioClipJump;//gan file
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
@@ -171,8 +175,10 @@ public class CharacterController : MonoBehaviour
     private IEnumerator Attack()
     {
         currentState = CharacterState.Attack; // Chuyển trạng thái thành Attack
+        audioSourceRun.enabled = false;
+        audioSourceWalk.enabled = false;
 
-        yield return new WaitForSeconds(0.5f); // Thời gian tấn công (tùy chỉnh theo animation)
+        yield return new WaitForSeconds(0.1f); // Thời gian tấn công (tùy chỉnh theo animation)
 
         currentState = CharacterState.Normal; // Quay lại trạng thái Normal
     }
@@ -208,6 +214,8 @@ public class CharacterController : MonoBehaviour
     private IEnumerator RollCoolDown()
     {
         animator.SetTrigger("roll");
+        audioSourceRun.enabled = false;
+        audioSourceWalk.enabled = false;
         yield return new WaitForSeconds(2f);
         rollCoroutine = null;
     }
@@ -233,6 +241,8 @@ public class CharacterController : MonoBehaviour
         {
             animator.SetBool("isLandJump", true); // Kích hoạt animation tiếp đất
             isSounds = false;
+            audioSourceRun.enabled = true;
+            audioSourceWalk.enabled = true;
         }
     }
 
@@ -245,6 +255,17 @@ public class CharacterController : MonoBehaviour
             isSounds = true;
             audioSourceRun.enabled = false;
             audioSourceWalk.enabled = false;
+        }
+    }
+    public void AudioJump()
+    {
+        audioSound.PlayOneShot(audioClipJump);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Rain"))
+        {
+            offRain.SetActive(false);
         }
     }
 }
