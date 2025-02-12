@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class FireBall : MonoBehaviour
 {
@@ -35,9 +36,10 @@ public class FireBall : MonoBehaviour
             Statue statue = collision.gameObject.GetComponent<Statue>();
             statue.TakeDamage(500);
         }
-        if (collision.gameObject.CompareTag("Boss"))
+        if (collision.gameObject.CompareTag("Boss1"))
         {
-
+            Boss1 boss1 = collision.gameObject.GetComponent<Boss1>();
+            boss1.TakeHealth(500);
         }
     }
 }

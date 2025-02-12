@@ -36,10 +36,17 @@ public class DameZone2 : MonoBehaviour
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect, 3f); // Hủy hiệu ứng sau 3 giây
         }
+
         if (other.gameObject.CompareTag("Statue"))
         {
             Statue statue = other.gameObject.GetComponent<Statue>();
             statue.TakeDamage(skillPlayer1.currentDameAir);
+        }
+
+        if (other.gameObject.CompareTag("Boss1"))
+        {
+            Boss1 boss1 = other.gameObject.GetComponent<Boss1>();
+            boss1.TakeHealth(skillPlayer1.currentDameAir);
         }
     }
 }

@@ -2,6 +2,8 @@
 using UnityEngine.AI;
 using Cinemachine;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
 public class Boss1 : MonoBehaviour
 {
@@ -45,8 +47,11 @@ public class Boss1 : MonoBehaviour
     private bool onWalk = false;                                 
     public NavMeshAgent navMeshAgent;
 
-   
-
+    //xử lý hp
+    public Slider currentHealth;
+    public float maxHealth = 10000f;
+    public TextMeshProUGUI textHealth;
+    public GameObject health;
     private void Start()
     {
         playerCam.Priority = 20;
@@ -56,7 +61,11 @@ public class Boss1 : MonoBehaviour
         onWalk = false;
         onAttack = true;
         effectSkill4.SetActive(false);
-       effectAttack3.SetActive(false);
+        effectAttack3.SetActive(false);
+        health.SetActive(false);
+        //hp
+        currentHealth.maxValue = maxHealth;
+        textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
     }
 
     private void Update()
@@ -90,7 +99,7 @@ public class Boss1 : MonoBehaviour
         bossCam.Priority = 20;
         playerCam.Priority = 10;
         PlayLaughSound();
-
+        health.SetActive(true);
         yield return new WaitForSeconds(focusDuration);
 
         bossCam.Priority = 10;
@@ -268,20 +277,19 @@ public class Boss1 : MonoBehaviour
         }
     }
 
-    //xử lý xoay theo player
-    private void RotateTowardsPlayer()
-    {
-        Vector3 direction = (player.position - transform.position).normalized; // Hướng đến Player
-        direction.y = 0; // Giữ y = 0 để tránh nghiêng đầu
-
-        Quaternion targetRotation = Quaternion.LookRotation(direction); // Tạo góc quay hướng về Player
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Xoay mượt mà
-    }
     //xử lý khi đang dùng skill thì ko cho taget
     public IEnumerator NoTaget()
     {
         onWalk = false;
         yield return new WaitForSeconds(2);
         onWalk = true;
+    }
+
+    //xử lý hp
+    public void TakeHealth(float amount)
+    {
+        currentHealth.value -= amount;
+        textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
+        currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
     }
 }
