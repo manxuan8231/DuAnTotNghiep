@@ -42,6 +42,7 @@ public class Boss1 : MonoBehaviour
     public GameObject tornadoSkill3;
     public Transform tranformSkill3;//vị trí bắn
     public GameObject effectSkill4;
+    public GameObject effectDameSkill4;
     //xử lý di chuyển
     public float distanceWalk = 100; //khoản cách thấy player
     private bool onWalk = false;                                 
@@ -49,9 +50,16 @@ public class Boss1 : MonoBehaviour
 
     //xử lý hp
     public Slider currentHealth;
-    public float maxHealth = 10000f;
+    private float maxHealth = 10000f;
     public TextMeshProUGUI textHealth;
     public GameObject health;
+    public bool onTakeHealth = true;
+    SliderHp sliderHp;//tham chiếu đến script sliderhb của player
+    public BoxCollider boxCollider;
+
+    // khi death
+    public GameObject effectDeath;
+    public Transform deathTransfrom;
     private void Start()
     {
         playerCam.Priority = 20;
@@ -63,9 +71,14 @@ public class Boss1 : MonoBehaviour
         effectSkill4.SetActive(false);
         effectAttack3.SetActive(false);
         health.SetActive(false);
+        effectDameSkill4.SetActive(false);
         //hp
         currentHealth.maxValue = maxHealth;
         textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
+        onTakeHealth = true;
+        //xử lý lấy hp player
+        boxCollider.enabled = false;
+        effectDeath.SetActive(false);
     }
 
     private void Update()
@@ -151,8 +164,9 @@ public class Boss1 : MonoBehaviour
             if(random == 2)
             {
                 Debug.Log("Thực hiện dịch chuyển ra");
-                transform.position = teleAttack3.position;
-                StartCoroutine(OnEffect());             
+                animator.SetTrigger("Attack3");               
+                StartCoroutine(OnEffect());
+                weappon.SetActive(false);
             }
             lastAttackTime = Time.time; // Cập nhật thời gian tấn công cuối cùng
         }
@@ -161,7 +175,8 @@ public class Boss1 : MonoBehaviour
     private IEnumerator OnEffect()
     {
         effectAttack3.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
+        transform.position = teleAttack3.position;
         effectAttack3.SetActive(false);
     }
 
@@ -255,21 +270,28 @@ public class Boss1 : MonoBehaviour
     private void Movemen()
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
-        if(distance <= distanceWalk && onWalk)
+        if(distance <= distanceWalk && onWalk && currentHealth.value > 0)
         {
-            navMeshAgent.SetDestination(player.position);
-            animator.SetBool("isMoving", true);
-            //xử lý xoay theo player
-            Vector3 direction = (player.position - transform.position).normalized; // Hướng đến Player
-            direction.y = 0; // Giữ y = 0 để tránh nghiêng đầu
-            Quaternion targetRotation = Quaternion.LookRotation(direction); // Tạo góc quay hướng về Player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Xoay mượt mà
+            if (navMeshAgent != null)
+            {
+                navMeshAgent.SetDestination(player.position);
+                animator.SetBool("isMoving", true);
+                //xử lý xoay theo player
+                Vector3 direction = (player.position - transform.position).normalized; // Hướng đến Player
+                direction.y = 0; // Giữ y = 0 để tránh nghiêng đầu
+                Quaternion targetRotation = Quaternion.LookRotation(direction); // Tạo góc quay hướng về Player
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Xoay mượt mà
+            }
         }
         else
         {
-            // Nếu ngoài phạm vi, dừng di chuyển
-            navMeshAgent.ResetPath();
-            animator.SetBool("isMoving", false);
+            if(navMeshAgent == null)
+            {
+                // Nếu ngoài phạm vi, dừng di chuyển
+                navMeshAgent.ResetPath();
+                animator.SetBool("isMoving", false);
+            }
+            
         }
         if(distance <= 5)
         {
@@ -287,9 +309,49 @@ public class Boss1 : MonoBehaviour
 
     //xử lý hp
     public void TakeHealth(float amount)
+    {       
+            currentHealth.value -= amount;
+            textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
+            currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
+                 
+        if (currentHealth.value <= 0)
+        {
+            transform.position = deathTransfrom.position;
+            StartCoroutine(cameraTaget());
+            animator.SetTrigger("death");
+            Destroy(gameObject, 6f);
+        }
+    }
+    private IEnumerator cameraTaget()
+    {        
+        bossCam.Priority = 20;
+        playerCam.Priority = 0;
+        onAttack = false;
+        onSkill = false;
+        onWalk = false;
+        onTakeHealth = false;
+        yield return new WaitForSeconds(4);
+        effectDeath.SetActive(true);
+        bossCam.Priority = 0;
+        playerCam.Priority = 20;
+    }
+    //xử lý lấy hp player
+    public void StartDame()
     {
-        currentHealth.value -= amount;
-        textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
-        currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
+        boxCollider.enabled = true;
+    }
+    public void EndDame()
+    {
+        boxCollider.enabled= false;
+    }
+
+    //xử lý skill4 effect
+    public void StartEffectSkill4()
+    {
+        effectDameSkill4.SetActive(true);
+    }
+    public void EndEffectSkill4()
+    {
+        effectDameSkill4.SetActive(false);
     }
 }

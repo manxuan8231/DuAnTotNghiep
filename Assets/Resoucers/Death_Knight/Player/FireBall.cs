@@ -39,7 +39,10 @@ public class FireBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Boss1"))
         {
             Boss1 boss1 = collision.gameObject.GetComponent<Boss1>();
-            boss1.TakeHealth(500);
+            if (boss1.onTakeHealth == true)
+            {
+                boss1.TakeHealth(500);
+            }         
         }
     }
 }
