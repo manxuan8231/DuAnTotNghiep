@@ -34306,7 +34306,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.92, y: 4.44, z: 6.83}
+  m_Size: {x: 6, y: 4.44, z: 6}
   m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!114 &2683361706905352272
 MonoBehaviour:
@@ -34320,7 +34320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838c1dc95c4b75349ab9fc88509edf65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderHp: {fileID: 8170415207334450642, guid: ac7f20308ac9b0e44a09660fd3e3c60b, type: 3}
+  sliderHp: {fileID: 0}
 --- !u!1 &6680722937804935166
 GameObject:
   m_ObjectHideFlags: 0
