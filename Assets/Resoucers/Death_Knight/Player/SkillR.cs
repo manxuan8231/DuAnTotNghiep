@@ -13,6 +13,7 @@ public class SkillR : MonoBehaviour
 
     public Slider cooldownSlider; // Thanh hiển thị hồi chiêu (nếu có)
 
+    Animator animator;
     void Start()
     {
         // Nếu có thanh slider hồi chiêu, đặt giá trị tối đa và giá trị ban đầu
@@ -21,6 +22,7 @@ public class SkillR : MonoBehaviour
             cooldownSlider.maxValue = cooldownTime;
             cooldownSlider.value = cooldownTime;
         }
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -29,6 +31,7 @@ public class SkillR : MonoBehaviour
         if (Input.GetKey(KeyCode.Q) && !isOnCooldown)
         {
             ShowTeleportIndicator();
+            
         }
 
         // Khi thả phím Q và kỹ năng không trong thời gian hồi chiêu -> Dịch chuyển đến Boss
@@ -49,7 +52,7 @@ public class SkillR : MonoBehaviour
     {
         // Tìm Boss gần nhất
         targetBoss = FindClosestBoss();
-
+        animator.SetTrigger("skillR1");
         if (targetBoss != null)
         {
             // Nếu vòng tròn chưa được tạo, tạo một vòng tròn mới
@@ -70,12 +73,13 @@ public class SkillR : MonoBehaviour
     {
         if (targetBoss != null)
         {
-            transform.position = targetBoss.position; // Dịch chuyển nhân vật đến Boss
-
+            Debug.Log("chạy animator skill2");
+            animator.SetTrigger("skillR2");
+            transform.position = targetBoss.position; // Dịch chuyển nhân vật đến Boss         
             // Xóa vòng tròn hiển thị dưới Boss sau khi dịch chuyển
             if (activeIndicator != null)
             {
-                Destroy(activeIndicator);
+                Destroy(activeIndicator);             
             }
 
             // Bắt đầu thời gian hồi chiêu
