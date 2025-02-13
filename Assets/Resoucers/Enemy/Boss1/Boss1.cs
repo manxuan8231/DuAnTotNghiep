@@ -107,7 +107,7 @@ public class Boss1 : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator FocusOnBoss()
+    private IEnumerator FocusOnBoss()
     {
         bossCam.Priority = 20;
         playerCam.Priority = 10;
