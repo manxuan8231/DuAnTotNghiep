@@ -2,12 +2,14 @@
 using UnityEngine.AI;
 using Cinemachine;
 using System.Collections;
+using TMPro;
 
 public class DanDuong : MonoBehaviour
 {
     public GameObject chest1;
     public GameObject chest2;
     public GameObject chest3;
+    
     public float moveSpeed = 5f; // Tốc độ di chuyển đến rương
     private Transform targetChest;
     private bool isMoving = false;
@@ -19,6 +21,10 @@ public class DanDuong : MonoBehaviour
     public CinemachineVirtualCamera virtualCameraPlayer;
 
     private NavMeshAgent navAgent; // NavMeshAgent component
+
+    // hiển thị thoại
+    public GameObject PanelSoul;
+    public TextMeshProUGUI ContentSoul;
 
     void Start()
     {
@@ -72,12 +78,33 @@ public class DanDuong : MonoBehaviour
 
     private IEnumerator TargetCamera()
     {
+        Debug.Log("Camera chuyển sang linh hồn");
+
         virtualCamera.Priority = 20;
         virtualCameraPlayer.Priority = 0;
-        yield return new WaitForSeconds(10f);
+
+        if (PanelSoul != null)
+        {
+            PanelSoul.SetActive(true);
+            Debug.Log("PanelSoul đã được bật!");
+        }
+        if (ContentSoul != null)
+        {
+            ContentSoul.text = "Ta sẽ dẫn đường cho ngươi";
+            Debug.Log("Text hiển thị");
+        }
+    yield return new WaitForSeconds(10f);
+
+        if (PanelSoul != null)
+        {
+            PanelSoul.SetActive(false);
+            Debug.Log("PanelSoul đã ẩn!");
+        }
+
         virtualCamera.Priority = 0;
         virtualCameraPlayer.Priority = 20;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
