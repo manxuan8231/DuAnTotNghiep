@@ -13,6 +13,7 @@ public class SkillR : MonoBehaviour
 
     public Slider cooldownSlider; // Thanh hiển thị hồi chiêu (nếu có)
 
+    public CharacterController characterController;
     Animator animator;
     void Start()
     {
@@ -28,14 +29,14 @@ public class SkillR : MonoBehaviour
     void Update()
     {
         // Khi giữ phím Q và kỹ năng chưa hồi chiêu -> Hiển thị vòng tròn
-        if (Input.GetKey(KeyCode.Q) && !isOnCooldown)
+        if (Input.GetKey(KeyCode.R) && !isOnCooldown)
         {
             ShowTeleportIndicator();
             
         }
 
         // Khi thả phím Q và kỹ năng không trong thời gian hồi chiêu -> Dịch chuyển đến Boss
-        if (Input.GetKeyUp(KeyCode.Q) && !isOnCooldown && targetBoss != null)
+        if (Input.GetKeyUp(KeyCode.R) && !isOnCooldown && targetBoss != null)
         {
             TeleportToBoss();
         }
@@ -68,13 +69,15 @@ public class SkillR : MonoBehaviour
         }
     }
 
-    // Dịch chuyển Player đến vị trí Boss khi thả Q
+    // Dịch chuyển Player đến vị trí Boss khi thả r
     void TeleportToBoss()
     {
+       
         if (targetBoss != null)
         {
             Debug.Log("chạy animator skill2");
             animator.SetTrigger("skillR2");
+            characterController.weaponHand.SetActive(true);
             transform.position = targetBoss.position; // Dịch chuyển nhân vật đến Boss         
             // Xóa vòng tròn hiển thị dưới Boss sau khi dịch chuyển
             if (activeIndicator != null)
