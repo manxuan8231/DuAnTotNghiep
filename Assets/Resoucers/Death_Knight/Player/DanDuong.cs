@@ -2,29 +2,38 @@
 using UnityEngine.AI;
 using Cinemachine;
 using System.Collections;
+using TMPro;
 
 public class DanDuong : MonoBehaviour
 {
     public GameObject chest1;
     public GameObject chest2;
     public GameObject chest3;
+    
     public float moveSpeed = 5f; // Tốc độ di chuyển đến rương
     private Transform targetChest;
     private bool isMoving = false;
     private bool playerNearby = false;
 
-    private float distancePlayer = 1000f; // khoảng cách phát hiện player để thay đổi camera
+    private float distancePlayer = 10000f; // khoảng cách phát hiện player để thay đổi camera
     public Transform player;
+    private bool offTaget = true;
     public CinemachineVirtualCamera virtualCamera;
     public CinemachineVirtualCamera virtualCameraPlayer;
 
     private NavMeshAgent navAgent; // NavMeshAgent component
+
+    // hiển thị thoại
+    public GameObject PanelSoul;
+    public TextMeshProUGUI ContentSoul;
 
     void Start()
     {
         // Get the NavMeshAgent component
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.speed = moveSpeed;
+        offTaget = true;
+        PanelSoul.SetActive(false);
     }
 
     void Update()
@@ -64,7 +73,7 @@ public class DanDuong : MonoBehaviour
 
         // Kiểm tra khoảng cách camera và player
         float targetCameraDistance = Vector3.Distance(transform.position, player.position);
-        if (targetCameraDistance <= distancePlayer) // Nếu camera mục tiêu có khoảng cách nhỏ hơn hoặc bằng player, chạy Coroutine
+        if (targetCameraDistance <= distancePlayer && offTaget == true) // Nếu camera mục tiêu có khoảng cách nhỏ hơn hoặc bằng player, chạy Coroutine
         {
             StartCoroutine(TargetCamera());
         }
@@ -72,12 +81,31 @@ public class DanDuong : MonoBehaviour
 
     private IEnumerator TargetCamera()
     {
+        if (PanelSoul != null)
+        {
+            PanelSoul.SetActive(true);
+            Debug.Log("PanelSoul đã được bật!");
+        }
+        if (ContentSoul != null)
+        {
+            ContentSoul.text = "Ta sẽ dẫn đường cho ngươi";
+            Debug.Log("Text hiển thị");
+        }
+
+        Debug.Log("Camera chuyển sang linh hồn");
         virtualCamera.Priority = 20;
         virtualCameraPlayer.Priority = 0;
-        yield return new WaitForSeconds(10f);
+       
+    yield return new WaitForSeconds(10f);
+       
+        PanelSoul.SetActive(false);
+        
         virtualCamera.Priority = 0;
-        virtualCameraPlayer.Priority = 20;
+        virtualCameraPlayer.Priority = 20;        
+        Debug.Log("PanelSoul đã ẩn!");
+        offTaget = false;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
