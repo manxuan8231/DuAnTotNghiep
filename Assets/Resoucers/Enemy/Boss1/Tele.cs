@@ -8,6 +8,7 @@ public class Tele : MonoBehaviour
     public GameObject buttonF;
     public GameObject tele;
     public GameObject player;
+    
     void Start()
     {
         buttonF.SetActive(false);
