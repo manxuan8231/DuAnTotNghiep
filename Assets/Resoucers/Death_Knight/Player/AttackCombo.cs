@@ -31,6 +31,8 @@ public class AttackCombo : MonoBehaviour
     public AudioClip AudioClipAttack1;
     public AudioClip AudioClipAttack2;
     public AudioClip AudioClipAttack3;
+    //sound attackQ
+    public AudioClip AudioClipAttackQ;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -97,7 +99,7 @@ public class AttackCombo : MonoBehaviour
         {
             case 1:
                 animator.SetTrigger("Attack1");
-                audioSource.PlayOneShot(AudioClipAttack1);
+                //audioSource.PlayOneShot(AudioClipAttack1);
                 sliderHp.attackMana(5);
                 break;
             case 2:
@@ -190,5 +192,15 @@ public class AttackCombo : MonoBehaviour
         {
             isGround = false;
         }
+    }
+
+    public void StartAttackQ()
+    {
+       audioSource.PlayOneShot(AudioClipAttackQ);
+        
+    }
+    public void StopAttackQ()
+    {
+       audioSource.Stop();
     }
 }
