@@ -7232,7 +7232,6 @@ MonoBehaviour:
   target: {fileID: 227063987}
   radius: 100
   distanceAttack: 5
-  attackCooldown: 5
   animator: {fileID: 3074726758073486085}
   currentState: 0
 --- !u!4 &8992034146945556737

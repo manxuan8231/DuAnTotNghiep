@@ -14,7 +14,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float radius = 100f;
     [SerializeField] private float distanceAttack;
-    [SerializeField] private float attackCooldown;
+    //[SerializeField] private float attackCooldown;
     [SerializeField] private Animator animator;
     void Start()
     {
