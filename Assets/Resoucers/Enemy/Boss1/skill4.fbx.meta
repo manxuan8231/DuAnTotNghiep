@@ -57,6 +57,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.4306269
+        functionName: EndDame
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.6295628
         functionName: StartEffectSkill4
         data: 
@@ -64,15 +71,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7300124
+      - time: 0.84047276
         functionName: EndEffectSkill4
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.4306269
-        functionName: EndDame
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

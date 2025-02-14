@@ -1,129 +1,130 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class SkillR : MonoBehaviour
 {
-    public float cooldownTime = 5f; // Thời gian hồi chiêu (5 giây)
-    private bool isOnCooldown = false; // Biến kiểm tra xem kỹ năng có đang hồi chiêu không
+    public float cooldownTime = 5f;
+    private bool isOnCooldown = false;
+    public float skillRange = 50f; // Phạm vi tối đa để sử dụng kỹ năng
 
-    public GameObject teleportIndicatorPrefab; // Prefab vòng tròn xuất hiện dưới chân Boss
-    private GameObject activeIndicator; // Biến lưu vòng tròn hiện tại
-    private Transform targetBoss; // Lưu vị trí của Boss gần nhất
+    public GameObject teleportIndicatorPrefab;
+    private GameObject activeIndicator;
+    private Transform targetBoss;
 
-    public Slider cooldownSlider; // Thanh hiển thị hồi chiêu (nếu có)
-
+    public Slider cooldownSlider;
     public CharacterController characterController;
     Animator animator;
+
+    public GameObject effect1;
+    public GameObject effect2;
+
+    public SliderHp sliderHp;
+
     void Start()
     {
-        // Nếu có thanh slider hồi chiêu, đặt giá trị tối đa và giá trị ban đầu
         if (cooldownSlider != null)
         {
             cooldownSlider.maxValue = cooldownTime;
             cooldownSlider.value = cooldownTime;
         }
         animator = GetComponent<Animator>();
+        effect1.SetActive(false);
+        effect2.SetActive(false);
     }
 
     void Update()
     {
-        // Khi giữ phím Q và kỹ năng chưa hồi chiêu -> Hiển thị vòng tròn
-        if (Input.GetKey(KeyCode.R) && !isOnCooldown)
+        targetBoss = FindClosestBoss(); // Luôn cập nhật Boss gần nhất
+        float distanceToBoss = targetBoss ? Vector3.Distance(transform.position, targetBoss.position) : Mathf.Infinity;
+
+        if (Input.GetKey(KeyCode.R) && !isOnCooldown && sliderHp.GetCurrentMana() > 20 && distanceToBoss <= skillRange)
         {
             ShowTeleportIndicator();
-            
         }
 
-        // Khi thả phím Q và kỹ năng không trong thời gian hồi chiêu -> Dịch chuyển đến Boss
-        if (Input.GetKeyUp(KeyCode.R) && !isOnCooldown && targetBoss != null)
+        if (Input.GetKeyUp(KeyCode.R) && !isOnCooldown && targetBoss != null && sliderHp.GetCurrentMana() > 20 && distanceToBoss <= skillRange)
         {
             TeleportToBoss();
         }
 
-        // Nếu đang trong thời gian hồi chiêu, giảm giá trị thanh hồi chiêu theo thời gian
         if (isOnCooldown && cooldownSlider != null)
         {
             cooldownSlider.value -= Time.deltaTime;
         }
     }
 
-    // Hiển thị vòng tròn dưới Boss gần nhất
     void ShowTeleportIndicator()
     {
-        // Tìm Boss gần nhất
-        targetBoss = FindClosestBoss();
+        effect1.SetActive(true);
         animator.SetTrigger("skillR1");
+
         if (targetBoss != null)
         {
-            // Nếu vòng tròn chưa được tạo, tạo một vòng tròn mới
             if (activeIndicator == null)
             {
                 activeIndicator = Instantiate(teleportIndicatorPrefab, targetBoss.position, Quaternion.identity);
             }
             else
             {
-                // Nếu đã có vòng tròn, cập nhật vị trí vòng tròn theo Boss gần nhất
                 activeIndicator.transform.position = targetBoss.position;
             }
         }
     }
 
-    // Dịch chuyển Player đến vị trí Boss khi thả r
     void TeleportToBoss()
     {
-       
         if (targetBoss != null)
         {
-            Debug.Log("chạy animator skill2");
+            sliderHp.SkillEMana(20);
+            StartCoroutine(Effect2());
             animator.SetTrigger("skillR2");
             characterController.weaponHand.SetActive(true);
-            transform.position = targetBoss.position; // Dịch chuyển nhân vật đến Boss         
-            // Xóa vòng tròn hiển thị dưới Boss sau khi dịch chuyển
+            transform.position = targetBoss.position;
+
             if (activeIndicator != null)
             {
-                Destroy(activeIndicator);             
+                Destroy(activeIndicator);
             }
 
-            // Bắt đầu thời gian hồi chiêu
             StartCoroutine(CooldownRoutine());
         }
     }
 
-    // Coroutine xử lý thời gian hồi chiêu
-    IEnumerator CooldownRoutine()
+    System.Collections.IEnumerator Effect2()
     {
-        isOnCooldown = true; // Đặt trạng thái hồi chiêu
+        effect2.SetActive(true);
+        effect1.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        effect2.SetActive(false);
+    }
 
-        // Đặt thanh slider về giá trị tối đa khi bắt đầu hồi chiêu
+    System.Collections.IEnumerator CooldownRoutine()
+    {
+        isOnCooldown = true;
         if (cooldownSlider != null)
         {
             cooldownSlider.value = cooldownTime;
         }
-
-        yield return new WaitForSeconds(cooldownTime); // Chờ trong thời gian hồi chiêu
-
-        isOnCooldown = false; // Kết thúc hồi chiêu
+        yield return new WaitForSeconds(cooldownTime);
+        isOnCooldown = false;
     }
 
-    // Tìm Boss gần nhất so với Player
     Transform FindClosestBoss()
     {
-        GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss1"); // Tìm tất cả GameObject có tag "Boss1"
-        Transform closestBoss = null; // Biến lưu trữ Boss gần nhất
-        float closestDistance = Mathf.Infinity; // Khoảng cách gần nhất ban đầu là vô hạn
-        Vector3 playerPosition = transform.position; // Lấy vị trí hiện tại của Player
+        GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss1");
+        Transform closestBoss = null;
+        float closestDistance = Mathf.Infinity;
+        Vector3 playerPosition = transform.position;
 
-        foreach (GameObject boss in bosses) // Duyệt qua tất cả các Boss trong danh sách
+        foreach (GameObject boss in bosses)
         {
-            float distance = Vector3.Distance(playerPosition, boss.transform.position); // Tính khoảng cách đến Boss
-
-            if (distance < closestDistance) // Nếu Boss này gần hơn Boss trước đó
+            float distance = Vector3.Distance(playerPosition, boss.transform.position);
+            if (distance < closestDistance && distance <= skillRange)
             {
-                closestDistance = distance; // Cập nhật khoảng cách gần nhất
-                closestBoss = boss.transform; // Cập nhật Boss gần nhất
+                closestDistance = distance;
+                closestBoss = boss.transform;
             }
         }
-        return closestBoss; // Trả về Boss gần nhất
+        return closestBoss;
     }
 }

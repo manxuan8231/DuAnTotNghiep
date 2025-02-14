@@ -90,7 +90,16 @@ public class CharacterController : MonoBehaviour
             StartCoroutine(ECooldown(5f)); // Thời gian hồi chiêu 5 giây
             weaponHand.SetActive(false );
         }
-
+        //skill2
+        if (Input.GetKey(KeyCode.R))
+        {
+            isMovementLocked = true;
+        }
+        // Khi thả phím R
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+           isMovementLocked = false;
+        }
         // Kiểm tra trạng thái rơi tự do
         if (rb.velocity.y < 0)
         {
@@ -177,7 +186,7 @@ public class CharacterController : MonoBehaviour
             if (weaponDefault != null) weaponDefault.SetActive(false);
             if (weaponHand != null) weaponHand.SetActive(true);
 
-            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(1.5f)); // Bắt đầu reset sau 1 giây
+            resetWeaponCoroutine = StartCoroutine(ResetWeaponAfterDelay(5f)); // Bắt đầu reset sau 1 giây
         }
     }
 
