@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyAnimationController : MonoBehaviour
 {
-    private bool isAttack;
     private bool canAttack = true;
     private bool hasWokenUp = false;
     [SerializeField] private NavMeshAgent navMeshAgent;
@@ -25,19 +23,14 @@ public class EnemyAnimationController : MonoBehaviour
     public BoxCollider boxCollider;
     public GameObject box;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip idleSound;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip injuredSound;
+    [SerializeField] private AudioClip deathSound;
 
-    public enum CharacterState
-    {
-        Sleep,
-        WakeUp,
-        Idle,
-        Run,
-        Attack,
-        Die,
-        TakeDame,
-        Return
-    }
-
+    public enum CharacterState { Sleep, WakeUp, Idle, Run, Attack, Die, TakeDame, Return }
     public CharacterState currentState;
 
     void Start()
@@ -46,21 +39,17 @@ public class EnemyAnimationController : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthUI();
         ChangeState(CharacterState.Sleep);
-       
+        StartCoroutine(PlayIdleSound());
     }
 
     void Update()
     {
-        if (currentState == CharacterState.Die)
-        {
-            return;
-        }
-        if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
+        if (currentState == CharacterState.Die || navMeshAgent == null || !navMeshAgent.isOnNavMesh)
             return;
 
         HandleStateTransition();
-
     }
+
     private void HandleStateTransition()
     {
         var distanceToTarget = Vector3.Distance(target.position, transform.position);
@@ -74,7 +63,6 @@ public class EnemyAnimationController : MonoBehaviour
                     hasWokenUp = true;
                     ChangeState(CharacterState.WakeUp);
                 }
-                Debug.Log("sLEEP");
                 break;
 
             case CharacterState.WakeUp:
@@ -83,8 +71,6 @@ public class EnemyAnimationController : MonoBehaviour
                     animator.SetTrigger("isWakeUp");
                     ChangeState(CharacterState.Idle);
                 }
-                Debug.Log("wakeup");
-
                 break;
 
             case CharacterState.Idle:
@@ -92,8 +78,6 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     ChangeState(CharacterState.Run);
                 }
-                Debug.Log("idle");
-
                 break;
 
             case CharacterState.Run:
@@ -109,8 +93,6 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     navMeshAgent.SetDestination(target.position);
                 }
-                Debug.Log("ru");
-
                 break;
 
             case CharacterState.Attack:
@@ -126,8 +108,6 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     StartCoroutine(PerformAttack());
                 }
-                Debug.Log("attack");
-
                 break;
 
             case CharacterState.Return:
@@ -139,33 +119,23 @@ public class EnemyAnimationController : MonoBehaviour
                 {
                     navMeshAgent.SetDestination(viTriBanDau);
                 }
-                Debug.Log("return");
-
-                break;
-            case CharacterState.TakeDame:
-                Debug.Log("takeDame");
-
-                break;
-
-            case CharacterState.Die:
-                // Không xử lý gì trong trạng thái Die
                 break;
         }
     }
+
     private IEnumerator PerformAttack()
     {
-        
         canAttack = false;
         animator.SetTrigger("Attack");
+        audioSource.PlayOneShot(attackSound);
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
+
     private void ChangeState(CharacterState newState)
     {
-        if (currentState == newState)
-            return;
+        if (currentState == newState) return;
 
-        // Reset tất cả các trigger và trạng thái animation
         animator.ResetTrigger("isWakeUp");
         animator.ResetTrigger("Attack");
         animator.SetBool("isRun", false);
@@ -202,50 +172,54 @@ public class EnemyAnimationController : MonoBehaviour
                 navMeshAgent.isStopped = false;
                 animator.SetBool("isRun", true);
                 break;
+
             case CharacterState.TakeDame:
                 navMeshAgent.isStopped = true;
                 animator.SetTrigger("TakeDame");
+                audioSource.PlayOneShot(injuredSound);
                 break;
+
             case CharacterState.Die:
                 navMeshAgent.isStopped = true;
+                audioSource.PlayOneShot(deathSound);
+                animator.SetTrigger("Die");
                 Destroy(gameObject, 5f);
-                animator.SetTrigger("Die");                     
                 break;
         }
-
         currentState = newState;
-    }  
+    }
+
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
-        if(animator != null ){
-            animator.SetTrigger("TakeDame");
-           
-        }
-        
+        animator.SetTrigger("TakeDame");
+        audioSource.PlayOneShot(injuredSound);
+
         if (currentHealth <= 0)
         {
             ChangeState(CharacterState.Die);
-            Destroy(gameObject, 3f); // 3 giây sau khi chết
-            FindObjectOfType<SliderHp>().AddExp(5500);
-      
+            Destroy(gameObject, 3f);
             boxCollider.enabled = false;
         }
     }
+
     private void UpdateHealthUI()
     {
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
 
-    public void beginDame()
+    private IEnumerator PlayIdleSound()
     {
-        box.SetActive(true);
-    }
-    public void endDame()
-    {
-        box.SetActive(false);
+        while (currentState != CharacterState.Die)
+        {
+            yield return new WaitForSeconds(Random.Range(5f, 15f));
+            if (currentState == CharacterState.Idle)
+            {
+                audioSource.PlayOneShot(idleSound);
+            }
+        }
     }
 }
