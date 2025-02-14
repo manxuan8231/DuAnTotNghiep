@@ -14,7 +14,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float radius = 100f;
     [SerializeField] private float distanceAttack;
-    //[SerializeField] private float attackCooldown;
+    [SerializeField] private float attackCooldown;
     [SerializeField] private Animator animator;
     void Start()
     {
@@ -103,8 +103,6 @@ public class BossMoveAndAnimation : MonoBehaviour
        Walk,
        Attack1,
        Attack2,
-       Skill1,
-       Skill2,
        GetHit,
        Death
 
@@ -138,14 +136,6 @@ public class BossMoveAndAnimation : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack2");
-                break;
-            case CharacterState.Skill1:
-                navMeshAgent.isStopped = true;
-                animator.SetTrigger("Skill1");
-                break;
-            case CharacterState.Skill2:
-                navMeshAgent.isStopped = true;
-                animator.SetTrigger("Skill2");
                 break;
             case CharacterState.GetHit:
                 navMeshAgent.isStopped = true;

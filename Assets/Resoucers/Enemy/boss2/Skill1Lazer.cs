@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill1 : MonoBehaviour
+public class Skill1Lazer : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     void Start()
     {
         
@@ -14,5 +14,12 @@ public class Skill1 : MonoBehaviour
     void Update()
     {
         
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            
+        }
     }
 }
