@@ -44,6 +44,8 @@ public class SliderHp : MonoBehaviour
     // Thêm tham chiếu ParticleSystem
     [SerializeField] private ParticleSystem levelEffect;
 
+    //panel game over
+    public GameObject panelGameOver;
 
     EnemyAnimationController rikayon;
 
@@ -73,6 +75,8 @@ public class SliderHp : MonoBehaviour
         textScore.text = $"Score: {score}";
 
         levelEffect.gameObject.SetActive(false);
+
+        panelGameOver.SetActive(false);
     }
 
     void Update()
@@ -194,6 +198,7 @@ public class SliderHp : MonoBehaviour
         currentHP.value = Mathf.Clamp(currentHP.value, 0, maxHp);       
         if(currentHP.value <= 0)
         {
+            panelGameOver.SetActive(true);
             Destroy(gameObject);
         }
     }

@@ -19,9 +19,11 @@ public class Boss1 : MonoBehaviour
     // Audio sounds
     public AudioSource audioSource;
     public AudioClip audioClipLaughVFX;
-
-  
-
+    public AudioClip audioClipHeyyaVFX;
+    public AudioClip audioClipMedicVFX;
+    public AudioClip audioClipWhyVFX;
+    public AudioClip audioClipAreYouVFX;
+    public AudioClip audioClipDieVFX;
     // Xử lý tấn công
     public float distanceAttack = 10f; // Khoảng cách nhìn thấy player để tấn công
     public float attackCooldown = 10f; // Thời gian hồi chiêu
@@ -59,6 +61,12 @@ public class Boss1 : MonoBehaviour
     // khi death
     public GameObject effectDeath;
     public Transform deathTransfrom;
+
+    //xử lí effect slash
+    //attack1
+    public GameObject effectSlash1;
+   
+   
     private void Start()
     {
         playerCam.Priority = 20;
@@ -78,6 +86,9 @@ public class Boss1 : MonoBehaviour
         //xử lý lấy hp player
         boxCollider.enabled = false;
         effectDeath.SetActive(false);
+
+        //xử lý effect slash1
+        effectSlash1.SetActive(false);
     }
 
     private void Update()
@@ -152,13 +163,16 @@ public class Boss1 : MonoBehaviour
             {
                 Debug.Log("Thực hiện attack 1");
                 animator.SetTrigger("Attack");
+                audioSource.PlayOneShot(audioClipMedicVFX);
                 weappon.SetActive(true);
+                StartCoroutine(EffectAttack1());
             }
             if (random == 1)
             {
                 Debug.Log("Thực hiện attack 2");
                 animator.SetTrigger("Attack2");
                 weappon.SetActive(true);
+                StartCoroutine(EffectAttack1());
             }
             if(random == 2)
             {
@@ -166,6 +180,7 @@ public class Boss1 : MonoBehaviour
                 animator.SetTrigger("Attack3");               
                 StartCoroutine(OnEffect());
                 weappon.SetActive(false);
+                audioSource.PlayOneShot(audioClipWhyVFX);
             }
             lastAttackTime = Time.time; // Cập nhật thời gian tấn công cuối cùng
         }
@@ -199,7 +214,7 @@ public class Boss1 : MonoBehaviour
             {
                 Debug.Log("Skill1");
                 animator.SetTrigger("Skill1");
-
+                audioSource.PlayOneShot(audioClipAreYouVFX);
                 //xử lý chức nang skill
                 Vector3 playerPosition = new Vector3(player.position.x, 20.2f, player.position.z); //vị trí suất hiện
                 GameObject ball = Instantiate(ballSkill1, playerPosition, Quaternion.identity);
@@ -213,13 +228,13 @@ public class Boss1 : MonoBehaviour
             {
                 Debug.Log("Skill2");
                 animator.SetTrigger("Skill2");
-
+               
                 weappon.SetActive(false);
-                StartCoroutine(NoTaget());
+                StartCoroutine(NoTaget());               
                 //xử lý chức nang skill
                 Vector3 playerPosition = new Vector3(player.position.x, 20f, player.position.z) ;
                 GameObject laser = Instantiate(laserSkill2, playerPosition, Quaternion.identity);
-                Destroy(laser,3f);
+                Destroy(laser,2f);
                 
             }
             if(random == 2)
@@ -238,6 +253,7 @@ public class Boss1 : MonoBehaviour
 
                 //xử lý chức năng của skill
                 transform.position = player.transform.position;
+                audioSource.PlayOneShot(audioClipHeyyaVFX);
                 StartCoroutine(OnAttack());//ko cho tấn công khi dùng skill
 
                 //bật tắt weapon và offwalk
@@ -315,6 +331,11 @@ public class Boss1 : MonoBehaviour
                  
         if (currentHealth.value <= 0)
         {
+            onAttack = false;
+            onSkill = false;
+            onWalk = false;
+            onTakeHealth = false;
+            weappon.SetActive(false);
             transform.position = deathTransfrom.position;
             StartCoroutine(cameraTaget());
             animator.SetTrigger("death");
@@ -324,11 +345,7 @@ public class Boss1 : MonoBehaviour
     private IEnumerator cameraTaget()
     {        
         bossCam.Priority = 20;
-        playerCam.Priority = 0;
-        onAttack = false;
-        onSkill = false;
-        onWalk = false;
-        onTakeHealth = false;
+        playerCam.Priority = 0;     
         yield return new WaitForSeconds(4);
         effectDeath.SetActive(true);
         bossCam.Priority = 0;
@@ -353,4 +370,12 @@ public class Boss1 : MonoBehaviour
     {
         effectDameSkill4.SetActive(false);
     }
+    
+    //xử lý effect slash
+    public IEnumerator EffectAttack1()
+    {
+        effectSlash1.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        effectSlash1.SetActive(false);
+    }   
 }
