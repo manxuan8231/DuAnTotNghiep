@@ -13,8 +13,8 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private Transform target;
     [SerializeField] private float radius = 100f;
-    [SerializeField] private float distanceAttack = 2f;
-    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float distanceAttack;
+    [SerializeField] private float attackCooldown;
     [SerializeField] private Animator animator;
   
 
@@ -45,7 +45,7 @@ public class BossMoveAndAnimation : MonoBehaviour
         var distanceToTarget = Vector3.Distance(target.position, transform.position);
       
 
-        switch (currentState)
+        switch (currentState)//trạng thái hiện tại
         {
             case CharacterState.Idle:
 
@@ -57,16 +57,49 @@ public class BossMoveAndAnimation : MonoBehaviour
                 Debug.Log("Idle");
                 break;
             case CharacterState.Walk:
-                if(distanceToTarget <= radius)
+                //khoảng cách tới tager nếu như nhỏ hơn radius thì sẽ di chuyển tơi target đồng thời bật trạng thái Walk
+                if (distanceToTarget <= radius)
                 {
                     navMeshAgent.SetDestination(target.position);
                     animator.SetBool("isWalking", true);
+                    if (distanceToTarget <= distanceAttack)
+                    {
+                        int randoom = Random.Range(0, 2);
+                        if (randoom == 0)
+                        {
+
+                            ChangState(CharacterState.Attack1);
+                        }
+                        else
+                        {
+                            ChangState(CharacterState.Attack2);
+                        }
+                    }
+                   
 
                 }
 
                 break;
             case CharacterState.Attack1:
-                break;
+                if(distanceToTarget > distanceAttack)
+                {
+                    ChangState(CharacterState.Walk);
+                }
+                else
+                {
+                    ChangState(CharacterState.Attack1);
+                }
+                    break;
+            case CharacterState.Attack2:
+                if (distanceToTarget > distanceAttack)
+                {
+                    ChangState(CharacterState.Walk);
+                }
+                else
+                {
+                    ChangState(CharacterState.Attack2);
+                }
+                    break;
 
         } 
 
@@ -97,16 +130,20 @@ public class BossMoveAndAnimation : MonoBehaviour
                 break;
             case CharacterState.Walk:
                 navMeshAgent.isStopped = false;
-                animator.SetBool("IsWalking", true);
+                animator.SetBool("isWalking", true);
                 animator.SetBool("isIdle", false);
-                
+                animator.ResetTrigger("Attack1");
+                animator.ResetTrigger("Attack2");
+
                 break;
             case CharacterState.Attack1:
                 navMeshAgent.isStopped = true;
+                animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack1");
                 break;
             case CharacterState.Attack2:
                 navMeshAgent.isStopped = true;
+                animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack2");
                 break;
             case CharacterState.Skill1:
