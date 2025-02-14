@@ -9,7 +9,7 @@ public class Skill1 : MonoBehaviour
     [SerializeField] float cantSkill = 5f;//nếu target vào vùng 5f thì sẽ không bắn skill
     [SerializeField] Animator animator;
     public GameObject skill1;
-    
+    public float skill1CoolDown;
     [SerializeField] private float lastTimeSkill1 = 0;//đặt lại thời gian = 0
     void Start()
     {
@@ -22,7 +22,7 @@ public class Skill1 : MonoBehaviour
     void Update()
     {
         var playerTarget = Vector3.Distance(player.position, transform.position);//khoảng cách từ boss tới player
-        if (playerTarget >= radius && playerTarget > cantSkill && Time.time >= lastTimeSkill1 + 10)
+        if (playerTarget >= radius && playerTarget > cantSkill && Time.time >= lastTimeSkill1 + skill1CoolDown)
         {
             int randoom = Random.Range(0, 2);
             if (randoom == 0)

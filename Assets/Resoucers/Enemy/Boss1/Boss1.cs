@@ -54,7 +54,6 @@ public class Boss1 : MonoBehaviour
     public TextMeshProUGUI textHealth;
     public GameObject health;
     public bool onTakeHealth = true;
-    SliderHp sliderHp;//tham chiếu đến script sliderhb của player
     public BoxCollider boxCollider;
 
     // khi death

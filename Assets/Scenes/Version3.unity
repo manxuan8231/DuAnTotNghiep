@@ -36512,6 +36512,7 @@ MonoBehaviour:
   cantSkill: 5
   animator: {fileID: 3074726758073486085}
   skill1: {fileID: 7024714696775762329}
+  skill1CoolDown: 10
   lastTimeSkill1: 0
 --- !u!4 &8992034146945556737
 Transform:
