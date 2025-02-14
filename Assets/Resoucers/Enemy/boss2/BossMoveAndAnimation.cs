@@ -16,18 +16,11 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private float distanceAttack;
     [SerializeField] private float attackCooldown;
     [SerializeField] private Animator animator;
-  
-
-
     void Start()
     {
      
         ChangState(CharacterState.Idle);
     }
-
-
-
-
     void Update()
     {
         if (currentState == CharacterState.Death)
