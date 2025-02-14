@@ -4899,6 +4899,7 @@ GameObject:
   - component: {fileID: 1952271993483850004}
   - component: {fileID: 432324598968573434}
   - component: {fileID: 69009516804894225}
+  - component: {fileID: 8393560106827892971}
   m_Layer: 0
   m_Name: Skill1
   m_TagString: Untagged
@@ -9721,6 +9722,27 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!65 &8393560106827892971
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371439882126987626}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4199998, y: 11.690146, z: 1.42}
+  m_Center: {x: 0.000005050135, y: -5.135099, z: -3.023681e-14}
 --- !u!1 &5558827922132547672
 GameObject:
   m_ObjectHideFlags: 0
