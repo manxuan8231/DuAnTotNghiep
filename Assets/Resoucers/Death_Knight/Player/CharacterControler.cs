@@ -41,9 +41,6 @@ public class CharacterController : MonoBehaviour
     //offrain
     public GameObject offRain;
     //sounds
-    public AudioSource audioSourceRun;
-    public AudioSource audioSourceWalk;
-    private bool isSounds = true;
 
     public AudioSource audioSound;
     public AudioClip audioClipJump;//gan file
@@ -55,8 +52,6 @@ public class CharacterController : MonoBehaviour
         if (weaponDefault != null) weaponDefault.SetActive(true);
         if (weaponHand != null) weaponHand.SetActive(false);
 
-        audioSourceRun.enabled = false;
-        audioSourceWalk.enabled = false;
     }
 
     void Update()
@@ -134,32 +129,24 @@ public class CharacterController : MonoBehaviour
             {
                 speed = sprintSpeed;
                 animator.SetBool("isRunning", true);
-                if(!isSounds)
-                {
-                    audioSourceRun.enabled = true;
-                    audioSourceWalk.enabled = false;
-                }              
+                           
             }
             else
             {
                 animator.SetBool("isRunning", false);
-                audioSourceRun.enabled = false;//sound
+              
             }
 
             rb.MovePosition(rb.position + moveDirection.normalized * speed * Time.fixedDeltaTime);
 
             animator.SetBool("isWalking", true);
-            if (!isSounds)
-            {
-                audioSourceWalk.enabled = true;
-            }     
+             
         }
         else
         {
             animator.SetBool("isWalking", false);
             animator.SetBool("isRunning", false);
-            audioSourceRun.enabled = false;//sound
-            audioSourceWalk.enabled = false;
+           
         }
     } 
     void Jump()
@@ -168,16 +155,13 @@ public class CharacterController : MonoBehaviour
 
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z); // Áp dụng lực nhảy
         animator.SetTrigger("startJump"); // Kích hoạt animation nhảy
-        audioSourceRun.enabled = false;
-        audioSourceWalk.enabled = false;
+       
     }
 
     private IEnumerator Attack()
     {
         currentState = CharacterState.Attack; // Chuyển trạng thái thành Attack
-        audioSourceRun.enabled = false;
-        audioSourceWalk.enabled = false;
-
+       
         yield return new WaitForSeconds(0.1f); // Thời gian tấn công (tùy chỉnh theo animation)
 
         currentState = CharacterState.Normal; // Quay lại trạng thái Normal
@@ -214,8 +198,7 @@ public class CharacterController : MonoBehaviour
     private IEnumerator RollCoolDown()
     {
         animator.SetTrigger("roll");
-        audioSourceRun.enabled = false;
-        audioSourceWalk.enabled = false;
+     
         yield return new WaitForSeconds(2f);
         rollCoroutine = null;
     }
@@ -240,9 +223,7 @@ public class CharacterController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("isLandJump", true); // Kích hoạt animation tiếp đất
-            isSounds = false;
-            audioSourceRun.enabled = true;
-            audioSourceWalk.enabled = true;
+         
         }
     }
 
@@ -252,9 +233,7 @@ public class CharacterController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("isLandJump", false); // Tắt animation tiếp đất
-            isSounds = true;
-            audioSourceRun.enabled = false;
-            audioSourceWalk.enabled = false;
+          
         }
     }
     public void AudioJump()
@@ -267,5 +246,19 @@ public class CharacterController : MonoBehaviour
         {
             offRain.SetActive(false);
         }
+        if (other.gameObject.CompareTag("Explosion"))
+        {
+            animator.SetTrigger("TakeHitBack");
+            Debug.Log("đã té");
+            StartCoroutine(LockMovement());
+        }
+    }
+    public IEnumerator LockMovement()
+    {
+        isMovementLocked = true;
+
+        yield return new WaitForSeconds(5f); // Thời gian tấn công (tùy chỉnh theo animation)
+
+        isMovementLocked = false;
     }
 }
