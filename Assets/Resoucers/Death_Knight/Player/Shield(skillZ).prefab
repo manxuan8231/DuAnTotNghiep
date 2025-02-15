@@ -4844,6 +4844,7 @@ GameObject:
   - component: {fileID: 7848629607064256400}
   - component: {fileID: 3999943171551193757}
   - component: {fileID: 8852644323026183288}
+  - component: {fileID: -470452731486775326}
   m_Layer: 0
   m_Name: Shield(skillZ)
   m_TagString: Untagged
@@ -9811,6 +9812,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-470452731486775326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237831116174898712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a103e9a952cb9114797afaf37ec4ac71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 10
+  pullSpeed: 10
+  damage: 10
 --- !u!1 &9055421436489388162
 GameObject:
   m_ObjectHideFlags: 0
