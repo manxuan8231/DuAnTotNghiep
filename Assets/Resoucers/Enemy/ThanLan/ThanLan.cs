@@ -271,5 +271,15 @@ public class ThanLan : MonoBehaviour
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("SkillR"))
+        {
+            TakeDamage(100);
+        }
+        if (other.gameObject.CompareTag("SkillZ"))
+        {
+            TakeDamage(999);
+        }
+    }
 }
