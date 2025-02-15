@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SkillManager : MonoBehaviour
 {
@@ -13,9 +14,10 @@ public class SkillManager : MonoBehaviour
     public GameObject skill2;//khai báo skill 2 partical 
     [SerializeField] private float lastTimeSkill1 = 0;//đặt lại thời gian = 0
     public GameObject hideSword;
+    public GameObject skill3;
+
     void Start()
     {
-        hideSword.SetActive(true);
         skill1.SetActive(false);
         animator.GetComponent<Animator>();
 
@@ -27,31 +29,47 @@ public class SkillManager : MonoBehaviour
         var playerTarget = Vector3.Distance(player.position, transform.position);//khoảng cách từ boss tới player
         if (playerTarget >= radius && playerTarget > cantSkill && Time.time >= lastTimeSkill1 + skill1CoolDown)
         {
-            int randoom = Random.Range(0, 2);
+            int randoom = Random.Range(0, 3);
             if (randoom == 0)
             {
                 animator.SetTrigger("Skill1");
                 skill1.SetActive(true);
                 Debug.Log("Skill1");
-                hideSword.SetActive(false);
-                Debug.Log("Đã Ẩn Sword");
+                StartCoroutine(OffSword());
             }
             if (randoom == 1)
             {
                 GameObject skill2Transform = Instantiate(skill2, player.position, Quaternion.identity);// tao skill ngay tai vi tri player
                 Destroy(skill2Transform, 2f);
+
                 animator.SetTrigger("Skill2");
                 Debug.Log("Skill2");
-                hideSword.SetActive(false);
-                Debug.Log("Đã Ẩn Sword");
+                StartCoroutine(OffSword());
 
+            }
+            if (randoom == 2)
+            {
+                Vector3 vector3 = new Vector3(90f,0,0);
+                GameObject skill3Transform = Instantiate(skill3, vector3, Quaternion.identity);
+                Destroy(skill3Transform, 2f);
+                animator.SetTrigger("Skill3");
+                Debug.Log("Skill3");
+                StartCoroutine(OffSword());
+
+                
             }
             lastTimeSkill1 = Time.time;
         }
 
     }
-    public void EndSkill1(){
+    public void EndSkill1() {
         skill1.SetActive(false);
     }
-
+    public IEnumerator OffSword()
+    {
+        hideSword.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        hideSword.SetActive(true);  
+    }
+  
 }

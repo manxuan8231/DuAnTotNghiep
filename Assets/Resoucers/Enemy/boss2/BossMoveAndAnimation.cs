@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class BossMoveAndAnimation : MonoBehaviour
 {
 
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     [SerializeField] private Transform target;
     [SerializeField] private float radius = 100f;
     [SerializeField] private float distanceAttack;  
@@ -23,8 +23,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] bool isCantDamage = false;//biến khi quái death không thể nhận damage
     [SerializeField] private CapsuleCollider capsuleCollider;
     [SerializeField] private BoxCollider boxCollider;
-    public SkillManager skillManager;
-
+    
     void Start()
     {
 
@@ -56,7 +55,7 @@ public class BossMoveAndAnimation : MonoBehaviour
             currentHealth.value -= amount;
             txtHealth.text = $"{currentHealth.value}/{maxHealth}";
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
-            if (animator != null) animator.SetTrigger("GetHit");
+            if (animator == null) animator.SetTrigger("GetHit");
             if (currentHealth.value <= 0)
             {
                 ChangState(CharacterState.Death);
@@ -69,7 +68,8 @@ public class BossMoveAndAnimation : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            TakeDame(300000);
+            TakeDame(300);
+            
             Debug.Log("matmau");
         }
     }
@@ -107,11 +107,19 @@ public class BossMoveAndAnimation : MonoBehaviour
 
                             ChangState(CharacterState.Attack1);
                             Debug.Log("Attack1");
+                            if (animator == null)
+                            {
+                                Debug.LogError("Animator is NULL in ChangState!");
+                            }
                         }
                         else
                         {
                             ChangState(CharacterState.Attack2);
                             Debug.Log("Attack2");
+                            if (animator == null)
+                            {
+                                Debug.LogError("Animator is NULL in ChangState!");
+                            }
                         }
                     }
                    
@@ -128,8 +136,9 @@ public class BossMoveAndAnimation : MonoBehaviour
                 {
 
                     ChangState(CharacterState.Attack1);
+
                 }
-                    break;
+                break;
             case CharacterState.Attack2:
                 if (distanceToTarget > distanceAttack)
                 {
@@ -180,18 +189,15 @@ public class BossMoveAndAnimation : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack1");
-                skillManager.hideSword.SetActive(true);
                 break;
             case CharacterState.Attack2:
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack2");
-                skillManager.hideSword.SetActive(true);
                 break;
             case CharacterState.GetHit:
                 navMeshAgent.isStopped = true;
                 animator.SetTrigger("GetHit");
-
                 break;
             case CharacterState.Death:
                 navMeshAgent.isStopped = true;
