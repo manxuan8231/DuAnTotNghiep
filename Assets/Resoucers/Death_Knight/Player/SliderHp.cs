@@ -187,20 +187,24 @@ public class SliderHp : MonoBehaviour
     //hàm lấy hp
     public void TakeDame(float amount)
     {
-        currentHP.value -= amount;
-        //bị choáng
-        animator.SetTrigger("TakeHit");
-        audioSource.PlayOneShot(audioTakeHit);
-        StartCoroutine(LockMovement());
-        //
-        textHP.text = $"{currentHP.value}/{maxHp}";
-        Debug.Log("Da tru hp");
-        currentHP.value = Mathf.Clamp(currentHP.value, 0, maxHp);       
-        if(currentHP.value <= 0)
+        if(characterController.isDameLocked == false) 
         {
-            panelGameOver.SetActive(true);
-            Destroy(gameObject);
+            currentHP.value -= amount;
+            //bị choáng
+            animator.SetTrigger("TakeHit");
+            audioSource.PlayOneShot(audioTakeHit);
+            StartCoroutine(LockMovement());
+            //
+            textHP.text = $"{currentHP.value}/{maxHp}";
+            Debug.Log("Da tru hp");
+            currentHP.value = Mathf.Clamp(currentHP.value, 0, maxHp);
+            if (currentHP.value <= 0)
+            {
+                panelGameOver.SetActive(true);
+                Destroy(gameObject);
+            }
         }
+        
     }
     public IEnumerator LockMovement()
     {
@@ -210,4 +214,5 @@ public class SliderHp : MonoBehaviour
 
         characterController.isMovementLocked = false;
     }
+    
 }

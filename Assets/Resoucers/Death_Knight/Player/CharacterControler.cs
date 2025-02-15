@@ -34,6 +34,7 @@ public class CharacterController : MonoBehaviour
     private Coroutine jumpCoroutine;
 
     public bool isMovementLocked = false; // Kiểm soát trạng thái "không di chuyển"
+    public bool isDameLocked = false;
     private bool isECooldown = false; // Kiểm tra trạng thái hồi chiêu của phím E
    
     //khởi tạo script
@@ -90,16 +91,7 @@ public class CharacterController : MonoBehaviour
             StartCoroutine(ECooldown(5f)); // Thời gian hồi chiêu 5 giây
             weaponHand.SetActive(false );
         }
-        //skill2
-        if (Input.GetKey(KeyCode.R))
-        {
-            isMovementLocked = true;
-        }
-        // Khi thả phím R
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-           isMovementLocked = false;
-        }
+        
         // Kiểm tra trạng thái rơi tự do
         if (rb.velocity.y < 0)
         {
@@ -257,17 +249,20 @@ public class CharacterController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Explosion"))
         {
+            isDameLocked = true;
             animator.SetTrigger("TakeHitBack");
             Debug.Log("đã té");
             StartCoroutine(LockMovement());
         }
     }
-    public IEnumerator LockMovement()
+    public IEnumerator LockMovement()//không cho di chuyển khi bị stun
     {
         isMovementLocked = true;
-
+        isDameLocked = true;
         yield return new WaitForSeconds(5f); // Thời gian tấn công (tùy chỉnh theo animation)
 
         isMovementLocked = false;
+        isDameLocked = false;
     }
+
 }
