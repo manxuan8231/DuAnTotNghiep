@@ -573,8 +573,8 @@ Transform:
   m_GameObject: {fileID: 430874982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.690111, y: 2.15, z: 85.62945}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -11.690111, y: 3.5, z: 85.62945}
+  m_LocalScale: {x: 1.8751, y: 1.8751, z: 1.8751}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -742,6 +742,11 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 4475962022268985431, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
   m_PrefabInstance: {fileID: 3706914240252008445}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2094444369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 693064191797999709, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+  m_PrefabInstance: {fileID: 3706914240252008445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3706914240252008445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -765,6 +770,10 @@ PrefabInstance:
     - target: {fileID: 229532181876828063, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
       propertyPath: m_Name
       value: Boss2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730200529791443770, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1932376912933532424, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -810,6 +819,26 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 430874986}
+    - target: {fileID: 5315980535768333462, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: skill3
+      value: 
+      objectReference: {fileID: 3740417003464875119, guid: 2a4c68945a057414a82c0cf6dd24284c, type: 3}
+    - target: {fileID: 5315980535768333462, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: hideSword
+      value: 
+      objectReference: {fileID: 2094444369}
+    - target: {fileID: 5315980535768333462, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: skill1CoolDown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611437109319366603, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611437109319366603, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6089018553678110978, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
       propertyPath: target
       value: 
