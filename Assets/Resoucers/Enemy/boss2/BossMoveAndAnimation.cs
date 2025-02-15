@@ -1,35 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class BossMoveAndAnimation : MonoBehaviour
 {
-  
+
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private Transform target;
     [SerializeField] private float radius = 100f;
-    [SerializeField] private float distanceAttack;
+    [SerializeField] private float distanceAttack;  
     [SerializeField] private float attackCooldown;
     [SerializeField] private Animator animator;
+    [SerializeField] private Slider currentHealth;
+    [SerializeField] private float maxHealth = 30000f;
+    [SerializeField] private TextMeshProUGUI txtHealth;
+    [SerializeField] GameObject isOnHealth ;//biến hiện thanh máu khi thấy player
+    [SerializeField] bool isCantDamage = false;//biến khi quái death không thể nhận damage
+    [SerializeField] private CapsuleCollider capsuleCollider;
+    [SerializeField] private BoxCollider boxCollider;
+
     void Start()
     {
-     
+        capsuleCollider.enabled = true;
+        navMeshAgent.enabled = true;
+        isOnHealth.SetActive(false);
+        isCantDamage = true;
+        currentHealth.maxValue = maxHealth;
+        txtHealth.text = $"{currentHealth.value}/{maxHealth}";
         ChangState(CharacterState.Idle);
     }
     void Update()
     {
         if (currentState == CharacterState.Death)
         {
+            navMeshAgent.enabled=false;
+            capsuleCollider.enabled = false;
+
             return;
         }
         if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
             return;
         HandleStateTransition();
+    }
+    public void TakeDame(float amount)
+    {
+        if(isCantDamage == true)
+        {
+            currentHealth.value -= amount;
+            txtHealth.text = $"{currentHealth.value}/{maxHealth}";
+            currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
+            if (animator != null) animator.SetTrigger("GetHit");
+            if (currentHealth.value <= 0)
+            {
+                ChangState(CharacterState.Death);
+            }
+            
+        }
+       
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            TakeDame(300000);
+            Debug.Log("matmau");
+        }
     }
 
     private void HandleStateTransition()
@@ -45,7 +85,9 @@ public class BossMoveAndAnimation : MonoBehaviour
                 //khi khoảng cách tới target nhỏ hơn hoặc bằng radius thì sẽ dí 
                 if (distanceToTarget <= radius)
                 {
+                    isOnHealth.SetActive(true);
                     ChangState(CharacterState.Walk);
+
                 }
                 Debug.Log("Idle");
                 break;
@@ -62,10 +104,12 @@ public class BossMoveAndAnimation : MonoBehaviour
                         {
 
                             ChangState(CharacterState.Attack1);
+                            Debug.Log("Attack1");
                         }
                         else
                         {
                             ChangState(CharacterState.Attack2);
+                            Debug.Log("Attack2");
                         }
                     }
                    
@@ -92,9 +136,11 @@ public class BossMoveAndAnimation : MonoBehaviour
                 {
                     ChangState(CharacterState.Attack2);
                 }
-                    break;
-
-        } 
+                break;
+            case CharacterState.Death:
+                Debug.Log("Death");
+                break;
+        }
 
     }
     public enum CharacterState
@@ -144,14 +190,26 @@ public class BossMoveAndAnimation : MonoBehaviour
                 break;
             case CharacterState.Death:
                 navMeshAgent.isStopped = true;
-                Destroy(gameObject, 1f);
+                animator.SetTrigger("Death");
+                isCantDamage = false;
+                Destroy(gameObject,5f);
+                
                 break;
             
             
         }
         currentState = newstate;
     }
-    
 
-  
+    public void StartDame()
+    {
+        boxCollider.enabled = true;
+    }
+    public void EndDame()
+    {
+        boxCollider.enabled = false;
+    }
+
+
+
 }
