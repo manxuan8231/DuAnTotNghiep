@@ -27,6 +27,8 @@ public class SkillZController : MonoBehaviour
     public GameObject muiTen;
 
     public CharacterController characterController;
+
+    public SliderHp sliderHp;
     void Start()
     {
         cooldownSlider.maxValue = cooldownTime;
@@ -42,9 +44,8 @@ public class SkillZController : MonoBehaviour
     void Update()
     {
         // Kiểm tra nếu đang giữ phím Z và không trong thời gian hồi chiêu
-        if (Input.GetKey(KeyCode.Z) && !isOnCooldown)
-        {
-           
+        if (Input.GetKey(KeyCode.Z) && !isOnCooldown && sliderHp.GetCurrentMana() >= 30)
+        {        
             isCharging = true;
             ChargeEnergy();
             FlipPlayerToCamera();
@@ -60,7 +61,7 @@ public class SkillZController : MonoBehaviour
         }
 
         // Kiểm tra nếu thả phím Z
-        if (Input.GetKeyUp(KeyCode.Z) && isCharging)
+        if (Input.GetKeyUp(KeyCode.Z) && isCharging && )
         {
             isCharging = false;
             if (currentCharge >= 100)
