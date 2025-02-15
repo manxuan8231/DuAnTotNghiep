@@ -10,6 +10,7 @@ public class Skill1 : MonoBehaviour
     [SerializeField] Animator animator;
     public GameObject skill1;
     public float skill1CoolDown;
+    public GameObject skill2;//khai báo skill 2 partical 
     [SerializeField] private float lastTimeSkill1 = 0;//đặt lại thời gian = 0
     void Start()
     {
@@ -29,11 +30,16 @@ public class Skill1 : MonoBehaviour
             {
                 animator.SetTrigger("Skill1");
                 skill1.SetActive(true);
+                Debug.Log("Skill1");
 
             }
             if (randoom == 1)
             {
+                GameObject skill2Transform = Instantiate(skill2,player.position, Quaternion.identity);// tao skill ngay tai vi tri player
+                Destroy(skill2Transform,2f);
                 animator.SetTrigger("Skill2");
+                Debug.Log("Skill2");
+
             }
             lastTimeSkill1 = Time.time;
         }

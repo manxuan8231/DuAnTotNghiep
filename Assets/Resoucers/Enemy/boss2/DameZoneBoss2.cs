@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Da : MonoBehaviour
+public class DameZoneBoss2 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,13 @@ public class Da : MonoBehaviour
     void Update()
     {
         
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SliderHp sliderHp = other.gameObject.GetComponent<SliderHp>();
+            sliderHp.TakeDame(150);
+        }
     }
 }
