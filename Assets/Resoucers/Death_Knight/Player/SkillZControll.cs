@@ -61,8 +61,9 @@ public class SkillZController : MonoBehaviour
         }
 
         // Kiểm tra nếu thả phím Z
-        if (Input.GetKeyUp(KeyCode.Z) && isCharging && )
+        if (Input.GetKeyUp(KeyCode.Z) && isCharging && sliderHp.GetCurrentMana() >= 30)
         {
+            sliderHp.SkillEMana(30);//lấy mana
             isCharging = false;
             if (currentCharge >= 100)
             {
@@ -78,8 +79,7 @@ public class SkillZController : MonoBehaviour
             // Tắt animation khi thả phím Z
            
             effect.SetActive(false);
-            muiTen.SetActive(false);
-           
+            muiTen.SetActive(false);          
         }
 
         // Cập nhật thanh trượt hồi chiêu
