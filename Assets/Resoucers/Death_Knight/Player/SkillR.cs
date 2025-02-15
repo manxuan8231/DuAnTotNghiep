@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillR : MonoBehaviour
@@ -21,6 +22,7 @@ public class SkillR : MonoBehaviour
     public SliderHp sliderHp; // Điều khiển HP và mana
     public Camera playerCamera; // Camera của người chơi
 
+    
     void Start()
     {
         if (cooldownSlider != null)
@@ -76,22 +78,64 @@ public class SkillR : MonoBehaviour
     {
         if (target != null)
         {
+            StartCoroutine(NoTakeHealth());
             sliderHp.SkillEMana(20); // Trừ mana khi sử dụng kỹ năng
             StartCoroutine(Effect2()); // Bắt đầu hiệu ứng 2
             animator.SetTrigger("skillR2"); // Kích hoạt animation "skillR2"
             characterController.weaponHand.SetActive(true); // Kích hoạt weaponHand
-            transform.position = target.position; // Dịch chuyển nhân vật đến vị trí mục tiêu
-            characterController.isMovementLocked = false;
-            if (activeIndicator != null)
-            {
-                Destroy(activeIndicator); // Hủy chỉ thị dịch chuyển
-            }
 
-            StartCoroutine(CooldownRoutine()); // Bắt đầu thời gian hồi chiêu
+            if (target.CompareTag("Boss1")) // Nếu target là Boss
+            {
+                StartCoroutine(TeleportAroundBoss(target)); // Dịch chuyển tuần tự quanh Boss
+            }
+            else
+            {
+                transform.position = target.position; // Dịch chuyển đến mục tiêu bình thường
+                EndTeleport();
+            }
         }
     }
+    public IEnumerator NoTakeHealth()
+    {
+        characterController.isDameLocked = true;
+        yield return new WaitForSeconds(4);
+        characterController.isDameLocked = false;
+    }
+    IEnumerator TeleportAroundBoss(Transform boss)
+    {
+        Vector3[] positions =
+        {
+        boss.position + boss.forward,  // Trước mặt
+        boss.position - boss.forward,  // Phía sau
+        boss.position + boss.right,    // Bên phải
+        boss.position - boss.right     // Bên trái
+    };
 
-    System.Collections.IEnumerator Effect2()
+        foreach (Vector3 pos in positions)
+        {
+            effect2.SetActive(true); // Bật hiệu ứng 2
+            animator.SetTrigger("skillR2"); // Kích hoạt animation "skillR2"
+            transform.position = pos; // Dịch chuyển đến vị trí mới
+
+            yield return new WaitForSeconds(0.3f); // Chờ 0.3 giây
+
+            effect2.SetActive(false); // Tắt hiệu ứng 2 trước khi chuyển tiếp
+        }
+
+        EndTeleport(); // Kết thúc dịch chuyển
+    }
+
+    void EndTeleport()
+    {
+        effect2.SetActive(false); // Đảm bảo tắt hiệu ứng 2 hoàn toàn sau lần dịch chuyển cuối
+        characterController.isMovementLocked = false;
+        if (activeIndicator != null)
+        {
+            Destroy(activeIndicator); // Hủy chỉ thị dịch chuyển
+        }
+        StartCoroutine(CooldownRoutine()); // Bắt đầu thời gian hồi chiêu
+    }
+    IEnumerator Effect2()
     {
         effect2.SetActive(true); // Bật hiệu ứng 2
         effect1.SetActive(false); // Tắt hiệu ứng 1
@@ -99,7 +143,7 @@ public class SkillR : MonoBehaviour
         effect2.SetActive(false); // Tắt hiệu ứng 2
     }
 
-    System.Collections.IEnumerator CooldownRoutine()
+    IEnumerator CooldownRoutine()
     {
         isOnCooldown = true; // Đặt trạng thái hồi chiêu
         if (cooldownSlider != null)
