@@ -23,9 +23,11 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] bool isCantDamage = false;//biến khi quái death không thể nhận damage
     [SerializeField] private CapsuleCollider capsuleCollider;
     [SerializeField] private BoxCollider boxCollider;
+    public SkillManager skillManager;
 
     void Start()
     {
+
         capsuleCollider.enabled = true;
         navMeshAgent.enabled = true;
         isOnHealth.SetActive(false);
@@ -124,6 +126,7 @@ public class BossMoveAndAnimation : MonoBehaviour
                 }
                 else
                 {
+
                     ChangState(CharacterState.Attack1);
                 }
                     break;
@@ -177,11 +180,13 @@ public class BossMoveAndAnimation : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack1");
+                skillManager.hideSword.SetActive(true);
                 break;
             case CharacterState.Attack2:
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack2");
+                skillManager.hideSword.SetActive(true);
                 break;
             case CharacterState.GetHit:
                 navMeshAgent.isStopped = true;

@@ -742,6 +742,11 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 4475962022268985431, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
   m_PrefabInstance: {fileID: 3706914240252008445}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2094444369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 693064191797999709, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+  m_PrefabInstance: {fileID: 3706914240252008445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3706914240252008445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -810,6 +815,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 430874986}
+    - target: {fileID: 5315980535768333462, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
+      propertyPath: hideSword
+      value: 
+      objectReference: {fileID: 2094444369}
     - target: {fileID: 6089018553678110978, guid: 5442bfeab62b674478011aa3c377628d, type: 3}
       propertyPath: target
       value: 
