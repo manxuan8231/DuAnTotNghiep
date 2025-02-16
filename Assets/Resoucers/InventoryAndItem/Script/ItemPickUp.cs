@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemPickUp : MonoBehaviour
 {
     public bool onRage;
+    public Item item;
     void Start()
     {
         onRage = false;
@@ -13,11 +14,7 @@ public class ItemPickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && onRage == true)
-        {
-            Destroy(gameObject);
-            Debug.Log("đã nhặt");
-        }
+        PickUpitem();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,4 +33,15 @@ public class ItemPickUp : MonoBehaviour
             Debug.Log("đã rời khỏi vùng");
         }
     }
+    private void PickUpitem()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && onRage == true)
+        {
+            Destroy(gameObject);
+            Debug.Log("đã nhặt");
+            InventoryManager.Instance.AddItem(item);
+        }
+    }
+
+
 }
