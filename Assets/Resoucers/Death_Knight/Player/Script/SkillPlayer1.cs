@@ -43,6 +43,7 @@ public class SkillPlayer1 : MonoBehaviour
     public TextMeshProUGUI warningEText;
     public TextMeshProUGUI warningRText;
     public TextMeshProUGUI warningZText;
+    public TextMeshProUGUI warningCText;
     private Coroutine warningCoroutine;
 
     //dame air
@@ -77,6 +78,7 @@ public class SkillPlayer1 : MonoBehaviour
         warningEText.gameObject.SetActive(false);
         warningRText.gameObject.SetActive(false);
         warningZText.gameObject.SetActive(false);
+        warningCText.gameObject.SetActive(false);
         //
         currentDameAir = baseDameAir;
         currentDame = baseDame;
@@ -103,6 +105,11 @@ public class SkillPlayer1 : MonoBehaviour
         {
             ShowWarningZText();
             warningZText.gameObject.SetActive(true);
+        }
+        if (sliderHp.GetCurrentLevel() < 40 && Input.GetKeyDown(KeyCode.C))
+        {
+            ShowWarningCText();
+            warningCText.gameObject.SetActive(true);
         }
         // Kiểm tra nếu người chơi nhấn phím Q và ulti đủ 1000
         if (Input.GetKeyDown(KeyCode.Q) && sliderHp.GetCurrentUlti() >= 1000)
@@ -204,6 +211,28 @@ public class SkillPlayer1 : MonoBehaviour
                 StopCoroutine(warningCoroutine); // Nếu đang có coroutine cảnh báo, dừng lại
             }
             warningCoroutine = StartCoroutine(HideWarningZText());
+        }
+    }
+
+    IEnumerator HideWarningCText()
+    {
+        yield return new WaitForSeconds(2f); // Chờ 2 giây
+        if (warningEText != null)
+        {
+            warningEText.text = ""; // Tắt cảnh báo
+        }
+    }
+
+    void ShowWarningCText()
+    {
+        if (warningCText != null)
+        {
+            warningCText.text = "Cần level 40 để sử dụng kỹ năng!";
+            if (warningCoroutine != null)
+            {
+                StopCoroutine(warningCoroutine); // Nếu đang có coroutine cảnh báo, dừng lại
+            }
+            warningCoroutine = StartCoroutine(HideWarningCText());
         }
     }
 

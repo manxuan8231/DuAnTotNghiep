@@ -326,7 +326,7 @@ public class Boss1 : MonoBehaviour
     public void TakeHealth(float amount)
     {       
             currentHealth.value -= amount;
-            sliderHp.AddExp(1000);
+           
             textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
                  
@@ -337,8 +337,9 @@ public class Boss1 : MonoBehaviour
             onWalk = false;
             onTakeHealth = false;
             weappon.SetActive(false);
-            transform.position = deathTransfrom.position;
-            StartCoroutine(cameraTaget());
+            /* transform.position = deathTransfrom.position;
+             StartCoroutine(cameraTaget());*/
+            sliderHp.AddExp(5000);
             animator.SetTrigger("death");               
             Destroy(gameObject, 6f);
         }
