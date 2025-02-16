@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -49,8 +50,9 @@ public class SkillManager : MonoBehaviour
             }
             if (randoom == 2)
             {
-                Vector3 vector3 = new Vector3(90f,0,0);
-                GameObject skill3Transform = Instantiate(skill3, vector3, Quaternion.identity);
+
+                Vector3 skill3Position = new Vector3(90, 90, 0);
+                GameObject skill3Transform = Instantiate(skill3, skill3Position, Quaternion.identity);
                 Destroy(skill3Transform, 2f);
                 animator.SetTrigger("Skill3");
                 Debug.Log("Skill3");
