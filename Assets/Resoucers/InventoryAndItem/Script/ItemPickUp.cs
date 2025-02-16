@@ -39,7 +39,10 @@ public class ItemPickUp : MonoBehaviour
         {
             Destroy(gameObject);
             Debug.Log("đã nhặt");
+
             InventoryManager.Instance.AddItem(item);
+
+            
         }
     }
 

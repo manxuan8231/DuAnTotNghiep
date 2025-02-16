@@ -7,7 +7,7 @@ public class OpenInventory : MonoBehaviour
     public GameObject ivt;
     void Start()
     {
-        ivt.SetActive(true);
+        ivt.SetActive(false);
     }
 
     // Update is called once per frame
