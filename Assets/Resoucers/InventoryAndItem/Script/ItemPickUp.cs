@@ -14,7 +14,7 @@ public class ItemPickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PickUpitem();
+        PickUpItem();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,7 +33,7 @@ public class ItemPickUp : MonoBehaviour
             Debug.Log("đã rời khỏi vùng");
         }
     }
-    private void PickUpitem()
+    public void PickUpItem()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && onRage == true)
         {
@@ -42,7 +42,7 @@ public class ItemPickUp : MonoBehaviour
 
             InventoryManager.Instance.AddItem(item);
 
-            
+
         }
     }
 
