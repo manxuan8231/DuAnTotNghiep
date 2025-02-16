@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EffectBoss : MonoBehaviour
 {
-    [SerializeField]
+                
     void Start()
     {
         

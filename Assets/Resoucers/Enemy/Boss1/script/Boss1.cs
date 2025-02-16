@@ -71,6 +71,8 @@ public class Boss1 : MonoBehaviour
     public SliderHp sliderHp;
     private void Start()
     {
+        EffectAttacking.SetActive(false);
+
         playerCam.Priority = 20;
         bossCam.Priority = 0;
         weappon.SetActive(false);
@@ -396,10 +398,11 @@ public class Boss1 : MonoBehaviour
     //xử lý hiệu ứng tấn công
     public void StartEffect()
     {
-
+        EffectAttacking.SetActive(true);
     }
     public void EndEffect()
     {
+        EffectAttacking.SetActive(false);
 
     }
 }
