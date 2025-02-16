@@ -9,6 +9,8 @@ public class Boss1 : MonoBehaviour
 {
     public Transform player;
 
+    //xử lý hiệu ứng tấn công
+    public GameObject EffectAttacking;
     // Xử lý chức năng launching
     public CinemachineVirtualCamera bossCam;
     public CinemachineVirtualCamera playerCam;
@@ -389,5 +391,15 @@ public class Boss1 : MonoBehaviour
         {
             TakeHealth(1000);
         }
+    }
+
+    //xử lý hiệu ứng tấn công
+    public void StartEffect()
+    {
+
+    }
+    public void EndEffect()
+    {
+
     }
 }

@@ -23,10 +23,13 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] bool isCantDamage = false;//biến khi quái death không thể nhận damage
     [SerializeField] private CapsuleCollider capsuleCollider;
     [SerializeField] private BoxCollider boxCollider;
-    
+    [SerializeField] public GameObject slashEffect;
+    [SerializeField] public GameObject getHitEffect;
+
     void Start()
     {
-
+        getHitEffect.SetActive(false);
+        slashEffect.SetActive(false);
         capsuleCollider.enabled = true;
         navMeshAgent.enabled = true;
         isOnHealth.SetActive(false);
@@ -52,10 +55,17 @@ public class BossMoveAndAnimation : MonoBehaviour
     {
         if(isCantDamage == true)
         {
+          
             currentHealth.value -= amount;
+            animator.SetTrigger("GetHit");
+            getHitEffect.SetActive(true);
             txtHealth.text = $"{currentHealth.value}/{maxHealth}";
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
-            if (animator == null) animator.SetTrigger("GetHit");
+            //if (animator != null) {
+            //    animator.SetTrigger("GetHit");
+                
+            //        }
+            
             if (currentHealth.value <= 0)
             {
                 ChangState(CharacterState.Death);
@@ -136,6 +146,7 @@ public class BossMoveAndAnimation : MonoBehaviour
                 {
 
                     ChangState(CharacterState.Attack1);
+                    
 
                 }
                 break;
@@ -147,6 +158,7 @@ public class BossMoveAndAnimation : MonoBehaviour
                 else
                 {
                     ChangState(CharacterState.Attack2);
+                    
                 }
                 break;
             case CharacterState.Death:
@@ -165,6 +177,7 @@ public class BossMoveAndAnimation : MonoBehaviour
        Death
 
     }
+    
     public CharacterState currentState;
     private void ChangState(CharacterState newstate)
     {
@@ -189,15 +202,18 @@ public class BossMoveAndAnimation : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack1");
+             
                 break;
             case CharacterState.Attack2:
                 navMeshAgent.isStopped = true;
                 animator.SetBool("isWalking", false);
                 animator.SetTrigger("Attack2");
+                
                 break;
             case CharacterState.GetHit:
                 navMeshAgent.isStopped = true;
                 animator.SetTrigger("GetHit");
+            
                 break;
             case CharacterState.Death:
                 navMeshAgent.isStopped = true;
@@ -215,12 +231,22 @@ public class BossMoveAndAnimation : MonoBehaviour
     public void StartDame()
     {
         boxCollider.enabled = true;
+
     }
     public void EndDame()
     {
         boxCollider.enabled = false;
     }
 
+    public void EffectAttack()
+    {
+        slashEffect.SetActive(true);
+    }
 
+    public void EndEffectAttack()
+    {
+        slashEffect.SetActive(false);
+        
+    }
 
 }

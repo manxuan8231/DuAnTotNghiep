@@ -64,8 +64,22 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.20588236
+        functionName: EffectAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.2665515
         functionName: EndDame
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.31399435
+        functionName: EndEffectAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -94,6 +108,34 @@ ModelImporter:
         messageOptions: 0
       - time: 0.761658
         functionName: EndDame
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4369748
+        functionName: EffectAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.48319328
+        functionName: EndEffectAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.66386557
+        functionName: EffectAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.77310926
+        functionName: EndEffectAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
