@@ -58,16 +58,16 @@ public class SkillCManager : MonoBehaviour
     {
         // Triệu hồi nhân vật với cùng hướng quay của người chơi
         GameObject KhoiTao = Instantiate(character1, playerTransform1.position, playerTransform1.rotation);
-        Destroy(KhoiTao, 20f);
+        Destroy(KhoiTao, 25f);
         // Triệu hồi nhân vật với cùng hướng quay của người chơi
         GameObject KhoiTao2 = Instantiate(character2, playerTransform2.position, playerTransform2.rotation);
-        Destroy(KhoiTao2, 20f);
+        Destroy(KhoiTao2, 25f);
         // Triệu hồi nhân vật với cùng hướng quay của người chơi
         GameObject KhoiTao3 = Instantiate(character3, playerTransform3.position, playerTransform3.rotation);
-        Destroy(KhoiTao3, 20f);
+        Destroy(KhoiTao3, 25f);
         // Triệu hồi nhân vật với cùng hướng quay của người chơi
         GameObject KhoiTao4 = Instantiate(character4, playerTransform4.position, playerTransform4.rotation);
-        Destroy(KhoiTao4, 20f);
+        Destroy(KhoiTao4, 25f);
     }
 
     IEnumerator CooldownRoutine()

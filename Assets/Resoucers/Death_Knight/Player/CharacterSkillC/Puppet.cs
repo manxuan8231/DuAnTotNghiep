@@ -7,18 +7,16 @@ public class Puppet : MonoBehaviour
 {
     public NavMeshAgent agent;
     public float detectionRangeTarget = 200f; // Phạm vi phát hiện kẻ địch
-    public float detectionRangeAttack = 2f; // Phạm vi tấn công
-    public float attackCooldownTime = 5f; // Thời gian chờ giữa các đợt tấn công
+    public float detectionRangeAttack = 2f;  // Phạm vi tấn công
+    public float attackCooldownTime = 5f;    // Thời gian chờ giữa các đợt tấn công
 
-    public Animator animator; // Thêm Animator
-    private Transform currentTarget; // Lưu mục tiêu hiện tại
-    private bool isAttacking = false; // Kiểm soát trạng thái tấn công
-
-    private bool onAttack = true;
-    private bool onMovement = true;
+    public Animator animator;
+    private Transform currentTarget;
+    private bool isAttacking = false;
 
     public GameObject weaponHand;
     public GameObject weapon;
+
     void Update()
     {
         currentTarget = FindClosestTarget();
@@ -35,7 +33,6 @@ public class Puppet : MonoBehaviour
             }
             else
             {
-                // Tấn công nếu trong phạm vi
                 AttackTarget();
             }
         }
@@ -52,7 +49,7 @@ public class Puppet : MonoBehaviour
             isAttacking = true;
             agent.SetDestination(transform.position); // Dừng di chuyển
             animator.SetBool("Run", false);
-            animator.SetTrigger("Attack"); // Kích hoạt animation Attack
+            animator.SetTrigger("Attack");
             weaponHand.SetActive(true);
             weapon.SetActive(false);
             StartCoroutine(AttackCooldown());
@@ -61,8 +58,8 @@ public class Puppet : MonoBehaviour
 
     IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(attackCooldownTime); // Đợi 5 giây trước khi có thể đánh tiếp
-        isAttacking = false; // Cho phép đánh tiếp
+        yield return new WaitForSeconds(attackCooldownTime);
+        isAttacking = false;
     }
 
     // Tìm mục tiêu gần nhất

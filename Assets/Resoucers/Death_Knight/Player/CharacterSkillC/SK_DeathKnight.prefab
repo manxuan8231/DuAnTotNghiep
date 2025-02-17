@@ -28093,7 +28093,9 @@ MonoBehaviour:
   agent: {fileID: 4967245952370800966}
   detectionRangeTarget: 200
   detectionRangeAttack: 2
+  detectionRangeSkill: 50
   attackCooldownTime: 5
+  skillCooldownTime: 2
   animator: {fileID: 3164927058506551079}
   weaponHand: {fileID: 4118308647660884450}
   weapon: {fileID: 8970998061931535034}
@@ -28107,7 +28109,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
