@@ -16,7 +16,7 @@ public class ChestItem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(KeyCode.F))
         {
             audioSource.PlayOneShot(audioClip);
             button.SetActive(true);
