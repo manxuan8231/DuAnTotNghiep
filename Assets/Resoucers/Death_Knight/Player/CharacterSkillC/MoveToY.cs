@@ -14,13 +14,15 @@ public class MoveToY : MonoBehaviour
     public GameObject weaponHand;
     public GameObject weapon;
     public bool isCamera;
-  
+
+    public Puppet puppet;
     private void Start()
     {
-      isMoving = true; // Bắt đầu di chuyển ngay khi game chạy
-       rb = GetComponent<Rigidbody>();
+       
+        isMoving = true; // Bắt đầu di chuyển ngay khi game chạy
+        rb = GetComponent<Rigidbody>();     
         // Tắt Rigidbody và Collider để tránh va chạm khi di chuyển
-      rb.isKinematic = true;
+        rb.isKinematic = true;
       capsuleCollider.enabled = false;
         weaponHand.SetActive(false);
         weapon.SetActive(true);
@@ -58,7 +60,9 @@ public class MoveToY : MonoBehaviour
             capsuleCollider.enabled = true;
             weaponHand.SetActive(true);
             weapon.SetActive(false);
+            puppet.agent.enabled = true;
             this.enabled = false;
+
         }
     }
 }

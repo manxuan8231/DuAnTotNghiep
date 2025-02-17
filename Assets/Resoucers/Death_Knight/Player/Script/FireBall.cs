@@ -23,18 +23,21 @@ public class FireBall : MonoBehaviour
             EnemyAnimationController rikayon = collision.gameObject.GetComponent<EnemyAnimationController>();
             if( rikayon != null ) {
                 rikayon.TakeDamage(500);
+                Destroy(gameObject);
             }
            
             Enemy1 enemy1 = collision.gameObject.GetComponent<Enemy1>();
             if( enemy1 != null )
             {
                 enemy1.TakeDamage(500);
+                Destroy(gameObject);
             }         
         }
         if (collision.gameObject.CompareTag("Statue"))
         {
             Statue statue = collision.gameObject.GetComponent<Statue>();
             statue.TakeDamage(500);
+            Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Boss1"))
         {
@@ -42,6 +45,7 @@ public class FireBall : MonoBehaviour
             if (boss1.onTakeHealth == true)
             {
                 boss1.TakeHealth(500);
+                Destroy(gameObject);
             }         
         }
     }

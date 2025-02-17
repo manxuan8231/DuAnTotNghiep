@@ -342,7 +342,7 @@ public class SkillPlayer1 : MonoBehaviour
         isScaling = true;
         targetScale = originalScale * 2f; // Tăng kích thước lên gấp đôi
         sliderHp.GetMana(1000);
-        
+        sliderHp.GetHp(1000);
         currentDameAir = maxDameAir;
         currentDame = maxDame;
         // Kích hoạt aura

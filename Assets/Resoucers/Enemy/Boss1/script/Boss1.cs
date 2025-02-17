@@ -54,7 +54,7 @@ public class Boss1 : MonoBehaviour
 
     //xử lý hp
     public Slider currentHealth;
-    private float maxHealth = 10000f;
+    private float maxHealth = 99999f;
     public TextMeshProUGUI textHealth;
     public GameObject health;
     public bool onTakeHealth = true;
@@ -121,7 +121,7 @@ public class Boss1 : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator FocusOnBoss()
+    private IEnumerator FocusOnBoss()
     {
         bossCam.Priority = 20;
         playerCam.Priority = 10;

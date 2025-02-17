@@ -35,7 +35,7 @@ public class SkillCManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C) && !isOnCooldown && sliderHp.GetCurrentLevel() >= 40)
+        if (Input.GetKeyDown(KeyCode.C) && !isOnCooldown && sliderHp.GetCurrentLevel() >= 40 && sliderHp.GetCurrentMana() >= 40)
         {
             animator.SetTrigger("skillC");
             StartCoroutine(CooldownWalk());
@@ -81,14 +81,16 @@ public class SkillCManager : MonoBehaviour
     {
         virtualCamera.Priority = 20;
         virtualCameraPlayer.Priority = 0;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         virtualCamera.Priority = 0;
         virtualCameraPlayer.Priority = 20;
     }
     IEnumerator CooldownWalk()
     {
+        characterController.isDameLocked = true;
         characterController.isMovementLocked = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         characterController.isMovementLocked = false;
+        characterController.isDameLocked = false;
     }
 }

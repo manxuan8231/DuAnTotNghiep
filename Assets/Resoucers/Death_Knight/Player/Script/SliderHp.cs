@@ -56,7 +56,7 @@ public class SliderHp : MonoBehaviour
     public CharacterController characterController;
     void Start()
     {
-       animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         currentHP.value = maxHp;
         textHP.text = $"{currentHP.value}/{maxHp}";
 
@@ -154,6 +154,12 @@ public class SliderHp : MonoBehaviour
     public void GetMana(float amount)
     {
         currentMana.value += amount;
+        textMana.text = $"{currentMana.value}/{maxMana}";
+    }
+    public void GetHp(float amount)
+    {
+        currentHP.value += amount;
+        textHP.text = $"{currentHP.value}/{maxHp}";
     }
     public float GetCurrentUlti()
     {

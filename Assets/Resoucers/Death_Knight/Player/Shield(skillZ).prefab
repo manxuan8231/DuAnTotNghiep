@@ -9824,8 +9824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a103e9a952cb9114797afaf37ec4ac71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  pullSpeed: 10
+  radius: 15
+  pullSpeed: 50
   damage: 10
   boss1: {fileID: 0}
 --- !u!1 &9055421436489388162
