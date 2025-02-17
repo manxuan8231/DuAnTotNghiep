@@ -14801,6 +14801,8 @@ GameObject:
   - component: {fileID: 4484353992699040799}
   - component: {fileID: 7832131248976965792}
   - component: {fileID: 205800618858304634}
+  - component: {fileID: -1127881009166371098}
+  - component: {fileID: 5971825203637510383}
   m_Layer: 0
   m_Name: Skill2
   m_TagString: Untagged
@@ -14817,8 +14819,8 @@ Transform:
   m_GameObject: {fileID: 5308350575936215723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.2069, z: -0.23}
+  m_LocalScale: {x: 0.78634703, y: 0.78634703, z: 0.78634703}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4647753389015438971}
@@ -19706,6 +19708,41 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-1127881009166371098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308350575936215723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe736ad5fec6fe146957f3d7f8c75c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageInterval: 1
+  damageAmount: 30
+--- !u!65 &5971825203637510383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308350575936215723}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.2, y: 4.28, z: 7.9549665}
+  m_Center: {x: 0, y: 0, z: -0.07421369}
 --- !u!1 &6346074905489663763
 GameObject:
   m_ObjectHideFlags: 0

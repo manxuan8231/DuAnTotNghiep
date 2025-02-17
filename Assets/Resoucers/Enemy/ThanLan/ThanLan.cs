@@ -21,6 +21,13 @@ public class ThanLan : MonoBehaviour
     [SerializeField] private float distanceAttack = 2f;
     [SerializeField] private Image healthBarFill;
     [SerializeField] private TextMeshProUGUI healthText;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip idleSound;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip injuredSound;
+    [SerializeField] private AudioClip deathSound;
     public enum CharacterState
     {
         Idle,
@@ -40,21 +47,26 @@ public class ThanLan : MonoBehaviour
         currentHealth = maxHealth;
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
-
+        StartCoroutine(PlayIdleSound());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (currentState == CharacterState.Die)
-        {
-            return;
-        }
-        if (NavMeshAgent == null || !NavMeshAgent.isOnNavMesh)
-            return;
+        if (currentState == CharacterState.Die) return;
+        if (NavMeshAgent == null || !NavMeshAgent.isOnNavMesh) return;
         HandleStateTransition();
+    }
 
-
+    private IEnumerator PlayIdleSound()
+    {
+        while (currentState != CharacterState.Die)
+        {
+            yield return new WaitForSeconds(Random.Range(5f, 15f));
+            if (currentState == CharacterState.Idle)
+            {
+                audioSource.PlayOneShot(idleSound);
+            }
+        }
     }
 
     private void HandleStateTransition()
@@ -181,7 +193,7 @@ public class ThanLan : MonoBehaviour
             case CharacterState.Attack:
                 NavMeshAgent.isStopped = true;
 
-
+                audioSource.PlayOneShot(attackSound);
                 animator.SetTrigger("Attack");
 
                 break;
@@ -190,7 +202,8 @@ public class ThanLan : MonoBehaviour
                 NavMeshAgent.isStopped = true;
 
                 animator.SetTrigger("TakeDame");
-               
+                audioSource.PlayOneShot(injuredSound);
+
                 Debug.Log("takeDame");
                 break;
 
@@ -204,6 +217,7 @@ public class ThanLan : MonoBehaviour
             case CharacterState.Die:
                
                 animator.SetTrigger("Die");
+                audioSource.PlayOneShot(deathSound);
                 Destroy(gameObject, 1f); // Hủy đối tượng sau 3 giây
                 animator.ResetTrigger("TakeDame");
                 break;
@@ -239,6 +253,7 @@ public class ThanLan : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("TakeDame");
+            audioSource.PlayOneShot(injuredSound);
 
         }
 
@@ -256,5 +271,15 @@ public class ThanLan : MonoBehaviour
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("SkillR"))
+        {
+            TakeDamage(100);
+        }
+        if (other.gameObject.CompareTag("SkillZ"))
+        {
+            TakeDamage(999);
+        }
+    }
 }
