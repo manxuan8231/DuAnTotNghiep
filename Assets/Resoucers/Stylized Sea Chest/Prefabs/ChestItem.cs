@@ -16,7 +16,7 @@ public class ChestItem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.F))
         {
             audioSource.PlayOneShot(audioClip);
             button.SetActive(true);
@@ -24,7 +24,7 @@ public class ChestItem : MonoBehaviour
             if (even != null)
             {
                 even.Even1(1);
-                Destroy(destroy, 0.2f);
+                Destroy(destroy, 0.1f);
             }
  
         }
