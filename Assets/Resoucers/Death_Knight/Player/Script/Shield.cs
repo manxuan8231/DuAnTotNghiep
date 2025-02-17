@@ -8,6 +8,12 @@ public class Shield : MonoBehaviour
     public float pullSpeed = 5f; // Tốc độ hút đối tượng
     public int damage = 10; // Số lượng HP bị mất
     public Boss1 boss1;
+    public GameObject effectExposion;
+
+    private void Start()
+    {
+        effectExposion.SetActive(false);
+    }
     void Update()
     {
         // Tìm tất cả các đối tượng có tag "Enemy" và "Boss"
@@ -24,6 +30,7 @@ public class Shield : MonoBehaviour
         {
             PullAndDamage(boss);
         }
+        StartCoroutine(Exposion());
     }
 
     void PullAndDamage(GameObject target)
@@ -49,5 +56,11 @@ public class Shield : MonoBehaviour
         {
             boss.TakeHealth(999);
         }
+    }
+    private IEnumerator Exposion()
+    {
+        effectExposion.SetActive(false) ;
+        yield return new WaitForSeconds(4f);
+        effectExposion.SetActive(true) ;
     }
 }

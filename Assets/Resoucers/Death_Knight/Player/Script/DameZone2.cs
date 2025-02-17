@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class DameZone2 : MonoBehaviour
 {
@@ -31,6 +32,12 @@ public class DameZone2 : MonoBehaviour
             if(enemy1 != null)
             {
                 enemy1.TakeDamage(skillPlayer1.currentDameAir);
+            }
+            //than lan
+            ThanLan thanlan = other.gameObject.GetComponent<ThanLan>();
+            if (thanlan != null)
+            {
+                thanlan.TakeDamage(skillPlayer1.currentDameAir);
             }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);

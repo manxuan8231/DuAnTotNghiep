@@ -17,6 +17,15 @@ public class Puppet : MonoBehaviour
     public GameObject weaponHand;
     public GameObject weapon;
 
+    public BoxCollider boxCollider;
+    public GameObject effect1;
+    public AudioSource audioSource;
+    public AudioClip audioClipSlash;
+    private void Start()
+    {
+        boxCollider.enabled = false;
+        effect1.SetActive(false);
+    }
     void Update()
     {
         currentTarget = FindClosestTarget();
@@ -88,4 +97,18 @@ public class Puppet : MonoBehaviour
 
         return closestTarget;
     }
+
+    public void beginDame()
+    {
+        boxCollider.enabled = true;
+        effect1.SetActive(true);
+        audioSource.PlayOneShot(audioClipSlash);
+    }
+    public void endDame()
+    {
+        boxCollider.enabled = false;
+        effect1.SetActive(false);
+        audioSource.PlayOneShot(audioClipSlash);
+    }
+
 }
