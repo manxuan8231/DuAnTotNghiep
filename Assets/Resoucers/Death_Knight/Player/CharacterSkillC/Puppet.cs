@@ -16,6 +16,9 @@ public class Puppet : MonoBehaviour
 
     private bool onAttack = true;
     private bool onMovement = true;
+
+    public GameObject weaponHand;
+    public GameObject weapon;
     void Update()
     {
         currentTarget = FindClosestTarget();
@@ -50,6 +53,8 @@ public class Puppet : MonoBehaviour
             agent.SetDestination(transform.position); // Dừng di chuyển
             animator.SetBool("Run", false);
             animator.SetTrigger("Attack"); // Kích hoạt animation Attack
+            weaponHand.SetActive(true);
+            weapon.SetActive(false);
             StartCoroutine(AttackCooldown());
         }
     }

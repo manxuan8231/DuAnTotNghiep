@@ -58,8 +58,6 @@ public class MoveToY : MonoBehaviour
           
             rb.isKinematic = false;
             capsuleCollider.enabled = true;
-            weaponHand.SetActive(true);
-            weapon.SetActive(false);
             puppet.agent.enabled = true;
             this.enabled = false;
 

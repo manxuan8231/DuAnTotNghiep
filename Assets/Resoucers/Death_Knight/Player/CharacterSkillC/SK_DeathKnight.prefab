@@ -28095,6 +28095,8 @@ MonoBehaviour:
   detectionRangeAttack: 2
   attackCooldownTime: 5
   animator: {fileID: 3164927058506551079}
+  weaponHand: {fileID: 4118308647660884450}
+  weapon: {fileID: 8970998061931535034}
 --- !u!195 &4967245952370800966
 NavMeshAgent:
   m_ObjectHideFlags: 0
