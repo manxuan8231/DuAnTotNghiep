@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; set; }
-
-    public List<Item> items = new List<Item>();
+    public Dictionary<Item, int> items = new Dictionary<Item, int>();
     public Transform itemHolder;
     public GameObject itemPrefabs;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,81 +25,61 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        if (item != null)
+        if (items.ContainsKey(item))
         {
-            items.Add(item);
-            DisplayInventory();
+            items[item]++; // Tăng số lượng nếu item đã tồn tại
         }
         else
         {
-            Debug.LogWarning("Attempted to add a null item to the inventory!");
+            items[item] = 1; // Thêm item mới với số lượng là 1
         }
+        DisplayInventory();
+
     }
 
+    public void RemoveItem(Item item) 
+    {
+        items.Remove(item);
+        
+    }
     public void DisplayInventory()
     {
-
-
-
-        if (itemPrefabs == null)
-        {
-            Debug.LogError("itemPrefabs is not assigned!");
-            return;
-        }
-        if (itemHolder == null)
-        {
-            Debug.LogError("itemHolder is not assigned!");
-            return;
-        }
-
         foreach(Transform item in itemHolder)
         {
             Destroy(item.gameObject);
+
+
         }
-        foreach (Item item in items)
+        foreach (var kvp in items)
         {
+            Item item = kvp.Key;
+            int quantity = kvp.Value;
+
             if (item == null)
             {
-                Debug.LogWarning("Found a null item in the inventory!");
+                Debug.LogWarning("không tìm thấy item trong inventory!");
                 continue;
             }
-
             GameObject obj = Instantiate(itemPrefabs, itemHolder);
             if (obj == null)
             {
-                Debug.LogError("Failed to instantiate itemPrefabs!");
+                Debug.LogError("không tìm thấy itemprebab");
                 continue;
             }
-
             var itemName = obj.transform.Find("itemName")?.GetComponent<TextMeshProUGUI>();
             var itemImage = obj.transform.Find("itemImage")?.GetComponent<Image>();
-
-            if (itemName == null)
-            {
-                Debug.LogError("itemName is missing in the prefab!");
-                continue;
-            }
-            if (itemImage == null)
-            {
-                Debug.LogError("itemImage is missing in the prefab!");
-                continue;
-            }
-
-            if (item.itemName == null)
-            {
-                Debug.LogWarning("item.itemName is null!");
-                continue;
-            }
-            if (item.itemImage == null)
-            {
-                Debug.LogWarning("item.itemImage is null!");
-                continue;
-            }
-
+            var itemQuantity = obj.transform.Find("itemQuantity")?.GetComponent<TextMeshProUGUI>();
             itemName.text = item.itemName;
             Debug.Log("Đã thêm tên item");
             itemImage.sprite = item.itemImage;
             Debug.Log("Đã thêm ảnh item");
+            itemQuantity.text = "x" + quantity;
+            Debug.Log($"Đã thêm {item.itemName} x {quantity}");
+
+            
         }
+        
     }
+
+   
 }
