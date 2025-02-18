@@ -15,7 +15,24 @@ public class SkillManager : MonoBehaviour
     public GameObject skill2;//khai báo skill 2 partical 
     [SerializeField] private float lastTimeSkill1 = 0;//đặt lại thời gian = 0
     public GameObject hideSword;
-    public GameObject skill3;
+
+    //vị trí
+    public Transform TranformSkill1;
+    public Transform TranformSkill2;
+    public Transform TranformSkill3;
+    public Transform TranformSkill4;
+    public Transform TranformSkill5;
+    public Transform TranformSkill6;
+    public Transform TranformSkill7;
+    //
+    public GameObject effect1;
+    public GameObject effect2;       
+    public GameObject effect3;
+    public GameObject effect4;
+    public GameObject effect5;
+    public GameObject effect6;
+    public GameObject effect7;
+    public 
 
     void Start()
     {
@@ -50,10 +67,21 @@ public class SkillManager : MonoBehaviour
             }
             if (randoom == 2)
             {
+                GameObject skill3Transform1 = Instantiate(effect1, TranformSkill1.position, Quaternion.identity);
+                Destroy(skill3Transform1, 4f);
+                GameObject skill3Transform2 = Instantiate(effect2, TranformSkill2.position, Quaternion.identity);
+                Destroy(skill3Transform2, 4f);
+                GameObject skill3Transform3 = Instantiate(effect3, TranformSkill3.position, Quaternion.identity);
+                Destroy(skill3Transform3, 4f);
+                GameObject skill3Transform4 = Instantiate(effect4, TranformSkill4.position, Quaternion.identity);
+                Destroy(skill3Transform4, 4f);
+                GameObject skill3Transform5 = Instantiate(effect5, TranformSkill5.position, Quaternion.identity);
+                Destroy(skill3Transform5, 4f);
+                GameObject skill3Transform6 = Instantiate(effect6, TranformSkill6.position, Quaternion.identity);
+                Destroy(skill3Transform6, 4f);
+                GameObject skill3Transform7 = Instantiate(effect7, TranformSkill7.position, Quaternion.identity);
+                Destroy(skill3Transform7, 4f);
 
-                Vector3 skill3Position = new Vector3(90, 90, 0);
-                GameObject skill3Transform = Instantiate(skill3, skill3Position, Quaternion.identity);
-                Destroy(skill3Transform, 2f);
                 animator.SetTrigger("Skill3");
                 Debug.Log("Skill3");
                 StartCoroutine(OffSword());
