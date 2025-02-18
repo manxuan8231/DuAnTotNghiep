@@ -5,10 +5,17 @@ using UnityEngine;
 public class ItemUIController : MonoBehaviour
 {
     public Item item;
-    public void Remove()
+
+    public void SetItem(Item item)
     {
-        //InventoryManager.Instance.RemoveItem(item);
+        this.item = item;
+
+    }
+    public void RemoveItem()
+    {
+        InventoryManager.Instance.RemoveItem(item);
         Destroy(this.gameObject);
+        Debug.Log("Đã xóa item");
     }
    
 }
