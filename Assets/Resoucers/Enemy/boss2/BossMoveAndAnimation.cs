@@ -24,11 +24,11 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private CapsuleCollider capsuleCollider;
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] public GameObject slashEffect;
-    [SerializeField] public GameObject getHitEffect;
+   
 
     void Start()
     {
-        getHitEffect.SetActive(false);
+      
         slashEffect.SetActive(false);
         capsuleCollider.enabled = true;
         navMeshAgent.enabled = true;
@@ -57,8 +57,7 @@ public class BossMoveAndAnimation : MonoBehaviour
         {
           
             currentHealth.value -= amount;
-            animator.SetTrigger("GetHit");
-            getHitEffect.SetActive(true);
+           
             txtHealth.text = $"{currentHealth.value}/{maxHealth}";
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
             //if (animator != null) {
