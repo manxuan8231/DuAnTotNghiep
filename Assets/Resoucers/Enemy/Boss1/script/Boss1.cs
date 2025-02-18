@@ -328,25 +328,26 @@ public class Boss1 : MonoBehaviour
 
     //xử lý hp
     public void TakeHealth(float amount)
-    {  
+    {
         if (onTakeHealth == true)
-            {
+        {
             currentHealth.value -= amount;
             textHealth.text = $"{currentHealth.value}/{maxHealth}".ToString();
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
+
+            if (currentHealth.value <= 0)
+            {
+                onTakeHealth = false;
+                onAttack = false;
+                onSkill = false;
+                onWalk = false;             
+                weappon.SetActive(false);
+                /* transform.position = deathTransfrom.position;
+                 StartCoroutine(cameraTaget());*/
+                sliderHp.AddExp(5000);
+                animator.SetTrigger("death");
+                Destroy(gameObject, 6f);
             }
-        if (currentHealth.value <= 0)
-        {         
-            onAttack = false;
-            onSkill = false;
-            onWalk = false;
-            onTakeHealth = false;
-            weappon.SetActive(false);
-            /* transform.position = deathTransfrom.position;
-             StartCoroutine(cameraTaget());*/
-            sliderHp.AddExp(5000);
-            animator.SetTrigger("death");               
-            Destroy(gameObject, 6f);
         }
     }
     private IEnumerator cameraTaget()
