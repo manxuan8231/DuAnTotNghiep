@@ -13,14 +13,11 @@ public class OpenInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ivt.SetActive(true);
+        }
     }
-
-    public void Open()
-    {
-        ivt.SetActive(true);
-    }
-
     public void ExitInventory()
     {
         ivt.SetActive(false);
