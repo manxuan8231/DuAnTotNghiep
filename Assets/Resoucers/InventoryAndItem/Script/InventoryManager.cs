@@ -31,7 +31,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            // Tạo bản sao để tránh thay đổi giá trị của ScriptableObject gốc
+            // tạo bản sao để tránh thay đổi giá trị của ScriptableObject 
             Item itemCopy = Instantiate(newItem);
             itemCopy.quantity = 1;
             items.Add(itemCopy);
@@ -41,20 +41,17 @@ public class InventoryManager : MonoBehaviour
         DisplayInventory();
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(Item itemToRemove)
     {
-        if (items.Contains(item))
-        {
-            item.quantity--;
+        Item existingItem = items.Find(item => item.itemID == itemToRemove.itemID);
 
-            if (item.quantity <= 0)
-            {
-                items.Remove(item);
-            }
+        if (existingItem != null)
+        {
+            
+            items.Remove(existingItem);
             DisplayInventory();
         }
     }
-
     public void DisplayInventory()
     {
         foreach (Transform item in itemHolder)
@@ -71,8 +68,7 @@ public class InventoryManager : MonoBehaviour
 
             itemName.text = item.itemName;
             itemImage.sprite = item.itemImage;
-            itemQuantity.text = "x" + item.quantity.ToString(); // Hiển thị số lượng
-
+            itemQuantity.text = "x" + item.quantity.ToString(); 
             obj.GetComponent<ItemUIController>().SetItem(item);
         }
 

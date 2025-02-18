@@ -14,17 +14,14 @@ public class ItemUIController : MonoBehaviour
 
     public void RemoveItem()
     {
-        InventoryManager.Instance.RemoveItem(item);
-        UpdateUI();
+        InventoryManager.Instance.RemoveItem(item); 
+            Destroy(gameObject);
+            UpdateUI();
+     
     }
 
     public void UpdateUI()
     {
         quantityText.text = "x" + item.quantity.ToString();
-
-        if (item.quantity <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 }
