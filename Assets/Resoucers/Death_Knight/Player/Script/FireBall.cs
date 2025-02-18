@@ -31,7 +31,14 @@ public class FireBall : MonoBehaviour
             {
                 enemy1.TakeDamage(500);
                 Destroy(gameObject);
-            }         
+            }
+            //than lan
+            ThanLan thanlan = collision.gameObject.GetComponent<ThanLan>();
+            if (thanlan != null)
+            {
+                thanlan.TakeDamage(500);
+                Destroy(gameObject);
+            }
         }
         if (collision.gameObject.CompareTag("Statue"))
         {

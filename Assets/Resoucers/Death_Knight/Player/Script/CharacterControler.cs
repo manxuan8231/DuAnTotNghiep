@@ -89,7 +89,8 @@ public class CharacterController : MonoBehaviour
         {
             StartCoroutine(LockMovement(0.5f));
             StartCoroutine(ECooldown(5f)); // Thời gian hồi chiêu 5 giây
-            weaponHand.SetActive(false );
+            weaponHand.SetActive(false);
+            weaponDefault.SetActive(true);
         }
         
         // Kiểm tra trạng thái rơi tự do
