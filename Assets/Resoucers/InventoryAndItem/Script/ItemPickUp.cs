@@ -1,48 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemPickUp : MonoBehaviour
 {
-    public bool onRage;
+    public bool onRange;
     public Item item;
+
     void Start()
     {
-        onRage = false;
+        onRange = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        PickUpItem();
+        if (Input.GetKeyDown(KeyCode.Mouse0) && onRange)
+        {
+            InventoryManager.Instance.AddItem(item);
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            onRage = true;
-            Debug.Log("Đã trong vùng");
+            onRange = true;
+            Debug.Log("Đã vào vùng nhặt đồ");
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            onRage = false;
-            Debug.Log("đã rời khỏi vùng");
+            onRange = false;
+            Debug.Log("Đã rời vùng nhặt đồ");
         }
     }
-    public void PickUpItem()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && onRage == true)
-        {
-            Destroy(gameObject);
-            Debug.Log("đã nhặt");
-            InventoryManager.Instance.AddItem(item);
-
-        }
-    }
-
-
 }

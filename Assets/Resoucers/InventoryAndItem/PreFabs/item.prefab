@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  quantityText: {fileID: 8598931750911530868}
 --- !u!1 &5092962118304302957
 GameObject:
   m_ObjectHideFlags: 0

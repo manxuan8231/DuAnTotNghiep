@@ -59,7 +59,7 @@ public class SliderHp : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHP.value = maxHp;
         textHP.text = $"{currentHP.value}/{maxHp}";
-
+        
         currentMana.value = maxMana;
         textMana.text = $"{maxMana.ToString("0")}/{maxMana}";
 
