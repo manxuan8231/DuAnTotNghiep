@@ -38,6 +38,7 @@ public class Enemy1 : MonoBehaviour
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
         StartCoroutine(PlayIdleSoundRandomly());
+        takeHealth.SetActive(false);
     }
 
     void Update()
@@ -202,5 +203,12 @@ public class Enemy1 : MonoBehaviour
             TakeDamage(999);
         }
     }
-
+    public void beginDame()
+    {
+        takeHealth.SetActive(true);
+    }
+    public void endDame()
+    {
+        takeHealth.SetActive(false);
+    }
 }

@@ -21,7 +21,6 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
     public BoxCollider boxCollider;
-    public GameObject box;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -30,6 +29,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private AudioClip injuredSound;
     [SerializeField] private AudioClip deathSound;
 
+    public GameObject attackDame;
     public enum CharacterState { Sleep, WakeUp, Idle, Run, Attack, Die, TakeDame, Return }
     public CharacterState currentState;
 
@@ -40,6 +40,7 @@ public class EnemyAnimationController : MonoBehaviour
         UpdateHealthUI();
         ChangeState(CharacterState.Sleep);
         StartCoroutine(PlayIdleSound());
+        attackDame.SetActive(false);
     }
 
     void Update()
@@ -232,5 +233,14 @@ public class EnemyAnimationController : MonoBehaviour
         {
             TakeDamage(999);
         }
+    }
+
+    public void beginDame()
+    {
+        attackDame.SetActive(true);
+    }
+    public void endDame()
+    {
+        attackDame.SetActive(false);
     }
 }

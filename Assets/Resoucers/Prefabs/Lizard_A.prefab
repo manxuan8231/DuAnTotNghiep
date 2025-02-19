@@ -436,6 +436,72 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7900328676410409864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2718066204456999780}
+  - component: {fileID: 5321435261906772759}
+  - component: {fileID: 96788046584680114}
+  m_Layer: 0
+  m_Name: boxDame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2718066204456999780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900328676410409864}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2, z: 2.61}
+  m_LocalScale: {x: 2.474494, y: 1.9786104, z: 3.9240308}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6656010882740579291}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5321435261906772759
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900328676410409864}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &96788046584680114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900328676410409864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b4da20cd28c5c4994ae1886bac55d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6617019153165290544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -458,15 +524,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2327.8
+      value: 230.70193
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.903
+      value: 19.993233
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.7533
+      value: -331.91812
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -521,6 +587,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3035539207702318214}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2718066204456999780}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       insertIndex: -1
@@ -620,6 +689,7 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 1ff31caf7c967ee4abe00f2fdbd0b03f, type: 3}
   injuredSound: {fileID: 8300000, guid: a677fdf555606b04391033a5b44af1f9, type: 3}
   deathSound: {fileID: 8300000, guid: f8ac7aa9f55d9804e9e1715c600c1f3f, type: 3}
+  getHealthPlayer: {fileID: 7900328676410409864}
   currentState: 0
 --- !u!195 &627023852206838864
 NavMeshAgent:

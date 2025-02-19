@@ -24,14 +24,14 @@ public class Raycast : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
 
             // Kiểm tra xem button có còn tồn tại không
-            foreach(var item in button)
+            foreach (var item in button)
             {
                 if (item != null)
                 {
                     item.SetActive(true);
                 }
             }
-           
+
         }
         else
         {

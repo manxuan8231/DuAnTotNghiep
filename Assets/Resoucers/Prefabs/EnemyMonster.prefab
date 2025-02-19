@@ -1549,12 +1549,12 @@ MonoBehaviour:
   healthText: {fileID: 1338213882477760224}
   maxHealth: 1000
   boxCollider: {fileID: 5893306337075565694}
-  box: {fileID: 4080604833325262736}
   audioSource: {fileID: 3798679508535998470}
   idleSound: {fileID: 8300000, guid: aade4fb376ce13547b31114343bb0d5c, type: 3}
   attackSound: {fileID: 8300000, guid: d4c12b4a9ad8db34ebe48bdd18fd79e3, type: 3}
   injuredSound: {fileID: 8300000, guid: af8992d8731a6f14cb658765f21c8a6d, type: 3}
   deathSound: {fileID: 8300000, guid: 9f8faa7ae99524f4394eac52547fc06b, type: 3}
+  attackDame: {fileID: 4080604833325262736}
   currentState: 0
 --- !u!65 &5893306337075565694
 BoxCollider:

@@ -20,7 +20,7 @@ public class takeDame : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             SliderHp player = other.gameObject.GetComponent<SliderHp>();
-            player.TakeDame(10);
+            player.TakeDame(40);
         }
     }
 }

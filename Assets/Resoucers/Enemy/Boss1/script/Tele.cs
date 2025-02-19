@@ -13,7 +13,7 @@ public class Tele : MonoBehaviour
     public float rangerTagetPlayer = 300f;
     public CinemachineVirtualCamera VirtualCamera;
     public CinemachineVirtualCamera VirtualCameraPlayer;
-
+    private bool isCamera = true;
     public AudioSource audioSource;
     void Start()
     {
@@ -54,7 +54,11 @@ public class Tele : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.transform.position);
         if(distance <= rangerTagetPlayer)
         {
-            StartCoroutine(CoonDownCamera());
+            if(isCamera == true)
+            {
+                StartCoroutine(CoonDownCamera());
+            }
+            
         }
     }
     private IEnumerator CoonDownCamera()
@@ -64,5 +68,6 @@ public class Tele : MonoBehaviour
         yield return new WaitForSeconds(3f);
         VirtualCamera.Priority = 0;
         VirtualCameraPlayer.Priority = 20;
+        isCamera = false;
     }
 }

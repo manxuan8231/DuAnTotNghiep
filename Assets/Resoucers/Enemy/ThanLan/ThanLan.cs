@@ -28,6 +28,8 @@ public class ThanLan : MonoBehaviour
     [SerializeField] private AudioClip attackSound;
     [SerializeField] private AudioClip injuredSound;
     [SerializeField] private AudioClip deathSound;
+    //lay hp player
+    public GameObject getHealthPlayer;
     public enum CharacterState
     {
         Idle,
@@ -48,6 +50,7 @@ public class ThanLan : MonoBehaviour
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
         StartCoroutine(PlayIdleSound());
+        getHealthPlayer.SetActive(false);
     }
 
     void Update()
@@ -281,5 +284,13 @@ public class ThanLan : MonoBehaviour
         {
             TakeDamage(999);
         }
+    }
+    public void beginDame()
+    {
+        getHealthPlayer.SetActive(true);
+    }
+    public void endDame()
+    {
+        getHealthPlayer.SetActive(false);
     }
 }

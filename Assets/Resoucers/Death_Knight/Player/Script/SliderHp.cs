@@ -52,7 +52,7 @@ public class SliderHp : MonoBehaviour
     Animator animator;
     public AudioSource audioSource;
     public AudioClip audioTakeHit;
-
+    public AudioClip audioClipLv;
     public CharacterController characterController;
     void Start()
     {
@@ -105,7 +105,7 @@ public class SliderHp : MonoBehaviour
           
             level++; // Tăng cấp độ
             textLevel.text = $"Level: {level}"; // Hiển thị cấp độ
-
+            audioSource.PlayOneShot(audioClipLv);
             score++;
             textScore.text = $"Score: {score}";
             // Kích hoạt particle effect khi cộng điểm
@@ -116,9 +116,7 @@ public class SliderHp : MonoBehaviour
             }
         }
 
-        textExp.text = $"{currentExp.value}/{maxExp}"; // Cập nhật UI cho XP
-
-       
+        textExp.text = $"{currentExp.value}/{maxExp}"; // Cập nhật UI cho XP      
     }
 
    

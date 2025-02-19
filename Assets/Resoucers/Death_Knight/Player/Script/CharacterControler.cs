@@ -45,6 +45,8 @@ public class CharacterController : MonoBehaviour
 
     public AudioSource audioSound;
     public AudioClip audioClipJump;//gan file
+    public AudioClip audioClipWalk;
+    public AudioClip audioClipRun;
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
@@ -265,5 +267,13 @@ public class CharacterController : MonoBehaviour
         isMovementLocked = false;
         isDameLocked = false;
     }
-
+    //audio
+    public void Walk()
+    {
+        audioSound.PlayOneShot(audioClipWalk);
+    }
+    public void Run()
+    {
+        audioSound.PlayOneShot(audioClipRun);
+    }
 }
