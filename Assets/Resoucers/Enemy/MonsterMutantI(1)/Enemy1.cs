@@ -16,7 +16,7 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private float rageDistance = 4f;
     [SerializeField] private float distanceAttack = 2f;
     [SerializeField] Animator animator;
-    private float maxDistance = 40f;
+
     [SerializeField] Vector3 fisrtPosition;
     [SerializeField] private Image healthBarFill;
     [SerializeField] private TextMeshProUGUI healthText;
