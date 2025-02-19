@@ -24,4 +24,17 @@ public class ItemUIController : MonoBehaviour
     {
         quantityText.text = "x" + item.quantity.ToString();
     }
+    public void UseItem()
+    {
+        RemoveItem();
+        switch (item.itemType)
+        {
+            case Itemtype.Hp:
+                FindObjectOfType<ItemUsing>().UsingItemHeal();
+                break;
+            case Itemtype.Mana:
+                FindObjectOfType<ItemUsing>().UsingItemMana();
+                break;
+        }
+    }
 }
