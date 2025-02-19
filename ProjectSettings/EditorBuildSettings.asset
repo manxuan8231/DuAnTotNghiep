@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Version4.unity
     guid: ad42f81ddafc629419023065e3bdae62
   - enabled: 1
-    path: Assets/Scenes/Version5.unity
+    path: Assets/Scenes/TimeLineMoDau.unity
     guid: f84028248a214a742939bdc78ea2ccdd
   - enabled: 1
     path: Assets/Scenes/even/MineEven1.unity

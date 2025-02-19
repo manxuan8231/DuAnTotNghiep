@@ -1,14 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 
 public class ItemUIController : MonoBehaviour
 {
     public Item item;
-    public void Remove()
+    public TextMeshProUGUI quantityText;
+
+    public void SetItem(Item newItem)
     {
-        //InventoryManager.Instance.RemoveItem(item);
-        Destroy(this.gameObject);
+        item = newItem;
+        UpdateUI();
     }
-   
+
+    public void RemoveItem()
+    {
+        InventoryManager.Instance.RemoveItem(item); 
+            Destroy(gameObject);
+            UpdateUI();
+     
+    }
+
+    public void UpdateUI()
+    {
+        quantityText.text = "x" + item.quantity.ToString();
+    }
 }

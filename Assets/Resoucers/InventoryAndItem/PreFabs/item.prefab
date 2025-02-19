@@ -161,7 +161,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3441944592682820383}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  quantityText: {fileID: 8598931750911530868}
 --- !u!1 &5092962118304302957
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ GameObject:
   - component: {fileID: 3529473076724357797}
   - component: {fileID: 3849642801451890410}
   m_Layer: 5
-  m_Name: Removed
+  m_Name: RemovedButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,7 +443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48.1, y: 59.7}
+  m_AnchoredPosition: {x: 34, y: 43.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1874398199902649737
@@ -529,7 +530,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9021428347771083071}
         m_TargetAssemblyTypeName: ItemUIController, Assembly-CSharp
-        m_MethodName: Remove
+        m_MethodName: RemoveItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
