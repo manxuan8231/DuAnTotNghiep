@@ -8,20 +8,17 @@ using UnityEngine.UI;
 public class StatueBoss2 : MonoBehaviour
 {
     
-    [SerializeField] private Slider healthSlider; // Thanh trượt hiển thị máu
+    [SerializeField] private Slider currentHealth; // Thanh trượt hiển thị máu
     [SerializeField] private TextMeshProUGUI healthText; // Text hiển thị giá trị máu
-    [SerializeField] private float maxHealth = 3000f; // Máu tối đa của tượng
-    private float currentHealth; // Máu hiện tại
+    private float maxHealth = 3000f; // Máu tối đa của tượng
     public GameObject boss;
     
 
 
     void Start()
     {
-        currentHealth = maxHealth; // Gán máu hiện tại bằng máu tối đa khi bắt đầu
-        healthSlider.maxValue = maxHealth; // Đặt giá trị tối đa cho thanh máu
-        healthSlider.value = currentHealth; // Cập nhật giá trị hiện tại của thanh máu
-        healthText.text = $"{currentHealth}/{maxHealth}"; // Cập nhật text hiển thị
+        currentHealth.maxValue = maxHealth;
+        healthText.text = $"{currentHealth.value}/{maxHealth}"; // Cập nhật text hiển thị
         boss.SetActive(false);
     }
 
@@ -35,17 +32,15 @@ public class StatueBoss2 : MonoBehaviour
     //xử lý máu tượng
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage; // Giảm máu hiện tại
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Giới hạn giá trị máu trong khoảng 0 đến maxHealth
-
-        healthSlider.value = currentHealth; // Cập nhật giá trị của thanh máu
-        healthText.text = $"{currentHealth}/{maxHealth}"; // Cập nhật text hiển thị
-
+        currentHealth.value -= damage; // Giảm máu hiện tại
+       
+        healthText.text = $"{currentHealth.value}/{maxHealth}"; // Cập nhật text hiển thị
+        currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth); // Giới hạn giá trị máu trong khoảng 0 đến maxHealt
         Debug.Log("Đã trừ máu");
 
-        if (currentHealth <= 0)
+        if (currentHealth.value <= 0)
         {
-            boss.SetActive(true);
+            //boss.SetActive(true);
             Debug.Log("Tượng đã bị phá hủy");   
             Destroy(gameObject, 0.5f);
         }

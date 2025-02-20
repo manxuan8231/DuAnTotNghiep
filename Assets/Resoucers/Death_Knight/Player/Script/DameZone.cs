@@ -60,6 +60,7 @@ public class DameZone : MonoBehaviour
         {
             StatueBoss2 statueBoss2 = other.gameObject.GetComponent<StatueBoss2>();
             statueBoss2.TakeDamage(player1.currentDame);
+            sliderHp.AddUlti(100);
         }
     }
 }
