@@ -22,6 +22,7 @@ TagManager:
   - SkillZ
   - Chest
   - SpawnPoint
+  - StatueBoss2
   layers:
   - Default
   - TransparentFX

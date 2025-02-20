@@ -1080,7 +1080,7 @@ RectTransform:
   m_Father: {fileID: 1767669373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.000015259, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1763,7 +1763,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1767669373}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 4557017486772171730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2784,7 +2784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &237365702211328328
 GameObject:
   m_ObjectHideFlags: 0
@@ -28592,7 +28592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2675092172647933089
 Transform:
   m_ObjectHideFlags: 0
@@ -31406,13 +31406,14 @@ GameObject:
   - component: {fileID: 4557017486772171730}
   - component: {fileID: 8748199308467291299}
   - component: {fileID: 8748199308467291300}
+  - component: {fileID: 8748199308467291301}
   m_Layer: 0
   m_Name: Seated Lion Oxidized Copper
-  m_TagString: Untagged
+  m_TagString: StatueBoss2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3781412183863288167
 Transform:
   m_ObjectHideFlags: 0
@@ -38054,6 +38055,7 @@ Transform:
   - {fileID: 4375118190668582828}
   - {fileID: 1537763305413651000}
   - {fileID: 261668908}
+  - {fileID: 1934300032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4559065262379040505
@@ -45345,7 +45347,7 @@ RectTransform:
   m_Father: {fileID: 6540302434035450388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.2632}
   m_SizeDelta: {x: 0, y: -9.4737}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -46181,7 +46183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &5960172299032714308
 GameObject:
   m_ObjectHideFlags: 0
@@ -51548,6 +51550,7 @@ MonoBehaviour:
   capsuleCollider: {fileID: 4475962022559741048}
   boxCollider: {fileID: 8210510918483248322}
   slashEffect: {fileID: 9132109237334482761}
+  statue: {fileID: 3780235248411617640}
   currentState: 0
 --- !u!1 &6112010284000143094
 GameObject:
@@ -70636,7 +70639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7831998617019698398
 Transform:
   m_ObjectHideFlags: 0
@@ -73005,16 +73008,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665fcfd53c634ec41a9032a81fe1163e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statueBoss2: {fileID: 3780235248411617640}
-  enemy:
-  - {fileID: 5959593457703684180}
-  - {fileID: 2668215300001674635}
-  - {fileID: 7827086980624217792}
-  boss2: {fileID: 6089018553918010669}
-  bossHide: {fileID: 229532181636936624}
-  currentHealth: {fileID: 1767669374}
+  healthSlider: {fileID: 1767669374}
+  healthText: {fileID: 576511376}
   maxHealth: 3000
-  txtHealth: {fileID: 576511376}
+  boss: {fileID: 229532181636936624}
+--- !u!65 &8748199308467291301
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780235248411617640}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.0072043, z: 1}
+  m_Center: {x: 0, y: 0.49110025, z: 0}
 --- !u!4 &8763021616312147515
 Transform:
   m_ObjectHideFlags: 0
@@ -74571,5 +74589,4 @@ SceneRoots:
   - {fileID: 825223238}
   - {fileID: 566765818}
   - {fileID: 4557017486772171730}
-  - {fileID: 1934300032}
   - {fileID: 886219637}
