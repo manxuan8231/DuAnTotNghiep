@@ -30,10 +30,12 @@ public class ItemUIController : MonoBehaviour
         switch (item.itemType)
         {
             case Itemtype.Hp:
-                FindObjectOfType<ItemUsing>().UsingItemHeal();
+                FindObjectOfType<ItemUsing>().UsingItemHeal(); 
+                Debug.Log("đã bú hp");
                 break;
             case Itemtype.Mana:
                 FindObjectOfType<ItemUsing>().UsingItemMana();
+                Debug.Log("đã bú mana");
                 break;
         }
     }

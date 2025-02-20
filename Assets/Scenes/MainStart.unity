@@ -1728,7 +1728,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 1810047779}
   helpPanel: {fileID: 2050610160}
   volumeSlider: {fileID: 1320305781}
-  scene: 2
+  scene: 6
 --- !u!1 &1037978281
 GameObject:
   m_ObjectHideFlags: 0

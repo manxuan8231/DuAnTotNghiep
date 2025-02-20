@@ -15,6 +15,9 @@ public class SkillManager : MonoBehaviour
     public GameObject skill2;//khai báo skill 2 partical 
     [SerializeField] private float lastTimeSkill1 = 0;//đặt lại thời gian = 0
     public GameObject hideSword;
+    
+   
+    
 
     //vị trí
     public Transform TranformSkill1;
@@ -32,12 +35,17 @@ public class SkillManager : MonoBehaviour
     public GameObject effect5;
     public GameObject effect6;
     public GameObject effect7;
-    public 
+   
+   
+
+
+
 
     void Start()
     {
         skill1.SetActive(false);
         animator.GetComponent<Animator>();
+        
 
     }
 
@@ -101,5 +109,7 @@ public class SkillManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         hideSword.SetActive(true);  
     }
-  
+    
+
+   
 }

@@ -24,7 +24,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private CapsuleCollider capsuleCollider;
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] public GameObject slashEffect;
-   
+    public GameObject statue;
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class BossMoveAndAnimation : MonoBehaviour
         currentHealth.maxValue = maxHealth;
         txtHealth.text = $"{currentHealth.value}/{maxHealth}";
         ChangState(CharacterState.Idle);
+        statue.SetActive(false);
     }
     void Update()
     {
@@ -57,14 +58,13 @@ public class BossMoveAndAnimation : MonoBehaviour
         {
           
             currentHealth.value -= amount;
-           
             txtHealth.text = $"{currentHealth.value}/{maxHealth}";
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
             //if (animator != null) {
             //    animator.SetTrigger("GetHit");
-                
+
             //        }
-            
+            if (currentHealth.value <= 20000f) { statue.SetActive(true);  }
             if (currentHealth.value <= 0)
             {
                 ChangState(CharacterState.Death);
@@ -73,6 +73,12 @@ public class BossMoveAndAnimation : MonoBehaviour
         }
        
     }
+   
+    public float CurrentHealth()
+    {
+        return currentHealth.value;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

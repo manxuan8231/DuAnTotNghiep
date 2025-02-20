@@ -56,5 +56,10 @@ public class DameZone : MonoBehaviour
             }
            
         }
+        if (other.gameObject.CompareTag("StatueBoss2"))
+        {
+            StatueBoss2 statueBoss2 = other.gameObject.GetComponent<StatueBoss2>();
+            statueBoss2.TakeDamage(player1.currentDame);
+        }
     }
 }
