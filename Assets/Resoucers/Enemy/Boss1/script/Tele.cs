@@ -15,10 +15,11 @@ public class Tele : MonoBehaviour
     public CinemachineVirtualCamera VirtualCameraPlayer;
     private bool isCamera = true;
     public AudioSource audioSource;
+    public GameObject even;
     void Start()
     {
         buttonF.SetActive(false);
-        
+        even.SetActive(false);
     }
 
    
