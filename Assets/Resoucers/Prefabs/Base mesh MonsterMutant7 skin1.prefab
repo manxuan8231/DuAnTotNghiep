@@ -4924,17 +4924,19 @@ MonoBehaviour:
   rageDistance: 5
   distanceAttack: 3.5
   animator: {fileID: 8131287688848546940}
+  fisrtPosition: {x: 0, y: 0, z: 0}
+  healthBarFill: {fileID: 283068173966345739}
+  healthText: {fileID: 1888575148768203407}
+  maxHealth: 1000
+  sliderhp: {fileID: 0}
+  takeHealth: {fileID: 4704984970023652004}
   audioSource: {fileID: 0}
   idleSound: {fileID: 0}
   attackSound1: {fileID: 0}
   attackSound2: {fileID: 0}
   injuredSound: {fileID: 0}
   deathSound: {fileID: 0}
-  fisrtPosition: {x: 0, y: 0, z: 0}
-  healthBarFill: {fileID: 283068173966345739}
-  healthText: {fileID: 1888575148768203407}
-  maxHealth: 1000
-  takeHealth: {fileID: 4704984970023652004}
+  sphereCollider: {fileID: 0}
   currentState: 0
 --- !u!54 &6799848917603553990
 Rigidbody:

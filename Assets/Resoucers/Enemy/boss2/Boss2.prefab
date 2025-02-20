@@ -399,7 +399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1932376912933532424
 Transform:
   m_ObjectHideFlags: 0
@@ -410,7 +410,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.06, z: 0}
-  m_LocalScale: {x: 5.959235, y: 5.959235, z: 5.959235}
+  m_LocalScale: {x: 2.4828558, y: 2.4828558, z: 2.4828558}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 612256294596353614}
@@ -561,7 +561,6 @@ MonoBehaviour:
   capsuleCollider: {fileID: 4475962022268985431}
   boxCollider: {fileID: 8210510918256005357}
   slashEffect: {fileID: 9132109237090388838}
-  getHitEffect: {fileID: 5650423400588193362, guid: 5ec7cb9e084b9b945ba2a14a99698ff6, type: 3}
   currentState: 0
 --- !u!114 &5315980535768333462
 MonoBehaviour:
@@ -584,7 +583,20 @@ MonoBehaviour:
   skill2: {fileID: 5308350575936215723, guid: 4e5dc760f4a870b499d0b30c49a4ecfd, type: 3}
   lastTimeSkill1: 0
   hideSword: {fileID: 693064191797999709}
-  skill3: {fileID: 3740417003464875119, guid: 2a4c68945a057414a82c0cf6dd24284c, type: 3}
+  TranformSkill1: {fileID: 0}
+  TranformSkill2: {fileID: 0}
+  TranformSkill3: {fileID: 0}
+  TranformSkill4: {fileID: 0}
+  TranformSkill5: {fileID: 0}
+  TranformSkill6: {fileID: 0}
+  TranformSkill7: {fileID: 0}
+  effect1: {fileID: 0}
+  effect2: {fileID: 0}
+  effect3: {fileID: 0}
+  effect4: {fileID: 0}
+  effect5: {fileID: 0}
+  effect6: {fileID: 0}
+  effect7: {fileID: 0}
 --- !u!1 &267720407724068358
 GameObject:
   m_ObjectHideFlags: 0
@@ -15743,7 +15755,7 @@ RectTransform:
   m_Father: {fileID: 6540302433828656699}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.2632}
   m_SizeDelta: {x: 0, y: -9.4737}
   m_Pivot: {x: 0.5, y: 0.5}

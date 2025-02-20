@@ -524,15 +524,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 230.70193
+      value: -54.82018
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.993233
+      value: 1.5884304
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -331.91812
+      value: 172.77176
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fcb218bae311564bb0644962a1b1d0d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -680,7 +680,7 @@ MonoBehaviour:
   animator: {fileID: 2035536630064635744}
   maxHealth: 1000
   fisrtPosition: {x: 0, y: 0, z: 0}
-  battleRange: 8
+  battleRange: 5.3
   distanceAttack: 5
   healthBarFill: {fileID: 6630896425241999131}
   healthText: {fileID: 2387935246759511968}
@@ -690,6 +690,7 @@ MonoBehaviour:
   injuredSound: {fileID: 8300000, guid: a677fdf555606b04391033a5b44af1f9, type: 3}
   deathSound: {fileID: 8300000, guid: f8ac7aa9f55d9804e9e1715c600c1f3f, type: 3}
   getHealthPlayer: {fileID: 7900328676410409864}
+  sphereCollider: {fileID: 0}
   currentState: 0
 --- !u!195 &627023852206838864
 NavMeshAgent:

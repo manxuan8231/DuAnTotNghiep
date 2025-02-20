@@ -153,6 +153,7 @@ public class EnemyAnimationController : MonoBehaviour
             case CharacterState.WakeUp:
                 navMeshAgent.isStopped = true;
                 animator.SetTrigger("isWakeUp");
+                
                 break;
 
             case CharacterState.Idle:

@@ -30,6 +30,7 @@ public class ThanLan : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     //lay hp player
     public GameObject getHealthPlayer;
+    public SphereCollider sphereCollider;
     public enum CharacterState
     {
         Idle,
@@ -46,6 +47,7 @@ public class ThanLan : MonoBehaviour
 
     void Start()
     {
+        sphereCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
@@ -85,7 +87,7 @@ public class ThanLan : MonoBehaviour
                 {
                     ChangState(CharacterState.Run);
                 }
-                Debug.Log   ("Idle");
+                Debug.Log("Idle");
                 break;
 
             case CharacterState.Run:
@@ -115,6 +117,7 @@ public class ThanLan : MonoBehaviour
                 // Khi trong vùng BattleAttack, kiểm tra nếu vào vùng tấn công
                 if (distanceToTarget <= distanceAttack)
                 {
+                    
                     ChangState(CharacterState.Attack);
                 }
                 else if (distanceToTarget > battleRange) // Nếu target ra khỏi vùng BattleAttack
@@ -188,7 +191,6 @@ public class ThanLan : MonoBehaviour
 
             case CharacterState.BattleAttack:
                 NavMeshAgent.isStopped = true;
-
                 animator.SetTrigger("BattleIdle");
                 StartCoroutine(DelayBattleAttack());
                 break;
@@ -228,7 +230,7 @@ public class ThanLan : MonoBehaviour
 
         currentState = newstate;
     }
-
+    // nếu như đang từ trạng thái battle thì phải đợi chạy hết trạng thái battle khoảng 3 giây xong thì sẽ chuyển sang trạng thái Run tới gần target rồi mới attack
 
 
     //private IEnumerator SwitchToAttackAfterDelay()
@@ -242,7 +244,7 @@ public class ThanLan : MonoBehaviour
 
     private IEnumerator DelayBattleAttack()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         if (Vector3.Distance(target.position, transform.position) <= distanceAttack)
         {
             ChangState(CharacterState.Attack);
@@ -263,6 +265,7 @@ public class ThanLan : MonoBehaviour
         if (currentHealth <= 0)
         {
             ChangState(CharacterState.Die);
+            sphereCollider.gameObject.SetActive(false);
             Destroy(gameObject, 3f); // 3 giây sau khi chết
             FindObjectOfType<SliderHp>().AddExp(5500);
 
