@@ -47,8 +47,15 @@ public class InventoryManager : MonoBehaviour
 
         if (existingItem != null)
         {
-            
-            items.Remove(existingItem);
+            if (existingItem.quantity > 1)
+            {
+                existingItem.quantity--;
+            }
+            else
+            {
+                items.Remove(existingItem);
+            }
+                
             DisplayInventory();
         }
     }
