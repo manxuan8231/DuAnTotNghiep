@@ -23,7 +23,7 @@ public class MoveToY : MonoBehaviour
         rb = GetComponent<Rigidbody>();     
         // Tắt Rigidbody và Collider để tránh va chạm khi di chuyển
         rb.isKinematic = true;
-      capsuleCollider.enabled = false;
+        capsuleCollider.enabled = false;
         weaponHand.SetActive(false);
         weapon.SetActive(true);
         isCamera = true;
@@ -43,13 +43,13 @@ public class MoveToY : MonoBehaviour
         if (target == null) return; // Kiểm tra target có tồn tại không
 
         Vector3 currentPosition = transform.position; // Vị trí hiện tại
-        Vector3 targetPosition = new Vector3(target.position.x, targetY, target.position.z); // Vị trí đích
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, target.position.z); // Vị trí đích
 
         // Di chuyển mượt bằng Lerp
         transform.position = Vector3.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
 
         // Dừng lại khi gần đạt vị trí mong muốn
-        if (Mathf.Abs(transform.position.y - targetY) < 0.01f)
+        if (Mathf.Abs(transform.position.y - target.position.y) < 0.01f)
         {
             transform.position = targetPosition;
             isMoving = false;

@@ -21,6 +21,7 @@ TagManager:
   - SkillR
   - SkillZ
   - Chest
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
