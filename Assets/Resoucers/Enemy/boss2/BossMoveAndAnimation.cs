@@ -65,13 +65,20 @@ public class BossMoveAndAnimation : MonoBehaviour
 
             //        }
             if (currentHealth.value <= 20000f) { statue.SetActive(true);  }
+
             if (currentHealth.value <= 0)
             {
                 ChangState(CharacterState.Death);
+               
+                Destroy(gameObject, 3f);
+                
+
+
             }
-            
+
         }
-       
+        
+
     }
    
     public float CurrentHealth()
@@ -167,8 +174,9 @@ public class BossMoveAndAnimation : MonoBehaviour
                 }
                 break;
             case CharacterState.Death:
-                Debug.Log("Death");
+                Debug.Log("Die");
                 break;
+           
         }
 
     }
@@ -221,14 +229,14 @@ public class BossMoveAndAnimation : MonoBehaviour
             
                 break;
             case CharacterState.Death:
-                navMeshAgent.isStopped = true;
+
                 animator.SetTrigger("Death");
-                isCantDamage = false;
-                Destroy(gameObject,5f);
                 
+                Destroy(gameObject, 3f); // Hủy đối tượng sau 3 giây
+                animator.ResetTrigger("GetHit");
                 break;
-            
-            
+
+
         }
         currentState = newstate;
     }
