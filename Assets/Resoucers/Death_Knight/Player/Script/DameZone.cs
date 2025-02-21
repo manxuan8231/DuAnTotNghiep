@@ -32,7 +32,7 @@ public class DameZone : MonoBehaviour
             ThanLan thanlan = other.gameObject.GetComponent<ThanLan>();
             if(thanlan != null)
             {
-                thanlan.TakeDamage(player1.currentDame);
+                thanlan.TakeDamage(100);
             }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
