@@ -59,16 +59,15 @@ public class BossMoveAndAnimation : MonoBehaviour
           
             currentHealth.value -= amount;
             txtHealth.text = $"{currentHealth.value}/{maxHealth}";
-            currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);
-            //if (animator != null) {
-            //    animator.SetTrigger("GetHit");
-
-            //        }
-            if (currentHealth.value <= 20000f) { statue.SetActive(true);  }
+            currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);   
+          
+            
             if (currentHealth.value <= 0)
             {
                 ChangState(CharacterState.Death);
-            }
+            }            
+            if (currentHealth.value <= 20000f) { statue.SetActive(true);  }
+          
             
         }
        

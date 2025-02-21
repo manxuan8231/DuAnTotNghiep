@@ -40,7 +40,7 @@ public class StatueBoss2 : MonoBehaviour
 
         if (currentHealth.value <= 0)
         {
-            //boss.SetActive(true);
+            boss.SetActive(true);
             Debug.Log("Tượng đã bị phá hủy");   
             Destroy(gameObject, 0.5f);
         }
