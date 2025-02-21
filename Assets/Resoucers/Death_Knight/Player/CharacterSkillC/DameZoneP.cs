@@ -24,7 +24,22 @@ public class DameZoneP : MonoBehaviour
                 Boss1 boss1 = other.gameObject.GetComponent<Boss1>();
                 boss1.TakeHealth(2000);
             }
-        
+        if (other.gameObject.CompareTag("ThuyQuai"))
+        {
+            //thuyQuai
+            ThuyQuai thuyQuai = other.gameObject.GetComponent<ThuyQuai>();
+            if (thuyQuai != null)
+            {
+                thuyQuai.TakeDame(100);
+            }
+
+        }
+        if (other.gameObject.CompareTag("StatueBoss2"))
+        {
+            StatueBoss2 statueBoss2 = other.gameObject.GetComponent<StatueBoss2>();
+            statueBoss2.TakeDamage(2000);
+
+        }
         if (other.gameObject.CompareTag("Enemy"))
         {
             EnemyAnimationController rikaron = other.gameObject.GetComponent<EnemyAnimationController>();
@@ -49,6 +64,12 @@ public class DameZoneP : MonoBehaviour
             if (enemy3 != null)
             {
                 enemy3.TakeDame(100);
+            }
+            //thuyQuai
+            ThuyQuai thuyQuai = other.gameObject.GetComponent<ThuyQuai>();
+            if (thuyQuai != null)
+            {
+                thuyQuai.TakeDame(100);
             }
         }
     }

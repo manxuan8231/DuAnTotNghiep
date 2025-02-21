@@ -46,6 +46,12 @@ public class DameZone2 : MonoBehaviour
             {
                 enemy3.TakeDame(skillPlayer1.currentDameAir);
             }
+            //thuyQuai
+            ThuyQuai thuyQuai = other.gameObject.GetComponent<ThuyQuai>();
+            if (thuyQuai != null)
+            {
+                thuyQuai.TakeDame(skillPlayer1.currentDameAir);
+            }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect, 3f); // Hủy hiệu ứng sau 3 giây
@@ -66,5 +72,13 @@ public class DameZone2 : MonoBehaviour
             }
           
         }
+       
+        if (other.gameObject.CompareTag("StatueBoss2"))
+        {
+            StatueBoss2 statueBoss2 = other.gameObject.GetComponent<StatueBoss2>();
+            statueBoss2.TakeDamage(skillPlayer1.currentDameAir);
+           
+        }
+
     }
 }
