@@ -44,6 +44,12 @@ public class DameZoneP : MonoBehaviour
             {
                 thanlan.TakeDamage(500);
             }
+            //enemy3
+            Enemy3 enemy3 = other.gameObject.GetComponent<Enemy3>();
+            if (enemy3 != null)
+            {
+                enemy3.TakeDame(100);
+            }
         }
     }
 }

@@ -24,6 +24,8 @@ public class Enemy3 : MonoBehaviour
     public Slider currentHealth;
     public TextMeshProUGUI textHealth;
     public float maxHealth = 1000;
+
+    public SliderHp sliderHp;
     void Start()
     {
         isOnSkill = false;
@@ -65,14 +67,23 @@ public class Enemy3 : MonoBehaviour
     }
     public void TakeDame(float amount)
     {
-       currentHealth.value -= amount;
+        currentHealth.value -= amount;
+        sliderHp.AddUlti(100);
         textHealth.text = $"{currentHealth.value}/{maxHealth}";
         if (currentHealth.value <= 0)
         {
-            Destroy(gameObject);    
+            sliderHp.AddExp(8888);
+            Destroy(gameObject,0.4f);    
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("SkillR"))
+        {
+            TakeDame(40);
+        }
+      
+    }
     private IEnumerator FlipSKill()
     {
         yield return new WaitForSeconds(2);
