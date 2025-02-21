@@ -32,7 +32,7 @@ public class DameZone : MonoBehaviour
             ThanLan thanlan = other.gameObject.GetComponent<ThanLan>();
             if(thanlan != null)
             {
-                thanlan.TakeDamage(player1.currentDame);
+                thanlan.TakeDamage(100);
             }
             //enemy3
             Enemy3 enemy3 = other.gameObject.GetComponent<Enemy3>();

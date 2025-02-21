@@ -12,7 +12,7 @@ public class ThanLan : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] float radius = 25f;
     [SerializeField] Animator animator;
-    [SerializeField] private float maxHealth = 1000f;
+    [SerializeField] private float maxHealth = 1000;
     private float currentHealth;
     private float maxDistance = 40f;
     [SerializeField] Vector3 fisrtPosition;
@@ -287,6 +287,7 @@ public class ThanLan : MonoBehaviour
         {
             TakeDamage(999);
         }
+     
     }
     public void beginDame()
     {
