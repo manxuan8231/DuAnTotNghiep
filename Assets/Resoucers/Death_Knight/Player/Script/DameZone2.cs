@@ -8,6 +8,7 @@ public class DameZone2 : MonoBehaviour
     // Tham chiếu đến hiệu ứng particle
     public GameObject hitEffect;
     public SkillPlayer1 skillPlayer1;
+    
     void Start()
     {
         

@@ -19,13 +19,14 @@ public class Enemy3 : MonoBehaviour
     private Transform player;
 
     private Rigidbody rb;
-
+    private bool isOnSkill = true;
     //hp
     public Slider currentHealth;
     public TextMeshProUGUI textHealth;
     public float maxHealth = 1000;
     void Start()
     {
+        isOnSkill = false;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         //hpo
@@ -49,15 +50,16 @@ public class Enemy3 : MonoBehaviour
             direction.y = 0; // Giữ y = 0 để tránh nghiêng đầu
             Quaternion targetRotation = Quaternion.LookRotation(direction); // Tạo góc quay hướng về Player
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Xoay mượt mà
+            StartCoroutine(FlipSKill());
         }
         
-        if(distance <= rangerPlayerAttack && Time.time >= cooldownAttack + 5)
+        if(distance <= rangerPlayerAttack && Time.time >= cooldownAttack + 5 && isOnSkill == true)
         {
             animator.SetTrigger("Attack");
             GameObject gameObject = Instantiate(fireBall, positionAttack.position, Quaternion.identity);
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
             rb.velocity = transform.forward * 20;
-            Destroy(rb,5f);
+            Destroy(gameObject,5f);
             cooldownAttack = Time.time;
         }
     }
@@ -69,5 +71,11 @@ public class Enemy3 : MonoBehaviour
         {
             Destroy(gameObject);    
         }
+    }
+
+    private IEnumerator FlipSKill()
+    {
+        yield return new WaitForSeconds(2);
+        isOnSkill = true;
     }
 }
