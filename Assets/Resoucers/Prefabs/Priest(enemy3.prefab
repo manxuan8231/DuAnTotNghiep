@@ -630,8 +630,8 @@ Transform:
   m_GameObject: {fileID: 2274225609201527364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 233.6791, y: 19.99323, z: -316.98117}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 233.64, y: 19.673, z: -316.98117}
+  m_LocalScale: {x: 1.2828, y: 1.2828, z: 1.2828}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7951373010429900037}
@@ -685,7 +685,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &7696665332208717620
 BoxCollider:
@@ -720,12 +720,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162b93f56885b384f950c97e0d861824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangerPlayer: 30
-  rangerPlayerAttack: 29
-  fireBall: {fileID: 7132088935084402723, guid: c5c3da23a92d90f43bb54f2c469cba9c, type: 3}
+  rangerPlayer: 100
+  rangerPlayerAttack: 100
+  fireBall: {fileID: 1723677643345149457, guid: 26533646c4695da4396eee51b0f8402c, type: 3}
   positionAttack: {fileID: 8507511026240850227}
   cooldownAttack: 0
-  player: {fileID: 0}
   currentHealth: 0
   maxHealth: 1000
 --- !u!1 &2426638088600225145
@@ -2503,7 +2502,7 @@ Transform:
   m_GameObject: {fileID: 8386887471504690934}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.41, z: 1.367}
+  m_LocalPosition: {x: 0, y: 0.56, z: 1.367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

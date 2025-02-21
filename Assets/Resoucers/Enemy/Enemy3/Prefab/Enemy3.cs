@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy3 : MonoBehaviour
 {
@@ -19,15 +21,16 @@ public class Enemy3 : MonoBehaviour
     private Rigidbody rb;
 
     //hp
-    public float currentHealth;
+    public Slider currentHealth;
+    public TextMeshProUGUI textHealth;
     public float maxHealth = 1000;
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         //hpo
-        currentHealth = maxHealth;
-
+        currentHealth.value = maxHealth;
+        textHealth.text = $"{currentHealth.value}/{maxHealth}";
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -53,15 +56,16 @@ public class Enemy3 : MonoBehaviour
             animator.SetTrigger("Attack");
             GameObject gameObject = Instantiate(fireBall, positionAttack.position, Quaternion.identity);
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-            rb.velocity = transform.forward * 10;
-            Destroy(rb,10f);
+            rb.velocity = transform.forward * 20;
+            Destroy(rb,5f);
             cooldownAttack = Time.time;
         }
     }
     public void TakeDame(float amount)
     {
-       currentHealth -= amount;
-        if(currentHealth <= 0)
+       currentHealth.value -= amount;
+        textHealth.text = $"{currentHealth.value}/{maxHealth}";
+        if (currentHealth.value <= 0)
         {
             Destroy(gameObject);    
         }

@@ -256,10 +256,11 @@ public class Enemy1 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);
             sphereCollider.gameObject.SetActive(false);
             Destroy(gameObject, 3f);
-            sliderhp.AddExp(5500);
+           
         }
     }
     private void UpdateHealthUI()
