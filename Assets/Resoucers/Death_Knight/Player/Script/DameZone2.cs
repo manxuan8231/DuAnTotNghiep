@@ -39,11 +39,6 @@ public class DameZone2 : MonoBehaviour
             {
                 thanlan.TakeDamage(skillPlayer1.currentDameAir);
             }
-            Enemy3 enemy3 = other.gameObject.GetComponent<Enemy3>();
-            if (enemy3 != null)
-            {
-                enemy3.TakeDame(skillPlayer1.currentDameAir);
-            }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect, 3f); // Hủy hiệu ứng sau 3 giây

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,9 +18,6 @@ public class Enemy3 : MonoBehaviour
 
     private Rigidbody rb;
 
-    //hien dame
-    public TextMeshProUGUI textHealth;
-    private float textCount = 0;
     //hp
     public float currentHealth;
     public float maxHealth = 1000;
@@ -31,10 +27,6 @@ public class Enemy3 : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //hpo
         currentHealth = maxHealth;
-        if (textHealth != null)
-        {
-            textHealth.text = "0";
-        }
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -62,43 +54,16 @@ public class Enemy3 : MonoBehaviour
             GameObject gameObject = Instantiate(fireBall, positionAttack.position, Quaternion.identity);
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
             rb.velocity = transform.forward * 10;
-            Destroy(gameObject,7f);
+            Destroy(rb,10f);
             cooldownAttack = Time.time;
         }
     }
     public void TakeDame(float amount)
     {
-        currentHealth -= amount;
-        textCount += amount;
-        
-        if (textHealth != null)
-        {
-            textHealth.text = textCount.ToString();
-        }
-        StartCoroutine(TextCoolDown());
-        if (currentHealth <= 0)
+       currentHealth -= amount;
+        if(currentHealth <= 0)
         {
             Destroy(gameObject);    
-        }
-    }
-    private IEnumerator TextCoolDown()
-    {  
-        yield return new WaitForSeconds(3);
-        textCount = 0;
-        if (textHealth != null)
-        {
-            textHealth.text = "0";
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("SkillR"))
-        {
-            TakeDame(20);
-        }
-        if (other.gameObject.CompareTag("SkillZ"))
-        {
-            TakeDame(100);
         }
     }
 }
