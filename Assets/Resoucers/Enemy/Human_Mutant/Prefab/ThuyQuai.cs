@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class ThuyQuai : MonoBehaviour
 {
     public float rangerPlayer = 30f;//khoamn cach thay player
     public float rangerPlayerAttack = 5f;//khoan cach thay player
+    public float rangerPlayerShout = 30f; //shout
+    public float rangerPlayerSkill = 60f; //skill
 
     private Animator animator;
     private Transform player;
@@ -19,17 +22,37 @@ public class ThuyQuai : MonoBehaviour
     public TextMeshProUGUI textHealth;
     public float maxHealth = 10000;
 
+    //cooldown
+    private float timeCoolDown = 0;
+
     public SliderHp sliderHp;
 
-    private bool isDie;
+    private bool isDie; //nó die thì ko cho nhận máu
+    private bool isShout = true; //la 
+    private bool isSkill;
+
+    public BoxCollider boxDame;
+
+    //sounds
+    private AudioSource audioSource;
+    public AudioClip audioClipShout;
+
+    //skill
+    public GameObject skill1;
+
     void Start()
     {
+        skill1.SetActive(false);    
+        isSkill = false;
+        isShout = true;
+        boxDame.enabled = false;
         isDie = true;
         animator = GetComponent<Animator>();
-      
+        audioSource = GetComponent<AudioSource>();
         //hp
         currentHealth.value = maxHealth;
         textHealth.text = $"{currentHealth.value}/{maxHealth}";
+
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -39,6 +62,13 @@ public class ThuyQuai : MonoBehaviour
 
 
     void Update()
+    {
+        FlipPlayer();//nó thấy
+        AttackCombo();//nó attack
+        Shot();//nó la
+        Skill();
+    }
+    private void FlipPlayer()
     {
         float distance = Vector3.Distance(transform.position, player.position);
         if (distance <= rangerPlayer)
@@ -53,12 +83,67 @@ public class ThuyQuai : MonoBehaviour
         }
         else
         {
+
             gameObjectSlider.SetActive(false);
-            currentHealth.value ++;
+            currentHealth.value++;
             textHealth.text = $"{currentHealth.value}/{maxHealth}";
         }
+    }
+    private void AttackCombo()
+    {
+        float distanceAttack = Vector3.Distance(player.position, transform.position);
+        if (distanceAttack <= rangerPlayerAttack && Time.time >= timeCoolDown + 7f)
+        {
+            isSkill = true;
+            int random = Random.Range(0, 2);
+            if (random == 0)
+            {
+                animator.SetTrigger("attack1");
+            }
+            if (random == 1)
+            {
+                animator.SetTrigger("attack2");
+            }
+            timeCoolDown = Time.time;
+        }
+    }
+   
+    private void Skill()
+    {
+        float distanceSkill = Vector3.Distance(player.position, transform.position);
+        if (distanceSkill <= rangerPlayerSkill && Time.time >= timeCoolDown + 8f && isSkill == true)
+        {
+            int random = Random.Range(0, 2);
+            if (random == 0)
+            {
+                Debug.Log("skill1");
+                isShout = true;
+                animator.SetTrigger("skill1");
+                StartCoroutine(Skill1(5));
+            }
+            if (random == 1)
+            {
+                animator.SetTrigger("skill2");
+                Debug.Log("skill2");
+            }
+            timeCoolDown = Time.time;
+        }
+    }
+    private IEnumerator Skill1(float secon)
+    {
+        skill1.SetActive(true);
+        yield return new WaitForSeconds(secon);
+        skill1.SetActive(false);
+    }
+    private void Shot()
+    {
+        float distanceShout = Vector3.Distance(player.position, transform.position);
+        if (distanceShout <= rangerPlayerShout && isShout == true)
+        {
+            animator.SetTrigger("shout");
+            isShout = false;
+        }
 
-       
     }
     public void TakeDame(float amount)
     {
@@ -89,5 +174,19 @@ public class ThuyQuai : MonoBehaviour
             TakeDame(1000);
         }
     }
+    
+    public void BeginDame()
+    {
+        boxDame.enabled = true;
+    }
+    public void EndDame()
+    {
+        boxDame.enabled = false;
+    }
+    public void SoundShout()
+    {
+        audioSource.PlayOneShot(audioClipShout);
+    }
+    
    
 }
