@@ -118,10 +118,8 @@ public class Enemy4 : MonoBehaviour
         ChangeState(EnemyState.Rage);
         agent.isStopped = true;
         yield return new WaitForSeconds(2f);
-
         isRage = false;
         isAttacking = true;
-
         int random = Random.Range(0, 3);
         if (random == 0) ChangeState(EnemyState.Combo1);
         else if (random == 1) ChangeState(EnemyState.Combo2);
