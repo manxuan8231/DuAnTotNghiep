@@ -13,7 +13,7 @@ public class Enemy4 : MonoBehaviour
     public float rageDistance = 5f;
     private NavMeshAgent agent;
     private Animator animator;
-    private Vector3 firstPosition;
+    public Vector3 firstPosition;
     private bool isAttacking = false;
     private bool isRage = false;
 
@@ -55,9 +55,7 @@ public class Enemy4 : MonoBehaviour
     {
         if (currentState == newState) return;
 
-        // Đảm bảo animation hiện tại đã kết thúc trước khi chuyển trạng thái
-        AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
-        if (animState.normalizedTime < 1f) return;
+       
 
         currentState = newState;
 
@@ -129,7 +127,7 @@ public class Enemy4 : MonoBehaviour
         else if (random == 1) ChangeState(EnemyState.Combo2);
         else ChangeState(EnemyState.Combo3);
 
-        yield return new WaitForSeconds(3f); // Giả sử combo kéo dài 3s
+        yield return new WaitForSeconds(6.5f); // Giả sử combo kéo dài 3s
         isAttacking = false;
     }
 }
