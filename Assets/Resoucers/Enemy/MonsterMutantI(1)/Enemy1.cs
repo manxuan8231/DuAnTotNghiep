@@ -30,6 +30,7 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private AudioClip attackSound2;
     [SerializeField] private AudioClip injuredSound;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip rageSound;
     public SphereCollider sphereCollider;
     private bool isPlayingIdleSound = false;
 
@@ -205,6 +206,7 @@ public class Enemy1 : MonoBehaviour
                 animator.SetBool("Idle", true);
                 animator.SetBool("isRun", false);
                 animator.SetBool("Rage", false);
+                audioSource.PlayOneShot(idleSound);
                 break;
             case CharacterState.Run:
                 NavMeshAgent.isStopped = false;
@@ -217,25 +219,30 @@ public class Enemy1 : MonoBehaviour
                 animator.SetBool("Rage", true);
                 animator.SetBool("isRun", false);
                 animator.SetBool("Idle", false);
+                audioSource.PlayOneShot(rageSound);
                 break;
             case CharacterState.Combo1:
                 NavMeshAgent.isStopped = true;
                 animator.SetBool("Combo1", true);
+                audioSource.PlayOneShot(attackSound1);
 
                 break;
             case CharacterState.Combo2:
                 NavMeshAgent.isStopped = true;
                 animator.SetBool("Combo2", true);
+                audioSource.PlayOneShot(attackSound2);
                 break;
             case CharacterState.GetHit:
                 NavMeshAgent.isStopped = false;
                 animator.SetTrigger("GetHit");
+                audioSource.PlayOneShot(injuredSound);
                 break;
             case CharacterState.Die:
                 animator.SetTrigger("Die");
 
                 Destroy(gameObject, 1.5f);
                 animator.ResetTrigger("GetHit");
+                audioSource.PlayOneShot(deathSound);
                 break;
             case CharacterState.Return:
                 break;

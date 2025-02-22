@@ -4930,12 +4930,13 @@ MonoBehaviour:
   maxHealth: 1000
   sliderhp: {fileID: 0}
   takeHealth: {fileID: 4704984970023652004}
-  audioSource: {fileID: 0}
-  idleSound: {fileID: 0}
-  attackSound1: {fileID: 0}
-  attackSound2: {fileID: 0}
-  injuredSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  audioSource: {fileID: 5479316803015092348}
+  idleSound: {fileID: 8300000, guid: 10d46fb0fdc75514abf63865af7cf4bf, type: 3}
+  attackSound1: {fileID: 8300000, guid: 3aa640faadcdab642b02243893f22724, type: 3}
+  attackSound2: {fileID: 8300000, guid: 6b674ede0f0d71949908771ce8a14809, type: 3}
+  injuredSound: {fileID: 8300000, guid: ce63d7b0b1f34a642a7ad9a42969cdff, type: 3}
+  deathSound: {fileID: 8300000, guid: 68016b72434aeb94ca1b4cbc152bbb2a, type: 3}
+  rageSound: {fileID: 8300000, guid: 7a7fba1546592f445a7a0481cf0130bd, type: 3}
   sphereCollider: {fileID: 0}
   currentState: 0
 --- !u!54 &6799848917603553990
@@ -4975,8 +4976,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 10d46fb0fdc75514abf63865af7cf4bf, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

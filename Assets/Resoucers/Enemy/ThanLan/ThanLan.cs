@@ -25,7 +25,7 @@ public class ThanLan : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip idleSound;
-    [SerializeField] private AudioClip      attackSound;
+    [SerializeField] private AudioClip attackSound;
     [SerializeField] private AudioClip injuredSound;
     [SerializeField] private AudioClip deathSound;
     //lay hp player
