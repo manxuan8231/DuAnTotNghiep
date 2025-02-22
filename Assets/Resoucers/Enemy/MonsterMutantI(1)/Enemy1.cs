@@ -256,9 +256,9 @@ public class Enemy1 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            sphereCollider.gameObject.SetActive(false);
             sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);
-            sphereCollider.gameObject.SetActive(false);
             Destroy(gameObject, 3f);
            
         }
