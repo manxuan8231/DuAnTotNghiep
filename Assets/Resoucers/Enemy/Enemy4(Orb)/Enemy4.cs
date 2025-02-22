@@ -1,18 +1,135 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy4 : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public enum EnemyState { Idle, Run, Rage, Combo1, Combo2, Combo3, Death, Return }
+    private EnemyState currentState;
+    public Transform player;
+    public float radius = 25f;
+    public float attackRange = 4f;
+    public float maxRadius = 35f;
+    public float rageDistance = 5f;
+    private NavMeshAgent agent;
+    private Animator animator;
+    private Vector3 firstPosition;
+    private bool isAttacking = false;
+    private bool isRage = false;
+
     void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        firstPosition = transform.position;
+        currentState = EnemyState.Idle;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (currentState == EnemyState.Death) return;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= radius)
+        {
+            if (distanceToPlayer <= rageDistance && !isRage)
+            {
+                StartCoroutine(RageAndAttack());
+            }
+            else if (!isAttacking)
+            {
+                ChangeState(EnemyState.Run);
+                agent.SetDestination(player.position);
+            }
+        }
+        else if (distanceToPlayer <= maxRadius)
+        {
+            ChangeState(EnemyState.Return);
+        }
+
+        HandleState();
+    }
+
+    void ChangeState(EnemyState newState)
+    {
+        if (currentState == newState) return;
+
+        // Đảm bảo animation hiện tại đã kết thúc trước khi chuyển trạng thái
+        AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
+        if (animState.normalizedTime < 1f) return;
+
+        currentState = newState;
+
+        // Reset tất cả trigger
+        animator.ResetTrigger("Idle");
+        animator.ResetTrigger("Run");
+        animator.ResetTrigger("Rage");
+        animator.ResetTrigger("Combo1");
+        animator.ResetTrigger("Combo2");
+        animator.ResetTrigger("Combo3");
+        animator.ResetTrigger("Death");
+
+        animator.SetTrigger(newState.ToString());
+    }
+
+    void HandleState()
+    {
+        switch (currentState)
+        {
+            case EnemyState.Idle:
+                agent.isStopped = true;
+                break;
+
+            case EnemyState.Run:
+                agent.isStopped = false;
+                agent.speed = 3.5f;
+                break;
+
+            case EnemyState.Rage:
+                agent.isStopped = true;
+                break;
+
+            case EnemyState.Combo1:
+            case EnemyState.Combo2:
+            case EnemyState.Combo3:
+                agent.isStopped = true;
+                break;
+
+            case EnemyState.Return:
+                agent.isStopped = false;
+                agent.speed = 3.5f;
+                agent.SetDestination(firstPosition);
+                if (Vector3.Distance(transform.position, firstPosition) < 1f)
+                {
+                    ChangeState(EnemyState.Idle);
+                    agent.isStopped = true;
+                }
+                break;
+
+            case EnemyState.Death:
+                agent.isStopped = true;
+                Destroy(gameObject, 2f);
+                break;
+        }
+    }
+
+    IEnumerator RageAndAttack()
+    {
+        isRage = true;
+        ChangeState(EnemyState.Rage);
+        agent.isStopped = true;
+        yield return new WaitForSeconds(2f);
+
+        isRage = false;
+        isAttacking = true;
+
+        int random = Random.Range(0, 3);
+        if (random == 0) ChangeState(EnemyState.Combo1);
+        else if (random == 1) ChangeState(EnemyState.Combo2);
+        else ChangeState(EnemyState.Combo3);
+
+        yield return new WaitForSeconds(3f); // Giả sử combo kéo dài 3s
+        isAttacking = false;
     }
 }

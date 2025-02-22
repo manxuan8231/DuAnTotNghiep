@@ -214,7 +214,7 @@ public class Enemy1 : MonoBehaviour
                 break;
             case CharacterState.Rage:
                 NavMeshAgent.isStopped = true;
-                animator.SetBool("Rage", true);
+                animator.SetBool("Rage", true); 
                 animator.SetBool("isRun", false);
                 animator.SetBool("Idle", false);
                 break;
