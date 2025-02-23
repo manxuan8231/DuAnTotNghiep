@@ -1,6 +1,9 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 
 public class Enemy4 : MonoBehaviour
 {
@@ -16,6 +19,13 @@ public class Enemy4 : MonoBehaviour
     public Vector3 firstPosition;
     private bool isAttacking = false;
     private bool isRage = false;
+    [SerializeField] private Image healthBarFill;
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private float maxHealth = 1000f;
+    private float currentHealth;
+   
+    public GameObject takeHealth;
+    public SphereCollider sphereCollider;
 
     void Start()
     {
@@ -23,6 +33,12 @@ public class Enemy4 : MonoBehaviour
         animator = GetComponent<Animator>();
         firstPosition = transform.position;
         currentState = EnemyState.Idle;
+
+
+        takeHealth.SetActive(false);
+        sphereCollider.gameObject.SetActive(true);
+        currentHealth = maxHealth;
+        UpdateHealthUI();
     }
 
     void Update()
@@ -127,5 +143,38 @@ public class Enemy4 : MonoBehaviour
 
         yield return new WaitForSeconds(6.5f); // Giả sử combo kéo dài 3s
         isAttacking = false;
+    }
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthUI();
+        if (animator != null)
+        {
+            animator.SetTrigger("GetHit");
+
+        }
+
+        else if (currentHealth <= 0)
+        {
+            sphereCollider.gameObject.SetActive(false);
+            ChangeState(EnemyState.Death);
+            Destroy(gameObject, 1.5f);
+
+        }
+    }
+    private void UpdateHealthUI()
+    {
+        healthBarFill.fillAmount = currentHealth / maxHealth;
+        healthText.text = $"{currentHealth}/{maxHealth}";
+
+    }
+    public void beginDame()
+    {
+        takeHealth.SetActive(true);
+    }
+    public void endDame()
+    {
+        takeHealth.SetActive(false);
     }
 }

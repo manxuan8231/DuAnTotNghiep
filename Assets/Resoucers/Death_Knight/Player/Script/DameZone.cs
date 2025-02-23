@@ -46,6 +46,12 @@ public class DameZone : MonoBehaviour
             {
                 thuyQuai.TakeDame(player1.currentDame);
             }
+            //enemy 4
+            Enemy4 enemy4 = other.gameObject.GetComponent<Enemy4>();
+            if (enemy4 != null)
+            {
+                enemy4.TakeDamage(player1.currentDame);
+            }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect, 3f); // Hủy hiệu ứng sau 3 giây
