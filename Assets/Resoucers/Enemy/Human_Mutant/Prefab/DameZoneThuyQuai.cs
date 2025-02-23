@@ -21,10 +21,9 @@ public class DameZoneThuyQuai : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("lấy máu và hp player");
+            Debug.Log("lấy máu");
             audioSource.PlayOneShot(audioClipAttack);
-            sliderHp.TakeDame(20);
-            sliderHp.EnemyGetMana(50);
+            sliderHp.TakeDame(20);           
         }
     }
 }

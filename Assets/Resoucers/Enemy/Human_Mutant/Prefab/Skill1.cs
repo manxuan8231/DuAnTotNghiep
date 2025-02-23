@@ -20,7 +20,14 @@ public class Skill1 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            sliderHp.EnemyGetHp(30);
+            StartCoroutine(CoolDownTake());
+          
         }
+    }
+    private IEnumerator CoolDownTake()
+    {
+        yield return new WaitForSeconds(1);
+        sliderHp.TakeDame(100);
+        sliderHp.EnemyGetMana(300);
     }
 }
