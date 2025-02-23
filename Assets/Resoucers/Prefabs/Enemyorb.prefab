@@ -4181,7 +4181,7 @@ GameObject:
   - component: {fileID: 6392155765067736791}
   m_Layer: 0
   m_Name: Enemyorb
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4195,7 +4195,7 @@ Transform:
   m_GameObject: {fileID: 8016801118018840677}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.66, y: 0.11, z: 41.226}
+  m_LocalPosition: {x: 19.55, y: 0.11, z: 52.19}
   m_LocalScale: {x: 1.6261486, y: 1.6261486, z: 1.6261486}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4276,9 +4276,10 @@ MonoBehaviour:
   healthBarFill: {fileID: 2289849150421603665}
   healthText: {fileID: 5054624679150692404}
   maxHealth: 1000
-  sliderhp: {fileID: 0}
-  takeHealth: {fileID: 2736136014266587081}
-  sphereCollider: {fileID: 6392155765067736791}
+  takeHealth: {fileID: 0}
+  sphereCollider: {fileID: 0}
+  skill1CoolDown: 0
+  lastTimeSkill1: 0
 --- !u!135 &6392155765067736791
 SphereCollider:
   m_ObjectHideFlags: 0
