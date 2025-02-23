@@ -47,7 +47,6 @@ public class CharacterController : MonoBehaviour
     public AudioClip audioClipJump;//gan file
     public AudioClip audioClipWalk;
     public AudioClip audioClipRun;
-    public AudioClip audioClipE;
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
@@ -90,7 +89,7 @@ public class CharacterController : MonoBehaviour
         // Bấm E để khóa di chuyển trong 0.5 giây và có hồi chiêu 5 giây
         if (Input.GetKeyDown(KeyCode.E) && !isMovementLocked && !isECooldown)
         {
-            audioSound.PlayOneShot(audioClipE);
+           
             StartCoroutine(LockMovement(0.5f));
             StartCoroutine(ECooldown(5f)); // Thời gian hồi chiêu 5 giây
             weaponHand.SetActive(false);

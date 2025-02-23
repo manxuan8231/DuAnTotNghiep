@@ -58,6 +58,7 @@ public class SkillR : MonoBehaviour
     void ShowTeleportIndicator()
     {
         effect1.SetActive(true);
+        characterController.weaponDefault.SetActive(false);
         animator.SetTrigger("skillR1");
         characterController.isMovementLocked = true;
         if (target != null)
@@ -77,6 +78,7 @@ public class SkillR : MonoBehaviour
     {
         if (target != null)
         {
+            characterController.weaponDefault.SetActive(false);
             StartCoroutine(NoTakeHealth());
             sliderHp.SkillEMana(20);
             StartCoroutine(Effect2());
