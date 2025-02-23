@@ -30,12 +30,12 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private AudioClip attackSound2;
     [SerializeField] private AudioClip injuredSound;
     [SerializeField] private AudioClip deathSound;
-    public SphereCollider sphereCollider;
+    public CapsuleCollider capsuleCollider;
     private bool isPlayingIdleSound = false;
 
     void Start()
     {
-        sphereCollider.gameObject.SetActive(true);
+        capsuleCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         UpdateHealthUI();
         fisrtPosition = transform.position;
@@ -256,10 +256,10 @@ public class Enemy1 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            sphereCollider.gameObject.SetActive(false);
+            capsuleCollider.gameObject.SetActive(false);
             sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 1f);
            
         }
     }

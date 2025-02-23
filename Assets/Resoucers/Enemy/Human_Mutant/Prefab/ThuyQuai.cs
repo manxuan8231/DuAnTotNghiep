@@ -25,13 +25,11 @@ public class ThuyQuai : MonoBehaviour
     //cooldown
     private float timeCoolDownAttack = 0;
     private float timeCoolDownSkill = 0;
-    public SliderHp sliderHp;
 
     private bool isDie; //nó die thì ko cho nhận máu
     private bool isShout = true; //la 
     private bool isSkill;
     private bool isAttack;
-    private bool isJump = true;
     
     //va cham player takehealth
     public BoxCollider boxDame;
@@ -159,6 +157,7 @@ public class ThuyQuai : MonoBehaviour
     }
     public void TakeDame(float amount)
     {
+        SliderHp sliderHp = FindAnyObjectByType<SliderHp>();
         if (isDie == true)
         {
             currentHealth.value -= amount;
