@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -26,7 +27,8 @@ public class Enemy4 : MonoBehaviour
    
     public GameObject takeHealth;
     public SphereCollider sphereCollider;
-
+    public float skill1CoolDown;
+    [SerializeField] private float lastTimeSkill1 = 0;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -46,25 +48,34 @@ public class Enemy4 : MonoBehaviour
         if (currentState == EnemyState.Death) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= radius)
+        if(distanceToPlayer <= radius)
         {
-            if (distanceToPlayer <= rageDistance && !isRage)
+            ChangeState(EnemyState.Run);
+            agent.SetDestination(player.position);
+            if(distanceToPlayer  <= rageDistance && !isRage && Time.time >= lastTimeSkill1 + skill1CoolDown)
             {
-                StartCoroutine(RageAndAttack());
-            }
-            else if (!isAttacking)
-            {
-                ChangeState(EnemyState.Run);
-                agent.SetDestination(player.position);
+                StartCoroutine(RageChangeState());
+
+                if(distanceToPlayer <= attackRange)
+                {
+                    StartCoroutine(AttackChangeState());
+                }
+                else if(isAttacking == false)
+                {
+                    ChangeState(EnemyState.Run);
+                    agent.SetDestination(player.position);
+                }
+                    lastTimeSkill1 = Time.time;
             }
         }
         else if (distanceToPlayer <= maxRadius)
         {
+
             ChangeState(EnemyState.Return);
         }
+       
 
-        HandleState();
+            HandleState();
     }
 
     void ChangeState(EnemyState newState)
@@ -82,7 +93,7 @@ public class Enemy4 : MonoBehaviour
         animator.ResetTrigger("Combo1");
         animator.ResetTrigger("Combo2");
         animator.ResetTrigger("Combo3");
-        animator.ResetTrigger("Death");
+        animator.ResetTrigger("isDeath");
 
         animator.SetTrigger(newState.ToString());
     }
@@ -102,6 +113,8 @@ public class Enemy4 : MonoBehaviour
 
             case EnemyState.Rage:
                 agent.isStopped = true;
+                agent.speed = 7f;
+                agent.SetDestination(player.position);
                 break;
 
             case EnemyState.Combo1:
@@ -127,21 +140,21 @@ public class Enemy4 : MonoBehaviour
                 break;
         }
     }
-
-    IEnumerator RageAndAttack()
+    IEnumerator RageChangeState()
     {
         isRage = true;
         ChangeState(EnemyState.Rage);
-        agent.isStopped = true;
         yield return new WaitForSeconds(2f);
         isRage = false;
+    }
+  IEnumerator AttackChangeState()
+    {
         isAttacking = true;
         int random = Random.Range(0, 3);
         if (random == 0) ChangeState(EnemyState.Combo1);
         else if (random == 1) ChangeState(EnemyState.Combo2);
         else ChangeState(EnemyState.Combo3);
-
-        yield return new WaitForSeconds(6.5f); // Giả sử combo kéo dài 3s
+            yield return new WaitForSeconds(2f);
         isAttacking = false;
     }
     public void TakeDamage(float damage)
