@@ -23,22 +23,23 @@ public class FireBall : MonoBehaviour
             EnemyAnimationController rikayon = collision.gameObject.GetComponent<EnemyAnimationController>();
             if( rikayon != null ) {
                 rikayon.TakeDamage(500);
-                Destroy(gameObject);
+               
             }
            
             Enemy1 enemy1 = collision.gameObject.GetComponent<Enemy1>();
             if( enemy1 != null )
             {
                 enemy1.TakeDamage(500);
-                Destroy(gameObject);
+              
             }
             //than lan
             ThanLan thanlan = collision.gameObject.GetComponent<ThanLan>();
             if (thanlan != null)
             {
                 thanlan.TakeDamage(500);
-                Destroy(gameObject);
+                
             }
+            Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Statue"))
         {
