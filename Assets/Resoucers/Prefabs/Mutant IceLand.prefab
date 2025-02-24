@@ -4197,7 +4197,7 @@ GameObject:
   - component: {fileID: 5928049147460094805}
   m_Layer: 0
   m_Name: Mutant IceLand
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4273,7 +4273,7 @@ MonoBehaviour:
   attackSound2: {fileID: 0}
   injuredSound: {fileID: 0}
   deathSound: {fileID: 0}
-  sphereCollider: {fileID: 5928049147460094805}
+  capsuleCollider: {fileID: 0}
   currentState: 0
 --- !u!195 &2699428565280259315
 NavMeshAgent:
