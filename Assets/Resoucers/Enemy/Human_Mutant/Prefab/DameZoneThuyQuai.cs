@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DameZoneThuyQuai : MonoBehaviour
 {
-    public SliderHp sliderHp;
+   
     public AudioSource audioSource;
     public AudioClip audioClipAttack;
     void Start()
@@ -19,6 +19,7 @@ public class DameZoneThuyQuai : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
+        SliderHp sliderHp = FindAnyObjectByType<SliderHp>();
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("lấy máu");

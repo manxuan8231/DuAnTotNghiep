@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Skill1 : MonoBehaviour
 {
-    public SliderHp sliderHp;
-
-
     void Start()
     {
 
@@ -26,6 +23,7 @@ public class Skill1 : MonoBehaviour
     }
     private IEnumerator CoolDownTake()
     {
+        SliderHp sliderHp = FindAnyObjectByType<SliderHp>();
         yield return new WaitForSeconds(1);
         sliderHp.TakeDame(100);
         sliderHp.EnemyGetMana(300);
