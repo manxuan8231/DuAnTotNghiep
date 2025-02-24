@@ -33,7 +33,7 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     public CapsuleCollider capsuleCollider;
     private bool isPlayingIdleSound = false;
-
+    [SerializeField] private string targetTag = "Player";
     void Start()
     {
         capsuleCollider.gameObject.SetActive(true);
@@ -42,8 +42,18 @@ public class Enemy1 : MonoBehaviour
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
         StartCoroutine(PlayIdleSoundRandomly());
-
         takeHealth.SetActive(false);
+
+        // Tìm đối tượng theo tag
+        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (playerObject != null)
+        {
+            target = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
+        }
+        else
+        {
+            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
+        }
     }
 
 
@@ -303,6 +313,10 @@ public class Enemy1 : MonoBehaviour
         {
             TakeDamage(999);
         }
+    }
+    IEnumerator ChaseAttack()
+    {
+        yield return new WaitForSeconds(2f);
     }
 }
 
