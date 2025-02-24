@@ -13,7 +13,8 @@ public class SkillManager : MonoBehaviour
     public GameObject skill1;
     public float skill1CoolDown;
     public GameObject skill2;//khai báo skill 2 partical 
-    [SerializeField] private float lastTimeSkill1 = 0;//đặt lại thời gian = 0
+    [SerializeField] private float lastTimeSkill1 = 0;
+    
     public GameObject hideSword;
     
    

@@ -4,6 +4,7 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Boss1 : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class Boss1 : MonoBehaviour
 
     //xử lý hp
     public Slider currentHealth;
-    private float maxHealth = 99999f;
+    public float maxHealth = 99999f;
     public TextMeshProUGUI textHealth;
     public GameObject health;
     public bool onTakeHealth = true;
@@ -69,6 +70,9 @@ public class Boss1 : MonoBehaviour
     public GameObject effectSlash1;
 
     public SliderHp sliderHp;
+
+    //chuyen scene
+    public int scene;
     private void Start()
     {
         EffectAttacking.SetActive(false);
@@ -161,7 +165,7 @@ public class Boss1 : MonoBehaviour
        
         if (distance <= distanceAttack && Time.time >= lastAttackTime + attackCooldown && onAttack)
         {
-            StartCoroutine(OnSkill());//onskill bật
+           
             int random = Random.Range(0, 3);
             if(random == 0)
             {
@@ -170,6 +174,8 @@ public class Boss1 : MonoBehaviour
                 audioSource.PlayOneShot(audioClipMedicVFX);
                 weappon.SetActive(true);
                 StartCoroutine(EffectAttack1());
+                StartCoroutine(OnSkill());//onskill bật
+                StartCoroutine(NoTaget());//khi dùng skill ko cho di chuyển
             }
             if (random == 1)
             {
@@ -177,6 +183,8 @@ public class Boss1 : MonoBehaviour
                 animator.SetTrigger("Attack2");
                 weappon.SetActive(true);
                 StartCoroutine(EffectAttack1());
+                StartCoroutine(OnSkill());//onskill bật
+                StartCoroutine(NoTaget());//khi dùng skill ko cho di chuyển
             }
             if(random == 2)
             {
@@ -185,6 +193,7 @@ public class Boss1 : MonoBehaviour
                 StartCoroutine(OnEffect());
                 weappon.SetActive(false);
                 audioSource.PlayOneShot(audioClipWhyVFX);
+                StartCoroutine(NoTaget());//khi dùng skill ko cho di chuyển
             }
             lastAttackTime = Time.time; // Cập nhật thời gian tấn công cuối cùng
         }
@@ -232,7 +241,7 @@ public class Boss1 : MonoBehaviour
             {
                 Debug.Log("Skill2");
                 animator.SetTrigger("Skill2");
-               
+                StartCoroutine(NoTaget());//khi dùng skill ko cho di chuyển
                 weappon.SetActive(false);
                 StartCoroutine(NoTaget());               
                 //xử lý chức nang skill
@@ -289,7 +298,7 @@ public class Boss1 : MonoBehaviour
     private void Movemen()
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
-        if(distance <= distanceWalk && onWalk && currentHealth.value > 0)
+        if(distance <= distanceWalk && onWalk == true && currentHealth.value > 0)
         {
             if (navMeshAgent != null)
             {
@@ -345,6 +354,13 @@ public class Boss1 : MonoBehaviour
                 /* transform.position = deathTransfrom.position;
                  StartCoroutine(cameraTaget());*/
                 sliderHp.AddExp(5000);
+                // Tự động tìm và giữ lại các đối tượng quan trọng khi load scene
+                GameObject playerScene = GameObject.FindWithTag("Player");
+                GameObject cameraScene = GameObject.FindWithTag("camera");
+                if (playerScene != null) DontDestroyOnLoad(playerScene);
+                if (cameraScene != null) DontDestroyOnLoad(cameraScene);
+                SceneManager.LoadScene(scene);
+
                 animator.SetTrigger("death");
                 Destroy(gameObject, 6f);
             }

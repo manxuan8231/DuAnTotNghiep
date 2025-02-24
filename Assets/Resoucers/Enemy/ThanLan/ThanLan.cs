@@ -30,7 +30,7 @@ public class ThanLan : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     //lay hp player
     public GameObject getHealthPlayer;
-    public SphereCollider sphereCollider;
+    public CapsuleCollider capsuleCollider;
     public enum CharacterState
     {
         Idle,
@@ -47,7 +47,7 @@ public class ThanLan : MonoBehaviour
 
     void Start()
     {
-        sphereCollider.gameObject.SetActive(true);
+        capsuleCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
@@ -265,7 +265,7 @@ public class ThanLan : MonoBehaviour
         if (currentHealth <= 0)
         {
             ChangState(CharacterState.Die);
-            sphereCollider.gameObject.SetActive(false);
+            capsuleCollider.gameObject.SetActive(false);
             Destroy(gameObject, 3f); // 3 giây sau khi chết
             FindObjectOfType<SliderHp>().AddExp(5500);
 

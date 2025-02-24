@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class TeleScene2 : MonoBehaviour
 {
     public GameObject secondObject; // GameObject thứ 2 cần kéo theo
-    public Vector3 spawnPositionScene2 = new Vector3(12002.2f, 6.7f, -6032.2f); // Vị trí Player spawn trong Scene 2
+    public Vector3 spawnPositionScene2 = new Vector3(12002.2f, 1f, -6032.2f); // Vị trí Player spawn trong Scene 2
 
     void OnTriggerEnter(Collider other)
     {

@@ -25,7 +25,7 @@ public class Enemy3 : MonoBehaviour
     public TextMeshProUGUI textHealth;
     public float maxHealth = 1000;
 
-    public SliderHp sliderHp;
+   
     void Start()
     {
         isOnSkill = false;
@@ -67,6 +67,7 @@ public class Enemy3 : MonoBehaviour
     }
     public void TakeDame(float amount)
     {
+        SliderHp sliderHp = FindObjectOfType<SliderHp>();
         currentHealth.value -= amount;
         sliderHp.AddUlti(100);
         textHealth.text = $"{currentHealth.value}/{maxHealth}";

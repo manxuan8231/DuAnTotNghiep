@@ -23,7 +23,7 @@ TagManager:
   - Chest
   - SpawnPoint
   - StatueBoss2
-  - ThuyQuai
+  - camera
   layers:
   - Default
   - TransparentFX

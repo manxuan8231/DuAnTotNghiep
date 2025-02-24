@@ -54,8 +54,11 @@ public class SliderHp : MonoBehaviour
     public AudioClip audioTakeHit;
     public AudioClip audioClipLv;
     public CharacterController characterController;
+
+    
     void Start()
     {
+        
         animator = GetComponent<Animator>();
         currentHP.value = maxHp;
         textHP.text = $"{currentHP.value}/{maxHp}";
@@ -157,6 +160,16 @@ public class SliderHp : MonoBehaviour
     public void GetHp(float amount)
     {
         currentHP.value += amount;
+        textHP.text = $"{currentHP.value}/{maxHp}";
+    }
+    public void EnemyGetMana(float amount)
+    {
+        currentMana.value -= amount;
+        textMana.text = $"{currentMana.value}/{maxMana}";
+    }
+    public void EnemyGetHp(float amount)
+    {
+        currentHP.value -= amount;
         textHP.text = $"{currentHP.value}/{maxHp}";
     }
     public float GetCurrentUlti()
