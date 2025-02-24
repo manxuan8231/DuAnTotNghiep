@@ -106,7 +106,7 @@ public class Enemy4 : MonoBehaviour
         animator.ResetTrigger("Combo2");
         animator.ResetTrigger("Combo3");
         animator.ResetTrigger("isDeath");
-
+        animator.ResetTrigger("isGetHit");
         animator.SetTrigger(newState.ToString());
     }
 
@@ -148,7 +148,7 @@ public class Enemy4 : MonoBehaviour
 
             case EnemyState.Death:
                 agent.isStopped = true;
-                Destroy(gameObject, 2f);
+                Destroy(gameObject, 3f);
                 break;
         }
     }
@@ -181,15 +181,15 @@ public class Enemy4 : MonoBehaviour
         UpdateHealthUI();
         if (animator != null)
         {
-            animator.SetTrigger("GetHit");
+            animator.SetTrigger("isGetHit");
 
         }
 
-        else if (currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             sphereCollider.gameObject.SetActive(false);
             ChangeState(EnemyState.Death);
-            Destroy(gameObject, 1.5f);
+          
 
         }
     }

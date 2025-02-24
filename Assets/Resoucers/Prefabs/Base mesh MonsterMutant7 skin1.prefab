@@ -4827,8 +4827,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6252688668526171771}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 226.03, y: 19.99323, z: -311.55}
+  m_LocalRotation: {x: -0, y: 0.9566147, z: -0, w: 0.2913562}
+  m_LocalPosition: {x: 8725.28, y: 4.98, z: -6031.48}
   m_LocalScale: {x: 1.7749482, y: 1.7749482, z: 1.7749482}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4839,7 +4839,7 @@ Transform:
   - {fileID: 3950810407481831243}
   - {fileID: 2767294835931351391}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 146.122, z: 0}
 --- !u!95 &8131287688848546940
 Animator:
   serializedVersion: 5
@@ -4919,7 +4919,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 5437685354294075371}
-  target: {fileID: 0}
   radius: 25
   rageDistance: 5
   distanceAttack: 3.5
@@ -4928,16 +4927,17 @@ MonoBehaviour:
   healthBarFill: {fileID: 283068173966345739}
   healthText: {fileID: 1888575148768203407}
   maxHealth: 1000
-  sliderhp: {fileID: 0}
+  sliderhp: {fileID: 8170415207334450642, guid: ac7f20308ac9b0e44a09660fd3e3c60b, type: 3}
   takeHealth: {fileID: 4704984970023652004}
   audioSource: {fileID: 5479316803015092348}
   idleSound: {fileID: 8300000, guid: 10d46fb0fdc75514abf63865af7cf4bf, type: 3}
   attackSound1: {fileID: 8300000, guid: 3aa640faadcdab642b02243893f22724, type: 3}
   attackSound2: {fileID: 8300000, guid: 6b674ede0f0d71949908771ce8a14809, type: 3}
   injuredSound: {fileID: 8300000, guid: ce63d7b0b1f34a642a7ad9a42969cdff, type: 3}
-  deathSound: {fileID: 8300000, guid: 68016b72434aeb94ca1b4cbc152bbb2a, type: 3}
   rageSound: {fileID: 8300000, guid: 7a7fba1546592f445a7a0481cf0130bd, type: 3}
-  sphereCollider: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 68016b72434aeb94ca1b4cbc152bbb2a, type: 3}
+  capsuleCollider: {fileID: 7372502721465149172}
+  targetTag: Player
   currentState: 0
 --- !u!54 &6799848917603553990
 Rigidbody:
