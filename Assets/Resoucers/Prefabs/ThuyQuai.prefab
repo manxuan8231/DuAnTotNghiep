@@ -2347,7 +2347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680457924473539882}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.99986005, z: -0, w: 0.016731322}
+  m_LocalRotation: {x: 0, y: -0.9998601, z: 0, w: 0.016728356}
   m_LocalPosition: {x: 230.51, y: 20.15, z: -297.94}
   m_LocalScale: {x: 4.4428897, y: 4.4428897, z: 4.4428897}
   m_ConstrainProportionsScale: 0
@@ -2454,7 +2454,6 @@ MonoBehaviour:
   currentHealth: {fileID: 6862436232990991872}
   textHealth: {fileID: 6773311693982084415}
   maxHealth: 10000
-  sliderHp: {fileID: 0}
   boxDame: {fileID: 7370736604074936929}
   audioClipShout: {fileID: 8300000, guid: d1c9e933ee55fa141ae9bccface693b0, type: 3}
   skill1: {fileID: 9022475775065969456}
@@ -2561,7 +2560,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680457924473539882}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 100
