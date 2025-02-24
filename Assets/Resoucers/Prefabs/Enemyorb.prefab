@@ -4268,17 +4268,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  radius: 25
-  attackRange: 2.9
+  radius: 30
   maxRadius: 35
-  rageDistance: 3
+  rageDistance: 10
   firstPosition: {x: 0, y: 0, z: 0}
+  canAttack: 2
   healthBarFill: {fileID: 2289849150421603665}
   healthText: {fileID: 5054624679150692404}
   maxHealth: 1000
-  takeHealth: {fileID: 0}
+  targetTag: Player
+  takeHealth: {fileID: 2736136014266587081}
   sphereCollider: {fileID: 6392155765067736791}
-  skill1CoolDown: 0
+  skill1CoolDown: 6.5
   lastTimeSkill1: 0
 --- !u!135 &6392155765067736791
 SphereCollider:

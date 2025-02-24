@@ -184,6 +184,7 @@ public class Enemy1 : MonoBehaviour
                 Debug.Log("GetHit");
                 break;
             case CharacterState.Die:
+                
                 break;
             case CharacterState.Return:
                 if (distanceToOrigin <= 0.1f)
@@ -237,7 +238,6 @@ public class Enemy1 : MonoBehaviour
             case CharacterState.Combo2:
                 NavMeshAgent.isStopped = true;
                 animator.SetBool("Combo2", true);
-                audioSource.PlayOneShot(attackSound2);
                 break;
             case CharacterState.GetHit:
                 NavMeshAgent.isStopped = false;
@@ -246,10 +246,10 @@ public class Enemy1 : MonoBehaviour
                 break;
             case CharacterState.Die:
                 animator.SetTrigger("Die");
-
-                Destroy(gameObject, 1.5f);
-                animator.ResetTrigger("GetHit");
                 audioSource.PlayOneShot(deathSound);
+                Destroy(gameObject, 3f);
+                animator.ResetTrigger("GetHit");
+               
                 break;
             case CharacterState.Return:
                 break;
@@ -274,7 +274,8 @@ public class Enemy1 : MonoBehaviour
             capsuleCollider.gameObject.SetActive(false);
             sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);
-            Destroy(gameObject, 1f);
+           
+            Destroy(gameObject, 2f);
            
         }
     }
@@ -314,9 +315,6 @@ public class Enemy1 : MonoBehaviour
             TakeDamage(999);
         }
     }
-    IEnumerator ChaseAttack()
-    {
-        yield return new WaitForSeconds(2f);
-    }
+   
 }
 

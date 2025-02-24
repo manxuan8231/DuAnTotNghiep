@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Diagnostics.Tracing;
+using System.IO.IsolatedStorage;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 
@@ -10,16 +13,15 @@ public class Enemy4 : MonoBehaviour
 {
     public enum EnemyState { Idle, Run, Rage, Combo1, Combo2, Combo3, Death, Return }
     private EnemyState currentState;
-    public Transform player;
+    private Transform player;
     public float radius = 25f;
-    public float attackRange = 4f;
+
     public float maxRadius = 35f;
     public float rageDistance = 5f;
     private NavMeshAgent agent;
     private Animator animator;
     public Vector3 firstPosition;
-    private bool isAttacking = false;
-    private bool isRage = false;
+    public float canAttack = 4;
     [SerializeField] private Image healthBarFill;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
@@ -35,7 +37,7 @@ public class Enemy4 : MonoBehaviour
         animator = GetComponent<Animator>();
         firstPosition = transform.position;
         currentState = EnemyState.Idle;
-
+       
 
         takeHealth.SetActive(false);
         sphereCollider.gameObject.SetActive(true);
@@ -56,43 +58,43 @@ public class Enemy4 : MonoBehaviour
     void Update()
     {
         if (currentState == EnemyState.Death) return;
+        //khoảng cách ban đầu của enemy
+        var distanceOrigin = Vector3.Distance(transform.position, firstPosition);
+        //từ enemy tới target
+        var distanceToTarget = Vector3.Distance(player.position, transform.position);
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if(distanceToPlayer <= radius)
+        // đuổi player
+        if (distanceToTarget <= radius && distanceOrigin <= maxRadius)
         {
+
+
             ChangeState(EnemyState.Run);
-            agent.SetDestination(player.position);
-            if(distanceToPlayer  <= rageDistance && !isRage && Time.time >= lastTimeSkill1 + skill1CoolDown)
+
+            
+             if(distanceToTarget <= rageDistance && distanceToTarget > canAttack)
             {
                 StartCoroutine(RageChangeState());
-
-                if(distanceToPlayer <= attackRange)
-                {
-                    StartCoroutine(AttackChangeState());
-                }
-                else if(isAttacking == false)
-                {
-                    ChangeState(EnemyState.Run);
-                    agent.SetDestination(player.position);
-                }
-                    lastTimeSkill1 = Time.time;
             }
-        }
-        else if (distanceToPlayer <= maxRadius)
-        {
+            else if (distanceToTarget < canAttack && Time.time >= lastTimeSkill1 + skill1CoolDown)
+            {
+                StartCoroutine(AttackChangeState());
+            }
 
+        }
+
+        //chạy về
+        if (distanceOrigin > maxRadius || distanceToTarget > radius)
+        {
             ChangeState(EnemyState.Return);
         }
-       
-
             HandleState();
     }
 
     void ChangeState(EnemyState newState)
     {
         if (currentState == newState) return;
+        
 
-       
 
         currentState = newState;
 
@@ -119,12 +121,12 @@ public class Enemy4 : MonoBehaviour
             case EnemyState.Run:
                 agent.isStopped = false;
                 agent.speed = 3.5f;
+                agent.SetDestination(player.position);
                 break;
 
             case EnemyState.Rage:
                 agent.isStopped = true;
-                agent.speed = 7f;
-                agent.SetDestination(player.position);
+                
                 break;
 
             case EnemyState.Combo1:
@@ -152,20 +154,25 @@ public class Enemy4 : MonoBehaviour
     }
     IEnumerator RageChangeState()
     {
-        isRage = true;
         ChangeState(EnemyState.Rage);
-        yield return new WaitForSeconds(2f);
-        isRage = false;
+        yield return new WaitForSeconds(1f);
+        agent.isStopped = false;
+        agent.speed = 5f;
+        
+
+
     }
   IEnumerator AttackChangeState()
     {
-        isAttacking = true;
+       
         int random = Random.Range(0, 3);
         if (random == 0) ChangeState(EnemyState.Combo1);
         else if (random == 1) ChangeState(EnemyState.Combo2);
         else ChangeState(EnemyState.Combo3);
-            yield return new WaitForSeconds(2f);
-        isAttacking = false;
+        lastTimeSkill1 = Time.time;
+        yield return new WaitForSeconds(skill1CoolDown);
+       
+        
     }
     public void TakeDamage(float damage)
     {
