@@ -4277,7 +4277,7 @@ MonoBehaviour:
   healthText: {fileID: 5054624679150692404}
   maxHealth: 1000
   takeHealth: {fileID: 0}
-  sphereCollider: {fileID: 0}
+  sphereCollider: {fileID: 6392155765067736791}
   skill1CoolDown: 0
   lastTimeSkill1: 0
 --- !u!135 &6392155765067736791
