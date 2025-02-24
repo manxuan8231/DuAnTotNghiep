@@ -578,36 +578,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1767932517}
-    - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: radius
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: canAttack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: rageDistance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
       propertyPath: skill1CoolDown
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4106168199941734385, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8016801118018840677, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
       propertyPath: m_Name
       value: Enemyorb
-      objectReference: {fileID: 0}
-    - target: {fileID: 8016801118018840677, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8270075486546030060, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
       propertyPath: m_LocalPosition.x

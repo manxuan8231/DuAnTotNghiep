@@ -154,13 +154,21 @@ public class Enemy4 : MonoBehaviour
     }
     IEnumerator RageChangeState()
     {
-        ChangeState(EnemyState.Rage);
-        yield return new WaitForSeconds(1f);
-        agent.isStopped = false;
-        agent.speed = 5f;
         
 
+        ChangeState(EnemyState.Rage);
 
+        // Dừng enemy lại để hiển thị hiệu ứng Rage
+        agent.isStopped = true;
+
+        yield return new WaitForSeconds(1f); // Chờ 0.5s để thể hiện Rage
+
+        // Dịch chuyển enemy đến gần Player (có thể tùy chỉnh khoảng cách)
+        Vector3 teleportPosition = player.position + (transform.position - player.position).normalized * 2f;
+        transform.position = teleportPosition;
+
+      
+      
     }
   IEnumerator AttackChangeState()
     {

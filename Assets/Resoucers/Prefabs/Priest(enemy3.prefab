@@ -880,7 +880,6 @@ MonoBehaviour:
   currentHealth: {fileID: 2530752916768167624}
   textHealth: {fileID: 1184598865361706367}
   maxHealth: 1000
-  sliderHp: {fileID: 0}
 --- !u!1 &2426638088600225145
 GameObject:
   m_ObjectHideFlags: 0
