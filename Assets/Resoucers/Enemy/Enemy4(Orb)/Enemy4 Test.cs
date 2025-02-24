@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 
-public class Enemy4 : MonoBehaviour
+public class Enemy4Test : MonoBehaviour
 {
     public enum EnemyState { Idle, Run, Rage, Combo1, Combo2, Combo3, Death, Return }
     private EnemyState currentState;
@@ -24,7 +24,7 @@ public class Enemy4 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
-   
+
     public GameObject takeHealth;
     public SphereCollider sphereCollider;
     public float skill1CoolDown;
@@ -38,7 +38,7 @@ public class Enemy4 : MonoBehaviour
 
 
         takeHealth.SetActive(false);
-        sphereCollider.gameObject.SetActive(true);
+        sphereCollider.enabled = true;
         currentHealth = maxHealth;
         UpdateHealthUI();
     }
@@ -48,24 +48,24 @@ public class Enemy4 : MonoBehaviour
         if (currentState == EnemyState.Death) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if(distanceToPlayer <= radius)
+        if (distanceToPlayer <= radius)
         {
             ChangeState(EnemyState.Run);
             agent.SetDestination(player.position);
-            if(distanceToPlayer  <= rageDistance && !isRage && Time.time >= lastTimeSkill1 + skill1CoolDown)
+            if (distanceToPlayer <= rageDistance && !isRage && Time.time >= lastTimeSkill1 + skill1CoolDown)
             {
                 StartCoroutine(RageChangeState());
 
-                if(distanceToPlayer <= attackRange)
+                if (distanceToPlayer <= attackRange)
                 {
                     StartCoroutine(AttackChangeState());
                 }
-                else if(isAttacking == false)
+                else if (isAttacking == false)
                 {
                     ChangeState(EnemyState.Run);
                     agent.SetDestination(player.position);
                 }
-                    lastTimeSkill1 = Time.time;
+                lastTimeSkill1 = Time.time;
             }
         }
         else if (distanceToPlayer <= maxRadius)
@@ -73,16 +73,16 @@ public class Enemy4 : MonoBehaviour
 
             ChangeState(EnemyState.Return);
         }
-       
 
-            HandleState();
+
+        HandleState();
     }
 
     void ChangeState(EnemyState newState)
     {
         if (currentState == newState) return;
 
-       
+
 
         currentState = newState;
 
@@ -147,14 +147,14 @@ public class Enemy4 : MonoBehaviour
         yield return new WaitForSeconds(2f);
         isRage = false;
     }
-  IEnumerator AttackChangeState()
+    IEnumerator AttackChangeState()
     {
         isAttacking = true;
         int random = Random.Range(0, 3);
         if (random == 0) ChangeState(EnemyState.Combo1);
         else if (random == 1) ChangeState(EnemyState.Combo2);
         else ChangeState(EnemyState.Combo3);
-            yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);
         isAttacking = false;
     }
     public void TakeDamage(float damage)
@@ -170,10 +170,10 @@ public class Enemy4 : MonoBehaviour
 
         else if (currentHealth <= 0)
         {
-            sphereCollider.gameObject.SetActive(false);
+            sphereCollider.enabled = false;
             ChangeState(EnemyState.Death);
             Destroy(gameObject, 1.5f);
-
+            return;
         }
     }
     private void UpdateHealthUI()
@@ -191,12 +191,12 @@ public class Enemy4 : MonoBehaviour
         takeHealth.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            float damage = 50f;
-            TakeDamage(damage);
+            TakeDamage(100);
+            Debug.Log("-100 Damage");
         }
     }
 }
