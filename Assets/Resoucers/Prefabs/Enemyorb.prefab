@@ -4272,14 +4272,14 @@ MonoBehaviour:
   maxRadius: 35
   rageDistance: 10
   firstPosition: {x: 0, y: 0, z: 0}
-  canAttack: 2
+  canAttack: 3
   healthBarFill: {fileID: 2289849150421603665}
   healthText: {fileID: 5054624679150692404}
   maxHealth: 1000
   targetTag: Player
   takeHealth: {fileID: 2736136014266587081}
   sphereCollider: {fileID: 6392155765067736791}
-  skill1CoolDown: 10
+  skill1CoolDown: 7.8
   lastTimeSkill1: 0
 --- !u!135 &6392155765067736791
 SphereCollider:
