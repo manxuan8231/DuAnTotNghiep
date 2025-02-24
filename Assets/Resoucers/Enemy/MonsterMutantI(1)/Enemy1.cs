@@ -29,6 +29,7 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private AudioClip attackSound1;
     [SerializeField] private AudioClip attackSound2;
     [SerializeField] private AudioClip injuredSound;
+    [SerializeField] private AudioClip rageSound;
     [SerializeField] private AudioClip deathSound;
     public CapsuleCollider capsuleCollider;
     private bool isPlayingIdleSound = false;
@@ -236,16 +237,19 @@ public class Enemy1 : MonoBehaviour
             case CharacterState.Combo2:
                 NavMeshAgent.isStopped = true;
                 animator.SetBool("Combo2", true);
+                audioSource.PlayOneShot(attackSound2);
                 break;
             case CharacterState.GetHit:
                 NavMeshAgent.isStopped = false;
                 animator.SetTrigger("GetHit");
+
                 break;
             case CharacterState.Die:
                 animator.SetTrigger("Die");
 
                 Destroy(gameObject, 1.5f);
                 animator.ResetTrigger("GetHit");
+                audioSource.PlayOneShot(deathSound);
                 break;
             case CharacterState.Return:
                 break;
@@ -258,6 +262,7 @@ public class Enemy1 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
+        audioSource.PlayOneShot(injuredSound);
         if (animator != null)
         {
             animator.SetTrigger("GetHit");
@@ -292,18 +297,10 @@ public class Enemy1 : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(5, 15));
-            if (currentState == CharacterState.Idle && !isPlayingIdleSound)
+            if (currentState == CharacterState.Idle)
             {
-                PlaySound(idleSound);
+                audioSource.PlayOneShot(idleSound);
             }
-        }
-    }
-
-    private void PlaySound(AudioClip clip)
-    {
-        if (audioSource != null && clip != null)
-        {
-            audioSource.PlayOneShot(clip);
         }
     }
     private void OnTriggerEnter(Collider other)
