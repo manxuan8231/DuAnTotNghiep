@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PressAnyButton : MonoBehaviour
 {
-   public Animator animator;
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -14,18 +14,8 @@ public class PressAnyButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(PressAnyKey());
-        
-    }
-
-
-    IEnumerator PressAnyKey()
-    {
-
         if (Input.anyKeyDown)
         {
-            animator.SetTrigger("Rage");
-            yield return new WaitForSeconds(1.5f);  
             SceneManager.LoadScene(1);
         }
     }
