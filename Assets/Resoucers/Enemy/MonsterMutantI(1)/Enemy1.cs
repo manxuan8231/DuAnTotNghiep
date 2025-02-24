@@ -11,7 +11,7 @@ public class Enemy1 : MonoBehaviour
 {
 
     [SerializeField] private NavMeshAgent NavMeshAgent;
-    [SerializeField] Transform target;
+    Transform target;
     [SerializeField] float radius = 25f;
     [SerializeField] private float rageDistance = 4f;
     [SerializeField] private float distanceAttack = 2f;

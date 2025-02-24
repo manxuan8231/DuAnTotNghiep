@@ -4192,9 +4192,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2488288455419589055}
   - component: {fileID: 7839050266339655711}
-  - component: {fileID: 5051307029724473614}
   - component: {fileID: 2699428565280259315}
   - component: {fileID: 5928049147460094805}
+  - component: {fileID: 642077024602833361}
   m_Layer: 0
   m_Name: Mutant IceLand
   m_TagString: Enemy
@@ -4243,38 +4243,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5051307029724473614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4575377524864542729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9378d7973dfb114bafa9e887c58046e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NavMeshAgent: {fileID: 2699428565280259315}
-  target: {fileID: 0}
-  radius: 25
-  rageDistance: 4
-  distanceAttack: 2
-  animator: {fileID: 7839050266339655711}
-  fisrtPosition: {x: 0, y: 0, z: 0}
-  healthBarFill: {fileID: 781220322059955532}
-  healthText: {fileID: 8971371607242966384}
-  maxHealth: 1000
-  sliderhp: {fileID: 8170415207334450642, guid: ac7f20308ac9b0e44a09660fd3e3c60b, type: 3}
-  takeHealth: {fileID: 1226284410783928002}
-  audioSource: {fileID: 0}
-  idleSound: {fileID: 0}
-  attackSound1: {fileID: 0}
-  attackSound2: {fileID: 0}
-  injuredSound: {fileID: 0}
-  deathSound: {fileID: 0}
-  capsuleCollider: {fileID: 0}
-  currentState: 0
 --- !u!195 &2699428565280259315
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4285,7 +4253,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4318,6 +4286,39 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &642077024602833361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575377524864542729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79eabbd88ddfca5459478d83cac2c7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavMeshAgent: {fileID: 2699428565280259315}
+  radius: 25
+  rageDistance: 4
+  distanceAttack: 2
+  animator: {fileID: 7839050266339655711}
+  fisrtPosition: {x: 0, y: 0, z: 0}
+  healthBarFill: {fileID: 781220322059955532}
+  healthText: {fileID: 8971371607242966384}
+  maxHealth: 1000
+  sliderhp: {fileID: 8170415207334450642, guid: ac7f20308ac9b0e44a09660fd3e3c60b, type: 3}
+  takeHealth: {fileID: 8557138778695672180}
+  audioSource: {fileID: 0}
+  idleSound: {fileID: 0}
+  attackSound1: {fileID: 0}
+  attackSound2: {fileID: 0}
+  injuredSound: {fileID: 0}
+  rageSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  sphereCollider: {fileID: 5928049147460094805}
+  targetTag: Player
+  currentState: 0
 --- !u!1 &4609365078992887559
 GameObject:
   m_ObjectHideFlags: 0
