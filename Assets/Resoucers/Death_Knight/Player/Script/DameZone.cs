@@ -52,6 +52,18 @@ public class DameZone : MonoBehaviour
             {
                 enemy4.TakeDamage(player1.currentDame);
             }
+           //bao vat
+           ManhBangFake manhBangFake = other.gameObject.GetComponent<ManhBangFake>();
+            if (manhBangFake != null)
+            {
+                manhBangFake.TakeHealth(player1.currentDame);
+            }
+            //bao vat
+            ManhBang manhBang = other.gameObject.GetComponent<ManhBang>();
+            if (manhBang != null)
+            {
+                manhBang.TakeHealth(player1.currentDame);
+            }
             // Tạo hiệu ứng particle tại vị trí va chạm        
             GameObject effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect, 3f); // Hủy hiệu ứng sau 3 giây

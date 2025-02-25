@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class SkillManager : MonoBehaviour
 {
-    [SerializeField] private Transform player;// khai báo vị trí player
+    private Transform player;// khai báo vị trí player
     [SerializeField] float radius = 30f; // nếu player đứng quá 30f thì sẽ bắn skill
     [SerializeField] float cantSkill = 5f;//nếu target vào vùng 5f thì sẽ không bắn skill
     [SerializeField] Animator animator;
@@ -14,7 +14,7 @@ public class SkillManager : MonoBehaviour
     public float skill1CoolDown;
     public GameObject skill2;//khai báo skill 2 partical 
     [SerializeField] private float lastTimeSkill1 = 0;
-    
+    [SerializeField] private string targetTag = "Player";
     public GameObject hideSword;
     
    
@@ -46,8 +46,16 @@ public class SkillManager : MonoBehaviour
     {
         skill1.SetActive(false);
         animator.GetComponent<Animator>();
-        
 
+        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (playerObject != null)
+        {
+            player = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
+        }
+        else
+        {
+            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
+        }
     }
 
 

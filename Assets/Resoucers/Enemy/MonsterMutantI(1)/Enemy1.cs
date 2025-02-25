@@ -11,7 +11,7 @@ public class Enemy1 : MonoBehaviour
 {
 
     [SerializeField] private NavMeshAgent NavMeshAgent;
-    [SerializeField] Transform target;
+    Transform target;
     [SerializeField] float radius = 25f;
     [SerializeField] private float rageDistance = 4f;
     [SerializeField] private float distanceAttack = 2f;
@@ -29,10 +29,11 @@ public class Enemy1 : MonoBehaviour
     [SerializeField] private AudioClip attackSound1;
     [SerializeField] private AudioClip attackSound2;
     [SerializeField] private AudioClip injuredSound;
+    [SerializeField] private AudioClip rageSound;
     [SerializeField] private AudioClip deathSound;
     public CapsuleCollider capsuleCollider;
     private bool isPlayingIdleSound = false;
-
+    [SerializeField] private string targetTag = "Player";
     void Start()
     {
         capsuleCollider.gameObject.SetActive(true);
@@ -41,8 +42,18 @@ public class Enemy1 : MonoBehaviour
         fisrtPosition = transform.position;
         ChangState(CharacterState.Idle);
         StartCoroutine(PlayIdleSoundRandomly());
-
         takeHealth.SetActive(false);
+
+        // Tìm đối tượng theo tag
+        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (playerObject != null)
+        {
+            target = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
+        }
+        else
+        {
+            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
+        }
     }
 
 
@@ -173,6 +184,7 @@ public class Enemy1 : MonoBehaviour
                 Debug.Log("GetHit");
                 break;
             case CharacterState.Die:
+                
                 break;
             case CharacterState.Return:
                 if (distanceToOrigin <= 0.1f)
@@ -230,12 +242,14 @@ public class Enemy1 : MonoBehaviour
             case CharacterState.GetHit:
                 NavMeshAgent.isStopped = false;
                 animator.SetTrigger("GetHit");
+
                 break;
             case CharacterState.Die:
                 animator.SetTrigger("Die");
-
-                Destroy(gameObject, 1.5f);
+                audioSource.PlayOneShot(deathSound);
+                Destroy(gameObject, 3f);
                 animator.ResetTrigger("GetHit");
+               
                 break;
             case CharacterState.Return:
                 break;
@@ -248,6 +262,7 @@ public class Enemy1 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
+        audioSource.PlayOneShot(injuredSound);
         if (animator != null)
         {
             animator.SetTrigger("GetHit");
@@ -256,11 +271,11 @@ public class Enemy1 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Destroy(gameObject, 2f);
             capsuleCollider.gameObject.SetActive(false);
             sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);
-            Destroy(gameObject, 1f);
-           
+                   
         }
     }
     private void UpdateHealthUI()
@@ -282,18 +297,10 @@ public class Enemy1 : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(5, 15));
-            if (currentState == CharacterState.Idle && !isPlayingIdleSound)
+            if (currentState == CharacterState.Idle)
             {
-                PlaySound(idleSound);
+                audioSource.PlayOneShot(idleSound);
             }
-        }
-    }
-
-    private void PlaySound(AudioClip clip)
-    {
-        if (audioSource != null && clip != null)
-        {
-            audioSource.PlayOneShot(clip);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -307,5 +314,6 @@ public class Enemy1 : MonoBehaviour
             TakeDamage(999);
         }
     }
+   
 }
 

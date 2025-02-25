@@ -690,7 +690,7 @@ MonoBehaviour:
   injuredSound: {fileID: 8300000, guid: a677fdf555606b04391033a5b44af1f9, type: 3}
   deathSound: {fileID: 8300000, guid: f8ac7aa9f55d9804e9e1715c600c1f3f, type: 3}
   getHealthPlayer: {fileID: 7900328676410409864}
-  sphereCollider: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   currentState: 0
 --- !u!195 &627023852206838864
 NavMeshAgent:
@@ -736,7 +736,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

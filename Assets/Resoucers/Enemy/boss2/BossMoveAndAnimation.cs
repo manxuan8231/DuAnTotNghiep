@@ -11,7 +11,7 @@ public class BossMoveAndAnimation : MonoBehaviour
 {
 
     public NavMeshAgent navMeshAgent;
-    [SerializeField] private Transform target;
+    Transform target;
     [SerializeField] private float radius = 100f;
     [SerializeField] private float distanceAttack;  
     [SerializeField] private float attackCooldown;
@@ -25,6 +25,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] public GameObject slashEffect;
     public GameObject statue;
+    [SerializeField] private string targetTag = "Player";
 
     void Start()
     {
@@ -38,6 +39,15 @@ public class BossMoveAndAnimation : MonoBehaviour
         txtHealth.text = $"{currentHealth.value}/{maxHealth}";
         ChangState(CharacterState.Idle);
         statue.SetActive(false);
+        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (playerObject != null)
+        {
+            target = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
+        }
+        else
+        {
+            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
+        }
     }
     void Update()
     {

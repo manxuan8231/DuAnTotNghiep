@@ -563,7 +563,7 @@ Transform:
   m_GameObject: {fileID: 1767932513}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.1, y: 0.31, z: 85.7}
+  m_LocalPosition: {x: 20.1, y: 0.998, z: 85.7}
   m_LocalScale: {x: 0.5689665, y: 0.5689665, z: 0.5689665}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -578,16 +578,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1767932517}
-    - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: takeHealth
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
-      propertyPath: sphereCollider
-      value: 
+      propertyPath: skill1CoolDown
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8016801118018840677, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
       propertyPath: m_Name
