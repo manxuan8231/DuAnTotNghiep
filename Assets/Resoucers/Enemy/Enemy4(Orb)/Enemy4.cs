@@ -26,7 +26,7 @@ public class Enemy4 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
-    [SerializeField] private string targetTag = "";
+   
     public GameObject takeHealth;
     public SphereCollider sphereCollider;
     public float skill1CoolDown;
@@ -43,16 +43,6 @@ public class Enemy4 : MonoBehaviour
         sphereCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         UpdateHealthUI();
-        // Tìm đối tượng theo tag
-        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
-        if (playerObject != null)
-        {
-            player = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
-        }
-        else
-        {
-            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
-        }
     }
 
     void Update()
@@ -217,5 +207,14 @@ public class Enemy4 : MonoBehaviour
     public void endDame()
     {
         takeHealth.SetActive(false);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            float damage = 50f;
+            TakeDamage(damage);
+        }
     }
 }

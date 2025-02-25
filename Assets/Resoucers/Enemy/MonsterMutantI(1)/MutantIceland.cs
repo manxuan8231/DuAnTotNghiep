@@ -314,9 +314,12 @@ public class MutantIceland : MonoBehaviour
         }
         if (other.gameObject.CompareTag("SkillZ"))
         {
-            TakeDamage(1000);
+            TakeDamage(999);
         }
     }
-   
+    IEnumerator ChaseAttack()
+    {
+        yield return new WaitForSeconds(2f);
+    }
 }
 
