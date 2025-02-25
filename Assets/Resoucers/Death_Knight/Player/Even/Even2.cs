@@ -31,7 +31,10 @@ public class Even2 : MonoBehaviour
 
     void Update()
     {
-        if ( enemy == 20 && manhBang == 1 && tru == 1)
+        tru = Mathf.Clamp(tru, 0, 1);
+        enemy = Mathf.Clamp(enemy, 0, 20);
+        manhBang = Mathf.Clamp(manhBang, 0, 1);
+        if ( enemy >= 20 && manhBang >= 1 && tru >= 1)
         {
             StartCoroutine(TagetCamera());
             
