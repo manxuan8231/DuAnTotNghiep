@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e755889786d8f6f4099504eb548c31a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 1171913087}
 --- !u!114 &1704813843
 MonoBehaviour:
   m_ObjectHideFlags: 0
