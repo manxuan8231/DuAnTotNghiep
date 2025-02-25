@@ -14,6 +14,7 @@ public class Even2 : MonoBehaviour
     public TextMeshProUGUI textManhBang;
 
     //
+    public GameObject boss;
     public GameObject door;
     public Enemy3 enemy3;
 
@@ -21,6 +22,7 @@ public class Even2 : MonoBehaviour
 
     void Start()
     {
+        boss.SetActive(false);
         door.SetActive(true);
         textTru.text = $"Trụ:{tru}/{1}";
         textEnemy.text = $"Enemy:{enemy}/{20}";
@@ -41,5 +43,6 @@ public class Even2 : MonoBehaviour
         yield return new WaitForSeconds(3);   
         getDoor.Priority = -1;
         door.SetActive(false);
+        boss.SetActive(true);
     } 
 }
