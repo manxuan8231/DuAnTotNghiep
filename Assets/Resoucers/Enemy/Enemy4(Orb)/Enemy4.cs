@@ -15,6 +15,7 @@ public class Enemy4 : MonoBehaviour
     private EnemyState currentState;
     private Transform player;
     public float radius = 25f;
+    [SerializeField] private string targetTag = "";
 
     public float maxRadius = 35f;
     public float rageDistance = 5f;
@@ -43,6 +44,15 @@ public class Enemy4 : MonoBehaviour
         sphereCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         UpdateHealthUI();
+        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (playerObject != null)
+        {
+            player = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
+        }
+        else
+        {
+            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
+        }
     }
 
     void Update()
@@ -209,12 +219,5 @@ public class Enemy4 : MonoBehaviour
         takeHealth.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            float damage = 50f;
-            TakeDamage(damage);
-        }
-    }
+   
 }
