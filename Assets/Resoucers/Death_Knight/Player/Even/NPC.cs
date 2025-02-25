@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     private bool isReading = false; // Kiểm tra nếu đang chạy một câu thoại
 
     public GameObject buttonBG; // Nền nút
-    public GameObject player; // Tham chiếu đến đối tượng Player
+    private GameObject player; // Tham chiếu đến đối tượng Player
 
     public Button quitButton; // Nút thoát
     public Button startEventButton; // Nút bắt đầu event
@@ -25,6 +25,7 @@ public class NPC : MonoBehaviour
     public GameObject evenGameObject;
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         NPCPanel.SetActive(false);
         NPCName.text = "";
         NPCContent.text = "";
