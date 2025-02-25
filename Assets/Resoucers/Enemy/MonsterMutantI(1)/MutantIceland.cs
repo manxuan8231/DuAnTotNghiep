@@ -318,9 +318,6 @@ public class MutantIceland : MonoBehaviour
             TakeDamage(999);
         }
     }
-    IEnumerator ChaseAttack()
-    {
-        yield return new WaitForSeconds(2f);
-    }
+    
 }
 

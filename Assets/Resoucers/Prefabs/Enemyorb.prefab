@@ -4269,6 +4269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 30
+  targetTag: Player
   maxRadius: 35
   rageDistance: 10
   firstPosition: {x: 0, y: 0, z: 0}
@@ -4276,7 +4277,6 @@ MonoBehaviour:
   healthBarFill: {fileID: 2289849150421603665}
   healthText: {fileID: 5054624679150692404}
   maxHealth: 1000
-  targetTag: Player
   takeHealth: {fileID: 2736136014266587081}
   sphereCollider: {fileID: 6392155765067736791}
   skill1CoolDown: 7.8
@@ -4296,12 +4296,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.5040294
+  m_Center: {x: 0.009999909, y: 0.6740294, z: 0}
 --- !u!54 &2229169017516865085
 Rigidbody:
   m_ObjectHideFlags: 0
