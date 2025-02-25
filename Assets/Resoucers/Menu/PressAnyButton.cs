@@ -24,7 +24,6 @@ public class PressAnyButton : MonoBehaviour
 
         if (Input.anyKeyDown)
         {
-            animator.SetBool("isIdle", false); 
             animator.SetTrigger("Rage");
             yield return new WaitForSeconds(1.5f);  
             SceneManager.LoadScene(1);
