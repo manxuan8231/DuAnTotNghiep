@@ -271,6 +271,9 @@ public class MutantIceland : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Even2 even2 = FindAnyObjectByType<Even2>();
+            even2.enemy += 1;
+            even2.textEnemy.text = $"Enemy:{even2.enemy}/{20}";
             sphereCollider.gameObject.SetActive(false);
             sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);

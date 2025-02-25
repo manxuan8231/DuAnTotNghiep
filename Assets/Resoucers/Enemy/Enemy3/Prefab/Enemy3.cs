@@ -73,8 +73,12 @@ public class Enemy3 : MonoBehaviour
         textHealth.text = $"{currentHealth.value}/{maxHealth}";
         if (currentHealth.value <= 0)
         {
+            Destroy(gameObject);
+            Even2 even2 = FindAnyObjectByType<Even2>();
+            even2.enemy += 1;
+            even2.textEnemy.text = $"Enemy:{even2.enemy}/{20}";
             sliderHp.AddExp(8888);
-            Destroy(gameObject,0.4f);    
+            
         }
     }
     private void OnTriggerEnter(Collider other)

@@ -7,7 +7,8 @@ public class RaycatNPC : MonoBehaviour
 {
     [SerializeField] private LayerMask TruongThon;
     public GameObject buttonTT;
-
+    
+   
     private void Update()
     {
         // Kiểm tra va chạm với các đối tượng thuộc lớp TruongThon
