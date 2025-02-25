@@ -15,6 +15,7 @@ public class Enemy4 : MonoBehaviour
     private EnemyState currentState;
     private Transform player;
     public float radius = 25f;
+    [SerializeField] private string targetTag = "";
 
     public float maxRadius = 35f;
     public float rageDistance = 5f;
@@ -26,7 +27,7 @@ public class Enemy4 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 1000f;
     private float currentHealth;
-    [SerializeField] private string targetTag = "";
+   
     public GameObject takeHealth;
     public SphereCollider sphereCollider;
     public float skill1CoolDown;
@@ -43,7 +44,6 @@ public class Enemy4 : MonoBehaviour
         sphereCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         UpdateHealthUI();
-        // Tìm đối tượng theo tag
         GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
         if (playerObject != null)
         {
@@ -195,6 +195,9 @@ public class Enemy4 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Even2 even2 = FindAnyObjectByType<Even2>();
+            even2.enemy += 1;
+            even2.textEnemy.text = $"Enemy:{even2.enemy}/{20}";
             sphereCollider.gameObject.SetActive(false);
             ChangeState(EnemyState.Death);
           
@@ -215,4 +218,6 @@ public class Enemy4 : MonoBehaviour
     {
         takeHealth.SetActive(false);
     }
+
+   
 }

@@ -39,6 +39,11 @@ public class FireBall : MonoBehaviour
                 thanlan.TakeDamage(500);
                 
             }
+            Tru tru = collision.gameObject.GetComponent<Tru>();
+            if (tru != null)
+            {
+                tru.TakeHealh(200);
+            }
             Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Statue"))

@@ -579,7 +579,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 302219914857245997, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
       propertyPath: skill1CoolDown
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8016801118018840677, guid: bad2f3291cfc32e46aa3ab93e92b2dff, type: 3}
       propertyPath: m_Name
