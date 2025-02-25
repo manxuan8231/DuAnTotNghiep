@@ -271,12 +271,11 @@ public class Enemy1 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Destroy(gameObject, 2f);
             capsuleCollider.gameObject.SetActive(false);
             sliderhp.AddExp(5500);
             ChangState(CharacterState.Die);
-           
-            Destroy(gameObject, 2f);
-           
+                   
         }
     }
     private void UpdateHealthUI()
