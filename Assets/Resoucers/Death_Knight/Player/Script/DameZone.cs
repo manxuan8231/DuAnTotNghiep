@@ -52,6 +52,12 @@ public class DameZone : MonoBehaviour
             {
                 enemy4.TakeDamage(player1.currentDame);
             }
+            //mutanticeland
+            MutantIceland mutanIceLand = other.gameObject.GetComponent<MutantIceland>();
+            if ( mutanIceLand != null)
+            {
+                mutanIceLand.TakeDamage(player1.currentDame);
+            }
            //bao vat
            ManhBangFake manhBangFake = other.gameObject.GetComponent<ManhBangFake>();
             if (manhBangFake != null)

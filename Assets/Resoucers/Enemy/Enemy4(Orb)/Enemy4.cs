@@ -15,6 +15,7 @@ public class Enemy4 : MonoBehaviour
     private EnemyState currentState;
     private Transform player;
     public float radius = 25f;
+    [SerializeField] private string targetTag = "";
 
     public float maxRadius = 35f;
     public float rageDistance = 5f;
@@ -43,6 +44,15 @@ public class Enemy4 : MonoBehaviour
         sphereCollider.gameObject.SetActive(true);
         currentHealth = maxHealth;
         UpdateHealthUI();
+        GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (playerObject != null)
+        {
+            player = playerObject.transform; // Gán Transform của đối tượng tìm được vào target
+        }
+        else
+        {
+            Debug.LogError($"Không tìm thấy đối tượng nào có tag: {targetTag}");
+        }
     }
 
     void Update()
@@ -75,6 +85,8 @@ public class Enemy4 : MonoBehaviour
         //chạy về
         if (distanceOrigin > maxRadius || distanceToTarget > radius)
         {
+            StopCoroutine(RageChangeState());
+            StopCoroutine(AttackChangeState());
             ChangeState(EnemyState.Return);
         }
             HandleState();
@@ -95,7 +107,7 @@ public class Enemy4 : MonoBehaviour
         animator.ResetTrigger("Combo1");
         animator.ResetTrigger("Combo2");
         animator.ResetTrigger("Combo3");
-        animator.ResetTrigger("isDeath");
+       
         animator.ResetTrigger("isGetHit");
         animator.SetTrigger(newState.ToString());
     }
@@ -136,31 +148,21 @@ public class Enemy4 : MonoBehaviour
                 }
                 break;
 
-            case EnemyState.Death:
-                agent.isStopped = true;
-                Destroy(gameObject, 3f);
-                break;
+          
         }
     }
     IEnumerator RageChangeState()
     {
-        
-
-        ChangeState(EnemyState.Rage);
-
+         ChangeState(EnemyState.Rage);
         // Dừng enemy lại để hiển thị hiệu ứng Rage
-        agent.isStopped = true;
+         agent.isStopped = true;
+         yield return new WaitForSeconds(1f); // Chờ 0.5s để thể hiện Rage
+         Vector3 teleportPosition = player.position + (transform.position - player.position).normalized * 2f;
+         transform.position = teleportPosition;
+        StartCoroutine(AttackChangeState());
 
-        yield return new WaitForSeconds(1f); // Chờ 0.5s để thể hiện Rage
-
-        // Dịch chuyển enemy đến gần Player (có thể tùy chỉnh khoảng cách)
-        Vector3 teleportPosition = player.position + (transform.position - player.position).normalized * 2f;
-        transform.position = teleportPosition;
-
-      
-      
     }
-  IEnumerator AttackChangeState()
+    IEnumerator AttackChangeState()
     {
        
         int random = Random.Range(0, 3);
@@ -185,12 +187,14 @@ public class Enemy4 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            
+            sphereCollider.gameObject.SetActive(false);
+            animator.SetTrigger("isDeath");
+           
             Even2 even2 = FindAnyObjectByType<Even2>();
             even2.enemy += 1;
             even2.textEnemy.text = $"Enemy:{even2.enemy}/{20}";
-            sphereCollider.gameObject.SetActive(false);
-            ChangeState(EnemyState.Death);
-          
+            Destroy(gameObject, 3);
 
         }
     }
@@ -209,12 +213,15 @@ public class Enemy4 : MonoBehaviour
         takeHealth.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("SkillR"))
         {
-            float damage = 50f;
-            TakeDamage(damage);
+            TakeDamage(100);
+        }
+        if (other.gameObject.CompareTag("SkillZ"))
+        {
+            TakeDamage(999);
         }
     }
 }
