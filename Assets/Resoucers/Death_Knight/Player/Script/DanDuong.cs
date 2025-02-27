@@ -96,7 +96,7 @@ public class DanDuong : MonoBehaviour
         virtualCamera.Priority = 20;
         virtualCameraPlayer.Priority = 0;
        
-    yield return new WaitForSeconds(10f);
+    yield return new WaitForSeconds(4f);
        
         PanelSoul.SetActive(false);
         
