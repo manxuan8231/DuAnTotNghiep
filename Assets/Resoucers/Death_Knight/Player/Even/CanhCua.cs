@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CanhCua : MonoBehaviour
@@ -13,14 +14,13 @@ public class CanhCua : MonoBehaviour
     public float speedDoor = 2f;
     private bool isMovingDoor = false;
     public GameObject textDoor;
-
     public CinemachineVirtualCamera virtualCameraDoor;
     public CinemachineVirtualCamera virtualCameraPlayer;
     void Start()
     {
         button.SetActive(false);    
         chest.SetActive(false);
-        textDoor.SetActive(false);
+        textDoor.SetActive(false);     
     }
 
    
@@ -34,7 +34,11 @@ public class CanhCua : MonoBehaviour
                 {
                     //door.SetActive(false);
                     chest.SetActive(true);
-                          
+                    Key key = FindAnyObjectByType<Key>();
+                    if (key != null)
+                    {
+                        key.textKey.enabled = false;
+                    }
                     isMovingDoor = true;
                     StartCoroutine(FocusDoor());
                 }              

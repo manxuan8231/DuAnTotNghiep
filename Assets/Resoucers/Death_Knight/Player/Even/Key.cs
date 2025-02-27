@@ -7,9 +7,11 @@ public class Key : MonoBehaviour
 {
     public GameObject button;
     public GameObject text;
+    public TextMeshProUGUI textKey;
     private float keyCount = 0;
     void Start()
     {
+        textKey.enabled = false;
         button.SetActive(false);
         text.SetActive(false);
     }
@@ -22,6 +24,7 @@ public class Key : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 keyCount += 1;
+                textKey.text = $"Key: {keyCount}";              
                 button.SetActive(false);
                 Destroy(gameObject);
             }
