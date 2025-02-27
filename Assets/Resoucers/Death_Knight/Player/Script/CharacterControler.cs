@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    public CinemachineVirtualCamera virtualCameraTaget;
+
     public Animator animator;
 
     public float moveSpeed = 5f; // Vận tốc di chuyển
@@ -49,6 +52,7 @@ public class CharacterController : MonoBehaviour
     public AudioClip audioClipRun;
     void Start()
     {
+        virtualCameraTaget.Priority = 30;
         rb = GetComponent<Rigidbody>(); // Lấy Rigidbody
 
         // Đảm bảo trạng thái ban đầu

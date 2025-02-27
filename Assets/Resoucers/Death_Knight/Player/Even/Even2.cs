@@ -22,11 +22,12 @@ public class Even2 : MonoBehaviour
 
     void Start()
     {
-        boss.SetActive(false);
-        door.SetActive(true);
+        
         textTru.text = $"Trụ:{tru}/{1}";
         textEnemy.text = $"Enemy:{enemy}/{20}";
         textManhBang.text = $"Mảnh băng:{manhBang}/{1}";
+        boss.SetActive(false);
+        door.SetActive(true);
     }
 
     void Update()
