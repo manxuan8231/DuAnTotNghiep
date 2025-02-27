@@ -32,8 +32,15 @@ public class Enemy4 : MonoBehaviour
     public SphereCollider sphereCollider;
     public float skill1CoolDown;
     [SerializeField] private float lastTimeSkill1 = 0;
+
+    //audio
+    private AudioSource audioSource;
+    public AudioClip audioHit;
+    
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         firstPosition = transform.position;
@@ -146,9 +153,7 @@ public class Enemy4 : MonoBehaviour
                     ChangeState(EnemyState.Idle);
                     agent.isStopped = true;
                 }
-                break;
-
-          
+                break;   
         }
     }
     IEnumerator RageChangeState()
@@ -182,7 +187,6 @@ public class Enemy4 : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("isGetHit");
-
         }
 
         if (currentHealth <= 0)
@@ -194,7 +198,7 @@ public class Enemy4 : MonoBehaviour
             Even2 even2 = FindAnyObjectByType<Even2>();
             even2.enemy += 1;
             even2.textEnemy.text = $"Enemy:{even2.enemy}/{20}";
-            Destroy(gameObject, 3);
+            Destroy(gameObject, 0.5f);
 
         }
     }
@@ -212,7 +216,10 @@ public class Enemy4 : MonoBehaviour
     {
         takeHealth.SetActive(false);
     }
-
+    public void AudioHit()
+    {
+        audioSource.PlayOneShot(audioHit);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("SkillR"))

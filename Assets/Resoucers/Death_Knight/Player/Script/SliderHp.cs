@@ -55,7 +55,7 @@ public class SliderHp : MonoBehaviour
     public AudioClip audioClipLv;
     public CharacterController characterController;
 
-    
+    public bool isUlti = true;
     void Start()
     {
         
@@ -198,7 +198,11 @@ public class SliderHp : MonoBehaviour
 
     public void AddUlti(float amount)
     {
-        currentUlti.value += amount;    
+        if(isUlti == true)
+        {
+            currentUlti.value += amount;
+        }
+        
     }
 
     //hàm lấy hp
@@ -220,8 +224,7 @@ public class SliderHp : MonoBehaviour
                 panelGameOver.SetActive(true);
                 Destroy(gameObject);
             }
-        }
-        
+        }       
     }
     public IEnumerator LockMovement()
     {

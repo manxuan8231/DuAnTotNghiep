@@ -327,17 +327,17 @@ public class SkillPlayer1 : MonoBehaviour
         isOnCooldown = false; // Kết thúc hồi chiêu
     }
 
-   
     void StartScalingWithAura()
     {
-       
+        sliderHp.isUlti = false;
+        CharacterController characterController = gameObject.GetComponent<CharacterController>();
+        characterController.isDameLocked = true;
         //skin
-        foreach(SkinnedMeshRenderer skin in skin)
+        foreach (SkinnedMeshRenderer skin in skin)
         {
             skin.enabled = true;
         }
-        CharacterController characterController = gameObject.GetComponent<CharacterController>();
-        characterController.isDameLocked = true;
+           
         // Đặt trạng thái phóng to
         isScaling = true;
         targetScale = originalScale * 2f; // Tăng kích thước lên gấp đôi
@@ -356,13 +356,14 @@ public class SkillPlayer1 : MonoBehaviour
     }
     void StopScaling()
     {
+        sliderHp.isUlti = true;
+        CharacterController characterController = gameObject.GetComponent<CharacterController>();
+        characterController.isDameLocked = false;
         //skin
         foreach (SkinnedMeshRenderer skin in skin)
         {
             skin.enabled = false;
-        }
-        CharacterController characterController = gameObject.GetComponent<CharacterController>();
-        characterController.isDameLocked = false;
+        }     
         // Khi currentUlti = 0, dừng phóng to và thu nhỏ lại
         isScaling = false;
         targetScale = originalScale; // Quay lại kích thước ban đầu
