@@ -21,9 +21,27 @@ public class DameZoneP : MonoBehaviour
       
             if (other.gameObject.CompareTag("Boss1"))
             {
+          
                 Boss1 boss1 = other.gameObject.GetComponent<Boss1>();
+                if(boss1 != null)
+                {
                 boss1.TakeHealth(2000);
+                }
+               
+                
+                
             }
+        if (other.gameObject.CompareTag("Boss2"))
+        {
+
+           
+            BossMoveAndAnimation boss2 = other.gameObject.GetComponent<BossMoveAndAnimation>();
+            if (boss2 != null)
+            {
+                boss2.TakeDame(5000);
+            }
+
+        }
         if (other.gameObject.CompareTag("ThuyQuai"))
         {
             //thuyQuai

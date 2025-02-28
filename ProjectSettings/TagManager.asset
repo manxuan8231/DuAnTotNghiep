@@ -26,6 +26,7 @@ TagManager:
   - camera
   - ButtonF
   - BaoVat
+  - Boss2
   layers:
   - Default
   - TransparentFX

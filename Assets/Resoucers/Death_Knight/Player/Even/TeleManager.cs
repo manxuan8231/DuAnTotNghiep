@@ -5,9 +5,11 @@ using UnityEngine;
 public class TeleManager : MonoBehaviour
 {
     public GameObject teleManager;
-
+    private AudioSource audioSource;
+    public AudioClip audioClip;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         teleManager.SetActive(false); 
     }
 
@@ -15,6 +17,7 @@ public class TeleManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
+            audioSource.PlayOneShot(audioClip);
             // Đảo trạng thái bật/tắt
             teleManager.SetActive(!teleManager.activeSelf);
         }

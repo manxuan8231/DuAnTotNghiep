@@ -15,8 +15,12 @@ public class Teleport : MonoBehaviour
     private string a = "Khu bí ẩn";
     private string b = "Hồ nước";
     private string c = "Lâu đài";
+
+    private AudioSource audioSource;
+    public AudioClip audioClip;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         textKhu.enabled = false;      
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -59,6 +63,7 @@ public class Teleport : MonoBehaviour
     {
         textKhu.enabled = true;
         textKhu.text = _input;
+        audioSource.PlayOneShot(audioClip);
         yield return new WaitForSeconds(3);
         textKhu.enabled = false;      
     }

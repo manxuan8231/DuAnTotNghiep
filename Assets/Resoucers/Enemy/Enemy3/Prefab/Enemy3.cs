@@ -23,7 +23,7 @@ public class Enemy3 : MonoBehaviour
     //hp
     public Slider currentHealth;
     public TextMeshProUGUI textHealth;
-    public float maxHealth = 1000;
+    public float maxHealth = 500;
 
    
     void Start()
@@ -76,7 +76,7 @@ public class Enemy3 : MonoBehaviour
             Destroy(gameObject);
             Even2 even2 = FindAnyObjectByType<Even2>();
             even2.enemy += 1;
-            even2.textEnemy.text = $"Enemy:{even2.enemy}/{20}";
+            even2.textEnemy.text = $"Enemy:{even2.enemy}/{10}";
             sliderHp.AddExp(8888);
             
         }

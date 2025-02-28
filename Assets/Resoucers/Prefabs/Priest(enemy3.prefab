@@ -879,7 +879,7 @@ MonoBehaviour:
   cooldownAttack: 0
   currentHealth: {fileID: 2530752916768167624}
   textHealth: {fileID: 1184598865361706367}
-  maxHealth: 1000
+  maxHealth: 500
 --- !u!1 &2426638088600225145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,9 +1061,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1000
+  m_MaxValue: 500
   m_WholeNumbers: 0
-  m_Value: 1000
+  m_Value: 500
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

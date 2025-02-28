@@ -71,9 +71,18 @@ public class DameZone2 : MonoBehaviour
             {
                 boss1.TakeHealth(skillPlayer1.currentDameAir);
             }
-          
+           
+           
         }
-       
+        if (other.gameObject.CompareTag("Boss2"))
+        {
+            BossMoveAndAnimation boss2 = other.gameObject.GetComponent<BossMoveAndAnimation>();
+            if (boss2 != null)
+            {
+                boss2.TakeDame(skillPlayer1.currentDameAir);
+            }
+
+        }
         if (other.gameObject.CompareTag("StatueBoss2"))
         {
             StatueBoss2 statueBoss2 = other.gameObject.GetComponent<StatueBoss2>();

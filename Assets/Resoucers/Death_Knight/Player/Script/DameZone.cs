@@ -89,9 +89,19 @@ public class DameZone : MonoBehaviour
             Boss1 boss1 = other.gameObject.GetComponent<Boss1>();
             if(boss1.onTakeHealth == true) {
                 boss1.TakeHealth(player1.currentDame);
+                sliderHp.AddUlti(100); 
+            }           
+           
+        }
+        if (other.gameObject.CompareTag("Boss2"))
+        {
+            BossMoveAndAnimation boss2 = other.gameObject.GetComponent<BossMoveAndAnimation>();
+            if (boss2 != null)
+            {
+                boss2.TakeDame(player1.currentDame);
                 sliderHp.AddUlti(100);
             }
-           
+
         }
         if (other.gameObject.CompareTag("StatueBoss2"))
         {

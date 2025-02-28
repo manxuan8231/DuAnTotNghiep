@@ -45260,7 +45260,7 @@ GameObject:
   - component: {fileID: 2608973146298052000}
   m_Layer: 0
   m_Name: Boss2
-  m_TagString: Untagged
+  m_TagString: Boss1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45427,6 +45427,7 @@ MonoBehaviour:
   slashEffect: {fileID: 279485994938327839}
   statue: {fileID: 3349628769190661294}
   targetTag: Player
+  victory: {fileID: 0}
   currentState: 0
 --- !u!114 &2608973146298052000
 MonoBehaviour:

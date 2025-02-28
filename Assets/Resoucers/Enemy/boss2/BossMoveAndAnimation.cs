@@ -26,10 +26,10 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] public GameObject slashEffect;
     public GameObject statue;
     [SerializeField] private string targetTag = "Player";
-
+    public GameObject victory;
     void Start()
     {
-      
+        victory.SetActive(false);
         slashEffect.SetActive(false);
         capsuleCollider.enabled = true;
         navMeshAgent.enabled = true;
@@ -66,7 +66,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     {
         if(isCantDamage == true)
         {
-          
+            
             currentHealth.value -= amount;
             txtHealth.text = $"{currentHealth.value}/{maxHealth}";
             currentHealth.value = Mathf.Clamp(currentHealth.value, 0, maxHealth);   
@@ -75,6 +75,7 @@ public class BossMoveAndAnimation : MonoBehaviour
             if (currentHealth.value <= 0)
             {
                 ChangState(CharacterState.Death);
+                victory.SetActive(true);
             }            
             if (currentHealth.value <= 20000f) { statue.SetActive(true);  }
           
