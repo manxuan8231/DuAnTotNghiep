@@ -273,7 +273,7 @@ public class Enemy1 : MonoBehaviour
         {
             Destroy(gameObject, 2f);
             capsuleCollider.gameObject.SetActive(false);
-            sliderhp.AddExp(5500);
+            sliderhp.AddExp(9999);
             ChangState(CharacterState.Die);
                    
         }

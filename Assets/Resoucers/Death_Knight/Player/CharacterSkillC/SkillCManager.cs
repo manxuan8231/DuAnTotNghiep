@@ -35,7 +35,7 @@ public class SkillCManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C) && !isOnCooldown && sliderHp.GetCurrentLevel() >= 40 && sliderHp.GetCurrentMana() >= 40)
+        if (Input.GetKeyDown(KeyCode.C) && !isOnCooldown && sliderHp.GetCurrentLevel() >= 30 && sliderHp.GetCurrentMana() >= 40)
         {
             animator.SetTrigger("skillC");
             StartCoroutine(CooldownWalk());

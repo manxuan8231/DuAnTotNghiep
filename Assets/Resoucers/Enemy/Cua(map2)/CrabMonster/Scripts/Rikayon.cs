@@ -204,6 +204,8 @@ public class EnemyAnimationController : MonoBehaviour
             ChangeState(CharacterState.Die);
             Destroy(gameObject, 3f);
             boxCollider.enabled = false;
+            SliderHp sliderHp = FindAnyObjectByType<SliderHp>();
+            sliderHp.AddExp(9999);
         }
     }
 
@@ -211,6 +213,7 @@ public class EnemyAnimationController : MonoBehaviour
     {
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
+        
     }
 
     private IEnumerator PlayIdleSound()

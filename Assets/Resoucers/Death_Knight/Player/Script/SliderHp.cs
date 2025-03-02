@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SliderHp : MonoBehaviour
 {
     [SerializeField] private Slider currentHP;
-    private int maxHp = 1000;
+    public int maxHp = 1000;
 
     [SerializeField] private Slider currentMana;
     private int maxMana = 1000;
@@ -38,7 +39,7 @@ public class SliderHp : MonoBehaviour
     private float minScale = 0.8f; // Kích thước nhỏ nhất
     private float maxScale = 1.2f; // Kích thước lớn nhất
 
-    public int score = 0;   
+    public static float score = 0;   
     public int level = 5; // Cấp độ người chơi
 
     // Thêm tham chiếu ParticleSystem
@@ -222,7 +223,8 @@ public class SliderHp : MonoBehaviour
             if (currentHP.value <= 0)
             {
                 panelGameOver.SetActive(true);
-                Destroy(gameObject);
+                Time.timeScale = 0;
+                
             }
         }       
     }

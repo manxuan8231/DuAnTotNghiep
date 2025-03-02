@@ -199,7 +199,8 @@ public class Enemy4 : MonoBehaviour
             even2.enemy += 1;
             even2.textEnemy.text = $"Enemy:{even2.enemy}/{10}";
             Destroy(gameObject, 0.5f);
-
+            SliderHp sliderHp = FindAnyObjectByType<SliderHp>();
+            sliderHp.AddExp(9999);
         }
     }
     private void UpdateHealthUI()
