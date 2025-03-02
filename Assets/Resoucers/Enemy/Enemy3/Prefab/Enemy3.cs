@@ -77,7 +77,7 @@ public class Enemy3 : MonoBehaviour
             Even2 even2 = FindAnyObjectByType<Even2>();
             even2.enemy += 1;
             even2.textEnemy.text = $"Enemy:{even2.enemy}/{10}";
-            sliderHp.AddExp(8888);
+            sliderHp.AddExp(9999);
             
         }
     }

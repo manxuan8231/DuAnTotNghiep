@@ -17,7 +17,7 @@ public class BossMoveAndAnimation : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private Animator animator;
     [SerializeField] private Slider currentHealth;
-    [SerializeField] private float maxHealth = 30000f;
+    [SerializeField] private float maxHealth = 15000f;
     [SerializeField] private TextMeshProUGUI txtHealth;
     [SerializeField] GameObject isOnHealth ;//biến hiện thanh máu khi thấy player
     [SerializeField] bool isCantDamage = false;//biến khi quái death không thể nhận damage

@@ -267,15 +267,16 @@ public class ThanLan : MonoBehaviour
             ChangState(CharacterState.Die);
             capsuleCollider.gameObject.SetActive(false);
             Destroy(gameObject, 3f); // 3 giây sau khi chết
-            FindObjectOfType<SliderHp>().AddExp(5500);
+            FindObjectOfType<SliderHp>().AddExp(9999);
+           
 
-          
         }
     }
     private void UpdateHealthUI()
     {
         healthBarFill.fillAmount = currentHealth / maxHealth;
         healthText.text = $"{currentHealth}/{maxHealth}";
+        
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -106,7 +106,7 @@ public class SkillPlayer1 : MonoBehaviour
             ShowWarningZText();
             warningZText.gameObject.SetActive(true);
         }
-        if (sliderHp.GetCurrentLevel() < 40 && Input.GetKeyDown(KeyCode.C))
+        if (sliderHp.GetCurrentLevel() < 30 && Input.GetKeyDown(KeyCode.C))
         {
             ShowWarningCText();
             warningCText.gameObject.SetActive(true);
@@ -227,7 +227,7 @@ public class SkillPlayer1 : MonoBehaviour
     {
         if (warningCText != null)
         {
-            warningCText.text = "Cần level 40 để sử dụng kỹ năng!";
+            warningCText.text = "Cần level 30 để sử dụng kỹ năng!";
             if (warningCoroutine != null)
             {
                 StopCoroutine(warningCoroutine); // Nếu đang có coroutine cảnh báo, dừng lại
@@ -356,14 +356,6 @@ public class SkillPlayer1 : MonoBehaviour
     }
     void StopScaling()
     {
-        sliderHp.isUlti = true;
-        CharacterController characterController = gameObject.GetComponent<CharacterController>();
-        characterController.isDameLocked = false;
-        //skin
-        foreach (SkinnedMeshRenderer skin in skin)
-        {
-            skin.enabled = false;
-        }     
         // Khi currentUlti = 0, dừng phóng to và thu nhỏ lại
         isScaling = false;
         targetScale = originalScale; // Quay lại kích thước ban đầu
@@ -372,6 +364,15 @@ public class SkillPlayer1 : MonoBehaviour
 
         //animator defauld
         animator.runtimeAnimatorController = animatorDefauld;
+        sliderHp.isUlti = true;
+        CharacterController characterController = gameObject.GetComponent<CharacterController>();
+        characterController.isDameLocked = false;
+        //skin
+        foreach (SkinnedMeshRenderer skin in skin)
+        {
+            skin.enabled = false;
+        }     
+        
     }
     void PerformScaling()
     {
