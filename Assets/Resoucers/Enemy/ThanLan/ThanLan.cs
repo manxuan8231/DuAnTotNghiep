@@ -87,7 +87,7 @@ public class ThanLan : MonoBehaviour
                 {
                     ChangState(CharacterState.Run);
                 }
-                Debug.Log("Idle");
+                
                 break;
 
             case CharacterState.Run:
@@ -110,7 +110,7 @@ public class ThanLan : MonoBehaviour
                 {
                     NavMeshAgent.SetDestination(target.position); // Tiếp tục rượt đuổi target
                 }
-                Debug.Log("Run");
+                
                 break;
 
             case CharacterState.BattleAttack:
@@ -124,7 +124,7 @@ public class ThanLan : MonoBehaviour
                 {
                     ChangState(CharacterState.Run);
                 }
-                Debug.Log("Battle");
+                
                 break;
 
             case CharacterState.Attack:
@@ -138,15 +138,15 @@ public class ThanLan : MonoBehaviour
                 {
                     ChangState(CharacterState.Return);
                 }
-                Debug.Log("Attack");
+               
                 break;
 
             case CharacterState.TakeDame:
-                Debug.Log("takedame");
+                
                 break;
 
             case CharacterState.Die:
-                Debug.Log("Die");
+                
                 break;
 
             case CharacterState.Return:
@@ -163,7 +163,7 @@ public class ThanLan : MonoBehaviour
                     NavMeshAgent.SetDestination(fisrtPosition);
                     ChangState(CharacterState.Run);
                 }
-                Debug.Log("Return");
+                
                 break;
         }
     }

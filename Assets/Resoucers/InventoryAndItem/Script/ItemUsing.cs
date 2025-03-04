@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class ItemUsing : MonoBehaviour
 {
     public SliderHp sliderHP;
-    public Item item;
-    public void UsingItemHeal()
+    //public Item item;
+    public void UsingItemHeal(Item item)
     {
-        Debug.Log("1");
-        sliderHP.GetHp(item.itemValue);
-
         
-        
-
+        sliderHP.GetHp( item.itemValue);
     }
-    public void UsingItemMana()
+    public void UsingItemMana(Item item)
     {
-        Debug.Log("2");
+      
 
         sliderHP.GetMana(item.itemValue);
        
