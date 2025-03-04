@@ -1730,7 +1730,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 1810047779}
   helpPanel: {fileID: 2050610160}
   volumeSlider: {fileID: 1320305781}
-  scene: 6
+  scene: 4
   audioClipPlay: {fileID: 8300000, guid: 0acb04db21abeaf48b7907140ec9defd, type: 3}
 --- !u!82 &963194230
 AudioSource:
