@@ -77,7 +77,7 @@ public class BossMoveAndAnimation : MonoBehaviour
                 ChangState(CharacterState.Death);
                 victory.SetActive(true);
             }            
-            if (currentHealth.value <= 20000f) { statue.SetActive(true);  }
+            if (currentHealth.value <= 2000f) { statue.SetActive(true);  }
           
             
         }

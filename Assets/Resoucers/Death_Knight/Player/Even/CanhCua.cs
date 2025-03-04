@@ -33,12 +33,8 @@ public class CanhCua : MonoBehaviour
                 if(key.KeyCount() >= 1)
                 {
                     //door.SetActive(false);
-                    chest.SetActive(true);
-                    Key key = FindAnyObjectByType<Key>();
-                    if (key != null)
-                    {
-                        key.textKey.enabled = false;
-                    }
+                    chest.SetActive(true);           
+                    key.textKey.enabled = false;                    
                     isMovingDoor = true;
                     StartCoroutine(FocusDoor());
                 }              
